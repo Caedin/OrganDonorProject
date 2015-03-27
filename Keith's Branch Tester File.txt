@@ -1,3 +1,0 @@
-Testing Branch Navigation
-
-Added in master branch
