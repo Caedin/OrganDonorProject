@@ -3,3 +3,8 @@ D:\SCHOOL WORK\DATABASES\Database group project\OrganDonorProject\OrganDonorSyst
 D:\SCHOOL WORK\DATABASES\Database group project\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.dll
 D:\SCHOOL WORK\DATABASES\Database group project\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.pdb
 D:\SCHOOL WORK\DATABASES\Database group project\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.csprojResolveAssemblyReference.cache
+C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\bin\OrganDonorSystem.dll
+C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\bin\OrganDonorSystem.pdb
+C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.csprojResolveAssemblyReference.cache
+C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.dll
+C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.pdb
