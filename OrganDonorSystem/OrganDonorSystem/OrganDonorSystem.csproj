@@ -67,10 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserHomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\UserHomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\BackBG.png" />
@@ -81,6 +83,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\UserHome\Index.aspx" />
+    <Content Include="Views\UserHome\UserHomeDonors.aspx" />
+    <Content Include="Views\UserHome\UserHomeOrgans.aspx" />
+    <Content Include="Views\UserHome\UserHomeRecipients.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
