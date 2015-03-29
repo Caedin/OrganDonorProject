@@ -12,7 +12,7 @@
         <div id="header">
             <h1>Team 5 Organ Donor System</h1>
             <ul id="saturday">
-                <li><a href="" title="">Home</a></li>
+                <li><a href="/UserHome" title="">Home</a></li>
                 <li><a href="" title="">Logout</a></li>
             </ul>
         </div>

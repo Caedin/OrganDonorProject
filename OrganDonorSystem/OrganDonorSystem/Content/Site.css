@@ -91,7 +91,7 @@ ul#saturday li a.current, ul#saturday li a.current:hover {
 /********************* UserhomePage ********************************/
 .CssTableSmooth {
 	margin:0px;padding:0px;
-	width:50%;
+	width:100%;
 	box-shadow: 10px 10px 5px #888888;
 	border:1px solid #000000;
 	
@@ -112,7 +112,7 @@ ul#saturday li a.current, ul#saturday li a.current:hover {
 	border-top-left-radius:0px;
 }.CssTableSmooth table{
     border-collapse: collapse;
-        border-spacing: 0;
+    border-spacing: 0;
 	width:100%;
 	height:100%;
 	margin:0px;padding:0px;
@@ -185,14 +185,9 @@ ul#saturday li a.current, ul#saturday li a.current:hover {
 	border-width:0px 0px 1px 1px;
 }
 
-.UserHomeTables
-{
-    display:inline-block;
-    float:left;
-}
 
 #nav {
-      width: 100%;
+      width: auto;
       float: left;
       margin: 0 0 0 0;
       padding: 0;
@@ -217,6 +212,13 @@ ul#saturday li a.current, ul#saturday li a.current:hover {
    #nav li a:hover {
       color: #c00;
       background-color: #fff; 
+}
+
+.SummaryParagraph
+{
+   position:relative;
+   left: 20px;
+   
 }
 
 /********************* UserhomePage ********************************/

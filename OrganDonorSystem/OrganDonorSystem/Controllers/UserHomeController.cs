@@ -14,7 +14,20 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            //temp until database is available
+            var donors = new List<int> { 123, 123, 432, 4324, 356 };
+            var reps = new List<int> { 000, 001, 003, 0045, 555 };
+            var organs = new List<int> { 999, 998, 997, 6445 };
+
+            //passing number of donors,reps and organs into View
+            var viewModel = new UserHomeViewModel
+            {
+                numberOfDonors = donors.Count(),
+                numberOfRecipients = reps.Count(),
+                numberOfOrgans = organs.Count(),
+            };
+
+            return View(viewModel);
         }
 
         //

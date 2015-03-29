@@ -7,13 +7,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>UserHomeDonors</h2>
+    <h3>Donors under your account: <%: Model.numberOfDonors %></h3>
     <ul id="nav">
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
       <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
       <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
     </ul>
     <div class="CssTableSmooth" style="float:left;">
-        <table class="UserHomeTables" width="400">
+        <table>
         <tr>
             <td>
                 Donor ID
