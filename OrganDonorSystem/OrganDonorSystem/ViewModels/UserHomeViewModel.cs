@@ -37,5 +37,15 @@ namespace OrganDonorSystem.ViewModels
         public int numberOfOrgans { get; set; }
         public List<int> OrganIDs { get; set; }
         public List<string> OrganOriginalIDs { get; set; }
+
+        public string addStringPadding(int neededLength, string inputString)
+        {
+            while (inputString.Length < neededLength)
+            {
+                inputString = '0' + inputString;
+            }
+
+            return inputString;
+        }
     }
 }
