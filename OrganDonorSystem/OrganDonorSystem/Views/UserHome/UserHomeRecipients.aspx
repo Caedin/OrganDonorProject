@@ -13,7 +13,10 @@
       <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
       <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
     </ul>
-    <div class="CssTableSmooth" style="float:left;">
+    <br />
+    <br />
+    <br />
+    <div class="CssTableSmooth">
         <table >
         <tr>
             <td>

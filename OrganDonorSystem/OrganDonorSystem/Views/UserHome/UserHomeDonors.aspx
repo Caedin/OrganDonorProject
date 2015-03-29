@@ -8,12 +8,15 @@
 
     <h2>Donors</h2>
     <h3>Donors under your account: <%: Model.numberOfDonors %></h3>
-    <ul id="nav">
-      <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
-      <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
-      <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
-    </ul>
-    <div class="CssTableSmooth" style="float:left;">
+        <ul id="nav">
+            <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
+            <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
+            <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
+        </ul>
+    <br />
+    <br />
+    <br />
+    <div class="CssTableSmooth">
         <table>
         <tr>
             <td>
