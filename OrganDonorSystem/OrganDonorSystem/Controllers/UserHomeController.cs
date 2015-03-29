@@ -13,23 +13,26 @@ namespace OrganDonorSystem.Controllers
         OrganDonorSystemEntities OrganDonorSystemDB = new OrganDonorSystemEntities();
         //
         // GET: /UserHome/
-
         public ActionResult Index()
         {
-            //temp until database is available
-            var donorIDs = from Donor in OrganDonorSystemDB.Donors
-                         select Donor.DonorID;
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
 
-            //temp until database is available
-            var reps = new List<int> { 000, 001, 003, 0045, 555 };
-            var organs = new List<int> { 999, 998, 997, 6445 };
 
-            //passing number of donors,reps and organs into View
+            //Getting Data Count from database and passing number of donors,reps and organs into View
             var viewModel = new UserHomeViewModel
             {
-                numberOfDonors = donorIDs.Count(),
-                numberOfRecipients = reps.Count(),
-                numberOfOrgans = organs.Count(),
+                
+                numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                                  where Donor.medicalPersonnelId == loggedIN
+                                     select Donor.DonorID).Count(),
+                numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
+                                      where Recipient.medicalPersonnelID == loggedIN
+                                     select Recipient.recipentID).Count(),
+
+                numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
+                                  where Organ.MedicalPersonnelID == loggedIN
+                                  select Organ.OrganID).Count(),
             };
 
             return View(viewModel);
@@ -39,22 +42,27 @@ namespace OrganDonorSystem.Controllers
         // GET: /UserHome/UserHomeDonors
         public ActionResult UserHomeDonors()
         {
-            //getting data from database
-            var donorIDs = from Donor in OrganDonorSystemDB.Donors
-                         select Donor.DonorID;
-            var donorOriginalID = from Donor in OrganDonorSystemDB.Donors
-                                  select Donor.originalID;
-            var donorPhone = from Donor in OrganDonorSystemDB.Donors
-                                  select Donor.phoneNumber;
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
 
-
-            //passing donor object into View
+            //Getting Data from database and passing number of donors,reps and organs into View
              var viewModel = new UserHomeViewModel
             {
-                numberOfDonors = donorIDs.Count(),
-                Donors = donorIDs.ToList(),
-                OriginalIDs = donorOriginalID.ToList(),
-                PhoneNumbers = donorPhone.ToList(),
+                numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                                  where Donor.medicalPersonnelId == loggedIN
+                                select Donor.DonorID).Count(),
+
+                Donors = (from Donor in OrganDonorSystemDB.Donors
+                          where Donor.medicalPersonnelId == loggedIN
+                           select Donor.DonorID).ToList(),
+
+                OriginalIDs = (from Donor in OrganDonorSystemDB.Donors
+                               where Donor.medicalPersonnelId == loggedIN
+                                select Donor.originalID).ToList(),
+
+                PhoneNumbers = (from Donor in OrganDonorSystemDB.Donors
+                                where Donor.medicalPersonnelId == loggedIN
+                                select Donor.phoneNumber).ToList(),
             };
 
              return View(viewModel);
@@ -64,32 +72,54 @@ namespace OrganDonorSystem.Controllers
         // GET: /UserHome/UserHomeRecipients
         public ActionResult UserHomeRecipients()
         {
-            //creating test objects to pass into viewModel
-            var reps = new List<int> { 000, 001, 003, 0045,555 };
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
 
-            //passing rep object into View
-             var viewModel = new UserHomeViewModel
+            //Getting Data from database and passing number of donors,reps and organs into View
+            var viewModel = new UserHomeViewModel
             {
-                numberOfRecipients=reps.Count(),
-                RecipientsIDs=reps,
+                numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
+                                      where Recipient.medicalPersonnelID == loggedIN
+                                      select Recipient.recipentID).Count(),
+
+                RecipientsIDs = (from Recipient in OrganDonorSystemDB.Recipients
+                                 where Recipient.medicalPersonnelID == loggedIN
+                                 select Recipient.recipentID).ToList(),
+
+                RepcipientOriginalIDs = (from Recipient in OrganDonorSystemDB.Recipients
+                                         where Recipient.medicalPersonnelID == loggedIN
+                                         select Recipient.orignialID).ToList(),
+
+                DatesRegistered = (from Recipient in OrganDonorSystemDB.Recipients
+                                   where Recipient.medicalPersonnelID == loggedIN
+                                   select Recipient.dateRegistered).ToList(),
             };
 
-             return View(viewModel);
+            return View(viewModel);
+           
         }
 
         //
         // GET: /UserHome/UserHomeOrgans
         public ActionResult UserHomeOrgans()
         {
-            //creating test objects to pass into viewModel
-            var organs = new List<int> { 999, 998, 997, 6445 };
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
 
-            //passing organ object into View
+            //Getting Data from database and passing number of donors,reps and organs into View
             var viewModel = new UserHomeViewModel
             {
-                numberOfOrgans=organs.Count(),
-                OrganIDs = organs
+                numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
+                                  where Organ.MedicalPersonnelID == loggedIN
+                                  select Organ.OrganID).Count(),
 
+                OrganIDs = (from Organ in OrganDonorSystemDB.Organs
+                            where Organ.MedicalPersonnelID == loggedIN
+                            select Organ.OrganID).ToList(),
+
+                OrganOriginalIDs = (from Organ in OrganDonorSystemDB.Organs
+                                    where Organ.MedicalPersonnelID == loggedIN
+                                    select Organ.OriginalID).ToList(),
             };
 
             return View(viewModel);

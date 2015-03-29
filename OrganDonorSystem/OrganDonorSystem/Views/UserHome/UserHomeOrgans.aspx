@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>UserHomeOrgans</h2>
+    <h2>Organs</h2>
     <h3>Donors under your account: <%: Model.numberOfOrgans %></h3>
     <ul id="nav">
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
@@ -19,12 +19,18 @@
             <td>
                 Organ ID
             </td>
+            <td>
+                Original ID
+            </td>
         </tr>
-        <% foreach (var ID in Model.OrganIDs)
+       <% for(int i=0;i<Model.numberOfOrgans;i++)
            { %>
             <tr>
                 <td >
-                    <%: ID %>
+                    <a href=""><%: Model.OrganIDs[i] %></a>
+                </td>
+                <td >
+                    <%: Model.OrganOriginalIDs[i] %>
                 </td>
             </tr>
             <% } %>

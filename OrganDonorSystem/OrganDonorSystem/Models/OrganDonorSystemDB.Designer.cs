@@ -638,7 +638,7 @@ namespace OrganDonorSystem.Models
         /// <param name="originalID">Initial value of the originalID property.</param>
         /// <param name="gender">Initial value of the gender property.</param>
         /// <param name="age">Initial value of the age property.</param>
-        public static Donor CreateDonor(global::System.Int32 donorID, global::System.Int32 phoneNumber, global::System.DateTime registrationDate, global::System.Int32 medicalPersonnelId, global::System.String originalID, global::System.String gender, global::System.Int64 age)
+        public static Donor CreateDonor(global::System.Int32 donorID, global::System.String phoneNumber, global::System.DateTime registrationDate, global::System.Int32 medicalPersonnelId, global::System.String originalID, global::System.String gender, global::System.Int64 age)
         {
             Donor donor = new Donor();
             donor.DonorID = donorID;
@@ -697,7 +697,7 @@ namespace OrganDonorSystem.Models
             {
                 OnphoneNumberChanging(value);
                 ReportPropertyChanging("phoneNumber");
-                _phoneNumber = StructuralObject.SetValidValue(value,false);
+                _phoneNumber = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("phoneNumber");
                 OnphoneNumberChanged();
             }

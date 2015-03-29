@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>UserHomeDonors</h2>
+    <h2>Donors</h2>
     <h3>Donors under your account: <%: Model.numberOfDonors %></h3>
     <ul id="nav">
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
@@ -30,7 +30,7 @@
            { %>
             <tr>
                 <td >
-                    <%: Model.Donors[i] %>
+                     <a href=""><%: Model.Donors[i] %></a>
                 </td>
                 <td >
                     <%: Model.OriginalIDs[i] %>

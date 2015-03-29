@@ -8,7 +8,19 @@ namespace OrganDonorSystem.ViewModels
 {
     //test class for dummy data
     public class UserHomeViewModel
-    {   
+    {
+        
+        public UserHomeViewModel()
+        {
+            //getting logged in infromation
+            loggedIn = CurrentlyLoggedIn.getUserID();
+            firstName = CurrentlyLoggedIn.getFirstName();
+            lastName = CurrentlyLoggedIn.getLastName();
+        }
+        public int loggedIn { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+
         //donor data
         public int numberOfDonors { get; set; }
         public List<int> Donors { get; set; }
@@ -18,9 +30,12 @@ namespace OrganDonorSystem.ViewModels
         //rep data
         public int numberOfRecipients { get; set; }
         public List<int> RecipientsIDs { get; set; }
+        public List<string> RepcipientOriginalIDs { get; set; }
+        public List<DateTime> DatesRegistered { get; set; }
 
         //organ data
         public int numberOfOrgans { get; set; }
         public List<int> OrganIDs { get; set; }
+        public List<string> OrganOriginalIDs { get; set; }
     }
 }

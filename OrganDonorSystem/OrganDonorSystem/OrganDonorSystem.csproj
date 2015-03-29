@@ -74,6 +74,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CurrentlyLoggedIn.cs" />
     <Compile Include="Models\OrganDonorSystemDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,7 +96,9 @@
     <Content Include="Views\UserHome\UserHomeDonors.aspx" />
     <Content Include="Views\UserHome\UserHomeOrgans.aspx" />
     <Content Include="Views\UserHome\UserHomeRecipients.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -116,9 +119,11 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\MainPageLoginAndRegister.Master" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\OrganDonorSystemDB.edmx">
