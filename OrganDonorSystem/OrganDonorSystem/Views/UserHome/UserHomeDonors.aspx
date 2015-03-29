@@ -19,13 +19,25 @@
             <td>
                 Donor ID
             </td>
+            <td>
+                Orginal ID
+            </td>
+            <td>
+                PhoneNumber ID
+            </td>
         </tr>
-        <% foreach (var ID in Model.DonorsIDs)
+        <% for(int i=0;i<Model.numberOfDonors;i++)
            { %>
             <tr>
                 <td >
-                    <%: ID %>
+                    <%: Model.Donors[i] %>
                 </td>
+                <td >
+                    <%: Model.OriginalIDs[i] %>
+                </td>
+                <td >
+                    <%: Model.PhoneNumbers[i] %>
+                </td >
             </tr>
             <% } %>
       </table>

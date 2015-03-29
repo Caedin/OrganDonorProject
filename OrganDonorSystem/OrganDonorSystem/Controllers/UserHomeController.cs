@@ -4,25 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OrganDonorSystem.ViewModels;
+using OrganDonorSystem.Models;
 
 namespace OrganDonorSystem.Controllers
 {
     public class UserHomeController : Controller
     {
+        OrganDonorSystemEntities OrganDonorSystemDB = new OrganDonorSystemEntities();
         //
         // GET: /UserHome/
 
         public ActionResult Index()
         {
             //temp until database is available
-            var donors = new List<int> { 123, 123, 432, 4324, 356 };
+            var donorIDs = from Donor in OrganDonorSystemDB.Donors
+                         select Donor.DonorID;
+
+            //temp until database is available
             var reps = new List<int> { 000, 001, 003, 0045, 555 };
             var organs = new List<int> { 999, 998, 997, 6445 };
 
             //passing number of donors,reps and organs into View
             var viewModel = new UserHomeViewModel
             {
-                numberOfDonors = donors.Count(),
+                numberOfDonors = donorIDs.Count(),
                 numberOfRecipients = reps.Count(),
                 numberOfOrgans = organs.Count(),
             };
@@ -34,14 +39,22 @@ namespace OrganDonorSystem.Controllers
         // GET: /UserHome/UserHomeDonors
         public ActionResult UserHomeDonors()
         {
-            //creating test objects to pass into viewModel
-            var donors = new List<int> { 123, 123, 432, 4324,356 };
+            //getting data from database
+            var donorIDs = from Donor in OrganDonorSystemDB.Donors
+                         select Donor.DonorID;
+            var donorOriginalID = from Donor in OrganDonorSystemDB.Donors
+                                  select Donor.originalID;
+            var donorPhone = from Donor in OrganDonorSystemDB.Donors
+                                  select Donor.phoneNumber;
+
 
             //passing donor object into View
              var viewModel = new UserHomeViewModel
             {
-                numberOfDonors = donors.Count(),
-                DonorsIDs = donors,
+                numberOfDonors = donorIDs.Count(),
+                Donors = donorIDs.ToList(),
+                OriginalIDs = donorOriginalID.ToList(),
+                PhoneNumbers = donorPhone.ToList(),
             };
 
              return View(viewModel);

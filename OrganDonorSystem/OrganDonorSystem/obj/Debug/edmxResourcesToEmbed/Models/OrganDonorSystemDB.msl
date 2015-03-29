@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OrganDonorSystemModelStoreContainer" CdmEntityContainer="OrganDonorSystemEntities">
+    <EntitySetMapping Name="BloodTypes">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.BloodType">
+        <MappingFragment StoreEntitySet="BloodType">
+          <ScalarProperty Name="bloodTypeID" ColumnName="bloodTypeID" />
+          <ScalarProperty Name="bloodTypeName" ColumnName="bloodTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="cityID" ColumnName="cityID" />
+          <ScalarProperty Name="stateStateID" ColumnName="stateStateID" />
+          <ScalarProperty Name="city1" ColumnName="city" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Donors">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.Donor">
+        <MappingFragment StoreEntitySet="Donor">
+          <ScalarProperty Name="DonorID" ColumnName="DonorID" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="registrationDate" ColumnName="registrationDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="medicalPersonnelId" ColumnName="medicalPersonnelId" />
+          <ScalarProperty Name="originalID" ColumnName="originalID" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medical_Personnel">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.Medical_Personnel">
+        <MappingFragment StoreEntitySet="Medical_Personnel">
+          <ScalarProperty Name="medicalPersonnelId" ColumnName="medicalPersonnelId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+          <ScalarProperty Name="medicalFacility" ColumnName="medicalFacility" />
+          <ScalarProperty Name="contactEmail" ColumnName="contactEmail" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="validatedUser" ColumnName="validatedUser" />
+          <ScalarProperty Name="create_time" ColumnName="create_time" />
+          <ScalarProperty Name="State_StateID" ColumnName="State_StateID" />
+          <ScalarProperty Name="City_CityID" ColumnName="City_CityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrganExpirationTimes">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.OrganExpirationTime">
+        <MappingFragment StoreEntitySet="OrganExpirationTime">
+          <ScalarProperty Name="timeUntilExpiration" ColumnName="timeUntilExpiration" />
+          <ScalarProperty Name="organType_organTypeID" ColumnName="organType_organTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organs">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.Organ">
+        <MappingFragment StoreEntitySet="Organs">
+          <ScalarProperty Name="OrganID" ColumnName="OrganID" />
+          <ScalarProperty Name="organType_organtypeID" ColumnName="organType_organtypeID" />
+          <ScalarProperty Name="BloodType_BloodTypeID" ColumnName="BloodType_BloodTypeID" />
+          <ScalarProperty Name="dateAqcuired" ColumnName="dateAqcuired" />
+          <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
+          <ScalarProperty Name="MedicalPersonnelID" ColumnName="MedicalPersonnelID" />
+          <ScalarProperty Name="OrginalID" ColumnName="OrginalID" />
+          <ScalarProperty Name="available" ColumnName="available" />
+          <ScalarProperty Name="Recipient_RecipientID" ColumnName="Recipient_RecipientID" />
+          <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrganTypes">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.OrganType">
+        <MappingFragment StoreEntitySet="OrganType">
+          <ScalarProperty Name="organTypeID" ColumnName="organTypeID" />
+          <ScalarProperty Name="organName" ColumnName="organName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recipients">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.Recipient">
+        <MappingFragment StoreEntitySet="Recipients">
+          <ScalarProperty Name="recipentID" ColumnName="recipentID" />
+          <ScalarProperty Name="medicalPersonnelID" ColumnName="medicalPersonnelID" />
+          <ScalarProperty Name="severity" ColumnName="severity" />
+          <ScalarProperty Name="orignialID" ColumnName="orignialID" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="dateRegistered" ColumnName="dateRegistered" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="organsOrganID" ColumnName="organsOrganID" />
+          <ScalarProperty Name="organTypeOrganTypeID" ColumnName="organTypeOrganTypeID" />
+          <ScalarProperty Name="bloodTypeBloodTypeID" ColumnName="bloodTypeBloodTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.State">
+        <MappingFragment StoreEntitySet="State">
+          <ScalarProperty Name="stateID" ColumnName="stateID" />
+          <ScalarProperty Name="state1" ColumnName="state" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Donor_has_Organs" TypeName="OrganDonorSystemModel.Donor_has_Organs" StoreEntitySet="Donor_has_Organs">
+      <EndProperty Name="Donor">
+        <ScalarProperty Name="DonorID" ColumnName="Donor_DonorID" />
+      </EndProperty>
+      <EndProperty Name="Organs">
+        <ScalarProperty Name="OrganID" ColumnName="Organ_OrganID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Medical_Personnnel_has_Donors" TypeName="OrganDonorSystemModel.Medical_Personnnel_has_Donors" StoreEntitySet="Medical_Personnnel_has_Donors">
+      <EndProperty Name="Donor">
+        <ScalarProperty Name="DonorID" ColumnName="Donor_DonorID" />
+      </EndProperty>
+      <EndProperty Name="Medical_Personnel">
+        <ScalarProperty Name="medicalPersonnelId" ColumnName="Medical_Personnel_medicalPersonnelID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Medical_Personnnel_has_Recipients" TypeName="OrganDonorSystemModel.Medical_Personnnel_has_Recipients" StoreEntitySet="Medical_Personnnel_has_Recipients">
+      <EndProperty Name="Medical_Personnel">
+        <ScalarProperty Name="medicalPersonnelId" ColumnName="Medical_Personnel_medicalPersonnelID" />
+      </EndProperty>
+      <EndProperty Name="Recipients">
+        <ScalarProperty Name="recipentID" ColumnName="Recipient_recipientID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
