@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OrganDonorSystemModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="OrganDonorSystemModelStoreContainer">
+    <EntitySet Name="BloodType" EntityType="OrganDonorSystemModel.Store.BloodType" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="City" EntityType="OrganDonorSystemModel.Store.City" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="Donor" EntityType="OrganDonorSystemModel.Store.Donor" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="Donor_has_Organs" EntityType="OrganDonorSystemModel.Store.Donor_has_Organs" store:Type="Tables" store:Schema="OrganDonorSystem" store:Name="Donor_has_Organs">
+      <DefiningQuery>SELECT
+      `Donor_has_Organs`.`Organ_OrganID`, 
+      `Donor_has_Organs`.`Donor_DonorID`
+      FROM `Donor_has_Organs` AS `Donor_has_Organs`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Medical_Personnel" EntityType="OrganDonorSystemModel.Store.Medical_Personnel" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="Medical_Personnnel_has_Donors" EntityType="OrganDonorSystemModel.Store.Medical_Personnnel_has_Donors" store:Type="Tables" store:Schema="OrganDonorSystem" store:Name="Medical_Personnnel_has_Donors">
+      <DefiningQuery>SELECT
+      `Medical_Personnnel_has_Donors`.`Medical_Personnel_medicalPersonnelID`, 
+      `Medical_Personnnel_has_Donors`.`Donor_DonorID`
+      FROM `Medical_Personnnel_has_Donors` AS `Medical_Personnnel_has_Donors`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Medical_Personnnel_has_Recipients" EntityType="OrganDonorSystemModel.Store.Medical_Personnnel_has_Recipients" store:Type="Tables" store:Schema="OrganDonorSystem" store:Name="Medical_Personnnel_has_Recipients">
+      <DefiningQuery>SELECT
+      `Medical_Personnnel_has_Recipients`.`Medical_Personnel_medicalPersonnelID`, 
+      `Medical_Personnnel_has_Recipients`.`Recipient_recipientID`
+      FROM `Medical_Personnnel_has_Recipients` AS `Medical_Personnnel_has_Recipients`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="OrganExpirationTime" EntityType="OrganDonorSystemModel.Store.OrganExpirationTime" store:Type="Tables" store:Schema="OrganDonorSystem" store:Name="OrganExpirationTime">
+      <DefiningQuery>SELECT
+      `OrganExpirationTime`.`timeUntilExpiration`, 
+      `OrganExpirationTime`.`organType_organTypeID`
+      FROM `OrganExpirationTime` AS `OrganExpirationTime`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Organs" EntityType="OrganDonorSystemModel.Store.Organs" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="OrganType" EntityType="OrganDonorSystemModel.Store.OrganType" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="Recipients" EntityType="OrganDonorSystemModel.Store.Recipients" store:Type="Tables" Schema="OrganDonorSystem" />
+    <EntitySet Name="State" EntityType="OrganDonorSystemModel.Store.State" store:Type="Tables" Schema="OrganDonorSystem" />
+    <AssociationSet Name="Donor_DonorID" Association="OrganDonorSystemModel.Store.Donor_DonorID">
+      <End Role="Donor" EntitySet="Donor" />
+      <End Role="Donor_has_Organs" EntitySet="Donor_has_Organs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_BloodType_BloodType1_idx" Association="OrganDonorSystemModel.Store.fk_BloodType_BloodType1_idx">
+      <End Role="BloodType" EntitySet="BloodType" />
+      <End Role="Recipients" EntitySet="Recipients" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Donor_medicalPersonnelID" Association="OrganDonorSystemModel.Store.fk_Donor_medicalPersonnelID">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Donor" EntitySet="Donor" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Medical_Personnel_has_Donors_Donors1_idx" Association="OrganDonorSystemModel.Store.fk_Medical_Personnel_has_Donors_Donors1_idx">
+      <End Role="Donor" EntitySet="Donor" />
+      <End Role="Medical_Personnnel_has_Donors" EntitySet="Medical_Personnnel_has_Donors" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx" Association="OrganDonorSystemModel.Store.fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Medical_Personnnel_has_Donors" EntitySet="Medical_Personnnel_has_Donors" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Medical_Personnel_has_Medical_Personnel1_idx" Association="OrganDonorSystemModel.Store.fk_Medical_Personnel_has_Medical_Personnel1_idx">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Medical_Personnnel_has_Recipients" EntitySet="Medical_Personnnel_has_Recipients" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Medical_Personnel_has_Recipients1_idx" Association="OrganDonorSystemModel.Store.fk_Medical_Personnel_has_Recipients1_idx">
+      <End Role="Recipients" EntitySet="Recipients" />
+      <End Role="Medical_Personnnel_has_Recipients" EntitySet="Medical_Personnnel_has_Recipients" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Medical_Personnel_medicalPersonnel_idx" Association="OrganDonorSystemModel.Store.fk_Medical_Personnel_medicalPersonnel_idx">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Recipients" EntitySet="Recipients" />
+    </AssociationSet>
+    <AssociationSet Name="fk_organ_organID_idx" Association="OrganDonorSystemModel.Store.fk_organ_organID_idx">
+      <End Role="Organs" EntitySet="Organs" />
+      <End Role="Recipients" EntitySet="Recipients" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrganExpirationTime_OrganType1" Association="OrganDonorSystemModel.Store.fk_OrganExpirationTime_OrganType1">
+      <End Role="OrganType" EntitySet="OrganType" />
+      <End Role="OrganExpirationTime" EntitySet="OrganExpirationTime" />
+    </AssociationSet>
+    <AssociationSet Name="fk_organType_organTypeID_ibfk_1" Association="OrganDonorSystemModel.Store.fk_organType_organTypeID_ibfk_1">
+      <End Role="OrganType" EntitySet="OrganType" />
+      <End Role="Recipients" EntitySet="Recipients" />
+    </AssociationSet>
+    <AssociationSet Name="fk_State_stateID_ibfk_1" Association="OrganDonorSystemModel.Store.fk_State_stateID_ibfk_1">
+      <End Role="State" EntitySet="State" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="Medical_Personnel_ibfk_1" Association="OrganDonorSystemModel.Store.Medical_Personnel_ibfk_1">
+      <End Role="State" EntitySet="State" />
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+    </AssociationSet>
+    <AssociationSet Name="Medical_Personnel_ibfk_2" Association="OrganDonorSystemModel.Store.Medical_Personnel_ibfk_2">
+      <End Role="City" EntitySet="City" />
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+    </AssociationSet>
+    <AssociationSet Name="Organ_OrganID" Association="OrganDonorSystemModel.Store.Organ_OrganID">
+      <End Role="Organs" EntitySet="Organs" />
+      <End Role="Donor_has_Organs" EntitySet="Donor_has_Organs" />
+    </AssociationSet>
+    <AssociationSet Name="Organs_BloodType" Association="OrganDonorSystemModel.Store.Organs_BloodType">
+      <End Role="BloodType" EntitySet="BloodType" />
+      <End Role="Organs" EntitySet="Organs" />
+    </AssociationSet>
+    <AssociationSet Name="Organs_MedicalPersonnel" Association="OrganDonorSystemModel.Store.Organs_MedicalPersonnel">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Organs" EntitySet="Organs" />
+    </AssociationSet>
+    <AssociationSet Name="Organs_organType" Association="OrganDonorSystemModel.Store.Organs_organType">
+      <End Role="OrganType" EntitySet="OrganType" />
+      <End Role="Organs" EntitySet="Organs" />
+    </AssociationSet>
+    <AssociationSet Name="Organs_RecipientID" Association="OrganDonorSystemModel.Store.Organs_RecipientID">
+      <End Role="Recipients" EntitySet="Recipients" />
+      <End Role="Organs" EntitySet="Organs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BloodType">
+    <Key>
+      <PropertyRef Name="bloodTypeID" />
+    </Key>
+    <Property Name="bloodTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="bloodTypeName" Type="varchar" Nullable="false" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="cityID" />
+    </Key>
+    <Property Name="cityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="stateStateID" Type="int" Nullable="false" />
+    <Property Name="city" Type="varchar" Nullable="false" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="Donor">
+    <Key>
+      <PropertyRef Name="DonorID" />
+    </Key>
+    <Property Name="DonorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="phoneNumber" Type="char" Nullable="false" MaxLength="13" />
+    <Property Name="registrationDate" Type="timestamp" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="endDate" Type="timestamp" />
+    <Property Name="medicalPersonnelId" Type="int" Nullable="false" />
+    <Property Name="originalID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="gender" Type="enum" Nullable="false" />
+    <Property Name="age" Type="uint" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.OrganDonorSystem.Donor_has_Organs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Donor_has_Organs">
+    <Key>
+      <PropertyRef Name="Organ_OrganID" />
+      <PropertyRef Name="Donor_DonorID" />
+    </Key>
+    <Property Name="Organ_OrganID" Type="int" Nullable="false" />
+    <Property Name="Donor_DonorID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medical_Personnel">
+    <Key>
+      <PropertyRef Name="medicalPersonnelId" />
+    </Key>
+    <Property Name="medicalPersonnelId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="userPassword" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="medicalFacility" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="contactEmail" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="phoneNumber" Type="int" Nullable="false" />
+    <Property Name="validatedUser" Type="bool" Nullable="false" />
+    <Property Name="create_time" Type="datetime" Nullable="false" />
+    <Property Name="State_StateID" Type="int" Nullable="false" />
+    <Property Name="City_CityID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.OrganDonorSystem.Medical_Personnnel_has_Donors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Medical_Personnnel_has_Donors">
+    <Key>
+      <PropertyRef Name="Medical_Personnel_medicalPersonnelID" />
+      <PropertyRef Name="Donor_DonorID" />
+    </Key>
+    <Property Name="Medical_Personnel_medicalPersonnelID" Type="int" Nullable="false" />
+    <Property Name="Donor_DonorID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.OrganDonorSystem.Medical_Personnnel_has_Recipients' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Medical_Personnnel_has_Recipients">
+    <Key>
+      <PropertyRef Name="Medical_Personnel_medicalPersonnelID" />
+      <PropertyRef Name="Recipient_recipientID" />
+    </Key>
+    <Property Name="Medical_Personnel_medicalPersonnelID" Type="int" Nullable="false" />
+    <Property Name="Recipient_recipientID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.OrganDonorSystem.OrganExpirationTime' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="OrganExpirationTime">
+    <Key>
+      <PropertyRef Name="timeUntilExpiration" />
+      <PropertyRef Name="organType_organTypeID" />
+    </Key>
+    <Property Name="timeUntilExpiration" Type="time" Nullable="false" />
+    <Property Name="organType_organTypeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Organs">
+    <Key>
+      <PropertyRef Name="OrganID" />
+    </Key>
+    <Property Name="OrganID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="organType_organtypeID" Type="int" Nullable="false" />
+    <Property Name="BloodType_BloodTypeID" Type="int" Nullable="false" />
+    <Property Name="dateAqcuired" Type="datetime" />
+    <Property Name="expirationDate" Type="datetime" />
+    <Property Name="MedicalPersonnelID" Type="int" Nullable="false" />
+    <Property Name="OrginalID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="available" Type="bool" Nullable="false" />
+    <Property Name="Recipient_RecipientID" Type="int" Nullable="false" />
+    <Property Name="OriginalID" Type="varchar" Nullable="false" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="OrganType">
+    <Key>
+      <PropertyRef Name="organTypeID" />
+    </Key>
+    <Property Name="organTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="organName" Type="varchar" Nullable="false" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="Recipients">
+    <Key>
+      <PropertyRef Name="recipentID" />
+    </Key>
+    <Property Name="recipentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="medicalPersonnelID" Type="int" Nullable="false" />
+    <Property Name="severity" Type="enum" Nullable="false" />
+    <Property Name="orignialID" Type="varchar" MaxLength="50" />
+    <Property Name="gender" Type="enum" Nullable="false" />
+    <Property Name="dateRegistered" Type="timestamp" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="age" Type="uint" Nullable="false" />
+    <Property Name="organsOrganID" Type="int" />
+    <Property Name="organTypeOrganTypeID" Type="int" Nullable="false" />
+    <Property Name="bloodTypeBloodTypeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="stateID" />
+    </Key>
+    <Property Name="stateID" Type="int" Nullable="false" />
+    <Property Name="state" Type="varchar" Nullable="false" MaxLength="45" />
+  </EntityType>
+  <Association Name="Donor_DonorID">
+    <End Role="Donor" Type="OrganDonorSystemModel.Store.Donor" Multiplicity="1" />
+    <End Role="Donor_has_Organs" Type="OrganDonorSystemModel.Store.Donor_has_Organs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Donor">
+        <PropertyRef Name="DonorID" />
+      </Principal>
+      <Dependent Role="Donor_has_Organs">
+        <PropertyRef Name="Donor_DonorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_BloodType_BloodType1_idx">
+    <End Role="BloodType" Type="OrganDonorSystemModel.Store.BloodType" Multiplicity="1" />
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BloodType">
+        <PropertyRef Name="bloodTypeID" />
+      </Principal>
+      <Dependent Role="Recipients">
+        <PropertyRef Name="bloodTypeBloodTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Donor_medicalPersonnelID">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="Donor" Type="OrganDonorSystemModel.Store.Donor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Donor">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Medical_Personnel_has_Donors_Donors1_idx">
+    <End Role="Donor" Type="OrganDonorSystemModel.Store.Donor" Multiplicity="1" />
+    <End Role="Medical_Personnnel_has_Donors" Type="OrganDonorSystemModel.Store.Medical_Personnnel_has_Donors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Donor">
+        <PropertyRef Name="DonorID" />
+      </Principal>
+      <Dependent Role="Medical_Personnnel_has_Donors">
+        <PropertyRef Name="Donor_DonorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="Medical_Personnnel_has_Donors" Type="OrganDonorSystemModel.Store.Medical_Personnnel_has_Donors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Medical_Personnnel_has_Donors">
+        <PropertyRef Name="Medical_Personnel_medicalPersonnelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Medical_Personnel_has_Medical_Personnel1_idx">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="Medical_Personnnel_has_Recipients" Type="OrganDonorSystemModel.Store.Medical_Personnnel_has_Recipients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Medical_Personnnel_has_Recipients">
+        <PropertyRef Name="Medical_Personnel_medicalPersonnelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Medical_Personnel_has_Recipients1_idx">
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="1" />
+    <End Role="Medical_Personnnel_has_Recipients" Type="OrganDonorSystemModel.Store.Medical_Personnnel_has_Recipients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipients">
+        <PropertyRef Name="recipentID" />
+      </Principal>
+      <Dependent Role="Medical_Personnnel_has_Recipients">
+        <PropertyRef Name="Recipient_recipientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Medical_Personnel_medicalPersonnel_idx">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Recipients">
+        <PropertyRef Name="medicalPersonnelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_organ_organID_idx">
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="0..1" />
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organs">
+        <PropertyRef Name="OrganID" />
+      </Principal>
+      <Dependent Role="Recipients">
+        <PropertyRef Name="organsOrganID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrganExpirationTime_OrganType1">
+    <End Role="OrganType" Type="OrganDonorSystemModel.Store.OrganType" Multiplicity="1" />
+    <End Role="OrganExpirationTime" Type="OrganDonorSystemModel.Store.OrganExpirationTime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganType">
+        <PropertyRef Name="organTypeID" />
+      </Principal>
+      <Dependent Role="OrganExpirationTime">
+        <PropertyRef Name="organType_organTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_organType_organTypeID_ibfk_1">
+    <End Role="OrganType" Type="OrganDonorSystemModel.Store.OrganType" Multiplicity="1" />
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganType">
+        <PropertyRef Name="organTypeID" />
+      </Principal>
+      <Dependent Role="Recipients">
+        <PropertyRef Name="organTypeOrganTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_State_stateID_ibfk_1">
+    <End Role="State" Type="OrganDonorSystemModel.Store.State" Multiplicity="1" />
+    <End Role="City" Type="OrganDonorSystemModel.Store.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="stateID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="stateStateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Medical_Personnel_ibfk_1">
+    <End Role="State" Type="OrganDonorSystemModel.Store.State" Multiplicity="1" />
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="stateID" />
+      </Principal>
+      <Dependent Role="Medical_Personnel">
+        <PropertyRef Name="State_StateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Medical_Personnel_ibfk_2">
+    <End Role="City" Type="OrganDonorSystemModel.Store.City" Multiplicity="1" />
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="cityID" />
+      </Principal>
+      <Dependent Role="Medical_Personnel">
+        <PropertyRef Name="City_CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Organ_OrganID">
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="1" />
+    <End Role="Donor_has_Organs" Type="OrganDonorSystemModel.Store.Donor_has_Organs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organs">
+        <PropertyRef Name="OrganID" />
+      </Principal>
+      <Dependent Role="Donor_has_Organs">
+        <PropertyRef Name="Organ_OrganID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Organs_BloodType">
+    <End Role="BloodType" Type="OrganDonorSystemModel.Store.BloodType" Multiplicity="1" />
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BloodType">
+        <PropertyRef Name="bloodTypeID" />
+      </Principal>
+      <Dependent Role="Organs">
+        <PropertyRef Name="BloodType_BloodTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Organs_MedicalPersonnel">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Organs">
+        <PropertyRef Name="MedicalPersonnelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Organs_organType">
+    <End Role="OrganType" Type="OrganDonorSystemModel.Store.OrganType" Multiplicity="1" />
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganType">
+        <PropertyRef Name="organTypeID" />
+      </Principal>
+      <Dependent Role="Organs">
+        <PropertyRef Name="organType_organtypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Organs_RecipientID">
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="1" />
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipients">
+        <PropertyRef Name="recipentID" />
+      </Principal>
+      <Dependent Role="Organs">
+        <PropertyRef Name="Recipient_RecipientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
