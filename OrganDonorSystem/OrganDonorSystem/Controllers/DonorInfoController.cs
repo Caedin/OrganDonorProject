@@ -9,6 +9,7 @@ namespace OrganDonorSystem.Controllers
 {
     public class DonorInfoController : Controller
     {
+        OrganDonorSystemEntities OrganDonorSystemDatabase = new OrganDonorSystemEntities();
         //
         // GET: /DonorInfo/
 
@@ -16,10 +17,24 @@ namespace OrganDonorSystem.Controllers
         {
             var viewModel = new DonorInfoIndexViewModel
             {
-                
-            donorID = 34,
-            age = 23, gender = "Male", phone = "233-222-1411"
-            }; //registration = 
+
+
+                donorID = 3,
+                age = (from Donor in OrganDonorSystemDatabase.Donors
+                       where Donor.DonorID == 3
+                       select Donor.age).Single(),
+
+                gender = (from Donor in OrganDonorSystemDatabase.Donors
+                          where Donor.DonorID == 3
+                          select Donor.gender).Single(),
+
+                phone = (from Donor in OrganDonorSystemDatabase.Donors
+                         where Donor.DonorID == 3
+                         select Donor.phoneNumber).Single(),
+                registration = (from Donor in OrganDonorSystemDatabase.Donors
+                                where Donor.DonorID == 3
+                                select Donor.registrationDate).Single(),
+            };
 
         
 

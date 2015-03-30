@@ -8,8 +8,7 @@
 
     
     <h2>Recipient Information</h2>
-    <!--<h3>Recipients under your account: </h3>-->
-    
+        
     <div class="CssTableSmooth" style="float:left;">
         <table>
         <tr>
@@ -25,49 +24,45 @@
             <td>
                 Age
             </td>
-            
-<td>
+            <td>
                 Gender
             </td>
             <td>
                 Blood Type
             </td>
-<td>
+            <td>
                 Phone Number
             </td>
-<td>
+            <td>
                 Registration Date
             </td>
-
         </tr>
-        
-            <tr>
-                <td >
-                    22
-                </td>
-                <td >
-                    4
-                </td>
-                <td >
-                    <%: Model.organNeeded %>
-                </td>
-<td >
-                    45
-                </td>
-<td >
-                    <%: Model.gender %>
-                </td>
-    <td >
-                    Type A
-                </td>
-                <td >
-                    <%: Model.phone %>
-                </td>
-                <td >
-                    12/21/2013
-                </td>
-            </tr>
-           
-      </table>
+        <tr>
+            <td >
+                22
+            </td>
+            <td >
+                <%: Model.severity %>
+            </td>
+            <td >
+                <%: Model.organNeeded %>
+            </td>
+            <td >
+                <%: Model.age %>
+            </td>
+            <td >
+                <%: Model.gender %>
+            </td>
+            <td >
+                <%: Model.bloodType %>
+            </td>
+            <td >
+                <%: Model.phone %>
+            </td>
+            <td >
+                <%: Model.registration%>
+            </td>
+        </tr>
+        </table>
    </div>
 </asp:Content>

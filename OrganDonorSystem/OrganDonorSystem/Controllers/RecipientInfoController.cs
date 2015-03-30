@@ -17,21 +17,31 @@ namespace OrganDonorSystem.Controllers
         {
             var viewModel = new RecipientInfoIndexViewModel
             {
-
                 recipientID = 32,
-                age = 19, 
+                
+                age = (from Recipient in OrganDonorSystemDatabase.Recipients
+                       where Recipient.recipentID == 3
+                       select Recipient.age).Single(),
                 gender = (from Recipient in OrganDonorSystemDatabase.Recipients
-                                 where Recipient.recipentID == 3
-                                 select Recipient.gender).Single(),  
-                
-                
-                phone = "233-222-1411", bloodType = "Type DD", organNeeded = "heart", severity = "3"
-            };
+                       where Recipient.recipentID == 3
+                       select Recipient.gender).Single(),
+                bloodType = (from Recipient in OrganDonorSystemDatabase.Recipients
+                       where Recipient.recipentID == 3
+                       select Recipient.BloodType).Single(),
+                organNeeded = (from Recipient in OrganDonorSystemDatabase.Recipients
+                       where Recipient.recipentID == 3
+                       select Recipient.OrganType).Single(),
+                severity = (from Recipient in OrganDonorSystemDatabase.Recipients
+                       where Recipient.recipentID == 3
+                       select Recipient.severity).Single(),
+                registration = (from Recipient in OrganDonorSystemDatabase.Recipients
+                                where Recipient.recipentID == 3
+                                select Recipient.dateRegistered).Single(),
+                };
 
 
 
-             //registration = 
-
+             
 
 
             return View(viewModel);

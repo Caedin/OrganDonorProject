@@ -7,8 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Donor Information</h2>
-    <!--<h3>Recipients under your account: </h3>-->
-    
+       
     <div class="CssTableSmooth" style="float:left;">
         <table>
         <tr>
@@ -18,39 +17,34 @@
             <td>
                 Age
             </td>
-            
-<td>
+            <td>
                 Gender
             </td>
-<td>
+            <td>
                 Phone Number
             </td>
-<td>
+            <td>
                 Registration Date
             </td>
-
         </tr>
-        
-            <tr>
-                <td >
-                    3
-                </td>
-                <td >
-                    <%: Model.age %>
-                </td>
-                <td >
-                    Male
-                </td>
-<td >
-                    281-342-1432
-                </td>
-<td >
-                    02/22/2015
-                </td>
-
-            </tr>
-           
-      </table>
-   </div>
+        <tr>
+            <td >
+                3
+            </td>
+            <td >
+                <%: Model.age %>
+             </td>
+             <td >
+                <%: Model.gender %>
+             </td>
+             <td >
+                <%: Model.phone %>
+             </td>
+             <td >
+                <%: Model.registration %>
+             </td>
+        </tr>
+        </table>
+    </div>
 </asp:Content>
 
