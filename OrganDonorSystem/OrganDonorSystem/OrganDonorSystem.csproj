@@ -85,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\BackBG.png" />
+    <Content Include="Content\images\BackGlass.png" />
+    <Content Include="Content\images\BackGlass2.png" />
     <Content Include="Content\images\bgDIVIDER.gif" />
     <Content Include="Content\images\bgHOVER.gif" />
     <Content Include="Content\images\bgOFF.gif" />
