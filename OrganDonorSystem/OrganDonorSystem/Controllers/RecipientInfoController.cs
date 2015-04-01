@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OrganDonorSystem.ViewModels;
+using OrganDonorSystem.Models;
 
 namespace OrganDonorSystem.Controllers
 {
@@ -31,10 +33,10 @@ namespace OrganDonorSystem.Controllers
                        select Recipient.gender).Single(),
                 bloodType = (from Recipient in OrganDonorSystemDatabase.Recipients
                        where Recipient.recipentID == rID
-                       select Recipient.BloodType).Single(),
+                       select Recipient.bloodTypeBloodTypeID).Single(),
                 organNeeded = (from Recipient in OrganDonorSystemDatabase.Recipients
                        where Recipient.recipentID ==rID
-                       select Recipient.OrganType).Single(),
+                       select Recipient.organTypeOrganTypeID).Single(),
                 severity = (from Recipient in OrganDonorSystemDatabase.Recipients
                        where Recipient.recipentID == rID
                        select Recipient.severity).Single(),

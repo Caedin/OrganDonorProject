@@ -9,10 +9,10 @@ namespace OrganDonorSystem.ViewModels
     {
         public int recipientID { get; set; }
         public string severity { get; set; }
-        public OrganType organNeeded { get; set; }
+        public int organNeeded { get; set; }
         public long age { get; set; }
         public string gender { get; set; }
-        public BloodType bloodType { get; set; }
+        public int bloodType { get; set; }
         public string phone { get; set; }
         public DateTime registration { get; set; }
 
