@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DonorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -83,6 +84,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\UserHomeViewModel.cs" />
+    <Compile Include="Controllers\RecipientInfoController.cs" />
+    <Compile Include="ViewModels\DonorInfoIndexViewModel.cs" />
+    <Compile Include="ViewModels\RecipientInfoIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\images\BackBG.png" />
@@ -94,6 +98,7 @@
     <Content Include="Content\images\bgON.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Views\DonorInfo\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\UserHome\Index.aspx" />
     <Content Include="Views\UserHome\UserHomeDonors.aspx" />
@@ -102,6 +107,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\RecipientInfo\Index.aspx" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -132,6 +138,12 @@
     <EntityDeploy Include="Models\OrganDonorSystemDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OrganDonorSystemDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="OrganDonorData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrganDonorData.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
