@@ -7,9 +7,7 @@ namespace OrganDonorSystem.Models
 {
     static public class CurrentlyLoggedIn
     {
-        static private int userID = 2;
-        static private string firstName = "Lisa";
-        static private string lastName = "Gonzalez";
+        static private int userID = -1;
 
         public static int getUserID()
         {
@@ -18,22 +16,7 @@ namespace OrganDonorSystem.Models
         public static void setUserID(int user)
         {
             userID = user;
-        }
-        public static string getFirstName()
-        {
-            return firstName;
-        }
-        public static void setFirstName(string first)
-        {
-            firstName = first;
-        }
-        public static string getLastName()
-        {
-            return lastName;
-        }
-        public static void setLastName(string last)
-        {
-            lastName = last;
+
         }
  
     }

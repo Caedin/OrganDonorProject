@@ -14,8 +14,6 @@ namespace OrganDonorSystem.ViewModels
         {
             //getting logged in infromation
             loggedIn = CurrentlyLoggedIn.getUserID();
-            firstName = CurrentlyLoggedIn.getFirstName();
-            lastName = CurrentlyLoggedIn.getLastName();
         }
         public int loggedIn { get; set; }
         public string firstName { get; set; }

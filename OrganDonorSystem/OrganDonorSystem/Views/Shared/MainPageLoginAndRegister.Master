@@ -13,7 +13,7 @@
             <h1>Team 5 Organ Donor System</h1>
             <ul id="saturday">
                 <li><a href="/" title="">Home</a></li>
-                <li><a href="/LogIn" title="">Login</a></li>
+                <li><a href="/Login" title="">Login</a></li>
             </ul>
         </div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
