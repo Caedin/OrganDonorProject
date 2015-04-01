@@ -42,6 +42,9 @@ body
 #container {
    min-height:100%;
    position:relative;
+   border-left-style:groove;
+   border-right-style:groove;
+   background-image: url("images/BackGlass2.png");
 }
 
 #header
@@ -54,6 +57,8 @@ body
     border-width: 5px;
     border-color: Gray;
     border-radius: 10px;
+    position:relative;
+    left:-5px;
 }
 #bodyContent
 {
@@ -69,7 +74,8 @@ body
 	height:40px;
 	margin-top: -40px;
 	position:absolute;
-	bottom:10px;
+	bottom:0px;
+	left:-5px;
 	background: linear-gradient(to bottom right, white , #6685E0);
 	border-style: outset;
     border-width: 5px;

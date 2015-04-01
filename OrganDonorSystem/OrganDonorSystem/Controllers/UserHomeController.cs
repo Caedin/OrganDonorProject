@@ -45,8 +45,37 @@ namespace OrganDonorSystem.Controllers
             //getting logged in userID
             int loggedIN = CurrentlyLoggedIn.getUserID();
 
+            
+            /*
+            //test code for merging all queries into one
+            var viewModel = (from Donor in OrganDonorSystemDB.Donors
+                             where Donor.medicalPersonnelId == loggedIN
+                             select new UserHomeViewModel
+                             {
+                                   Donor_IDs=Donor.DonorID,    
+                                   Original_IDs=Donor.originalID, Phone_Numbers=Donor.phoneNumber
+                             });
+            */
+
+            var viewModel = new UserHomeViewModel
+           {
+               numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                                 where Donor.medicalPersonnelId == loggedIN
+                                 select Donor.DonorID).Count(),
+
+               theDonors = (from Donor in OrganDonorSystemDB.Donors
+                            where Donor.medicalPersonnelId == loggedIN
+                            select new DonorData
+                            {
+                                Donors = Donor.DonorID,
+                                OriginalIDs = Donor.originalID,
+                                PhoneNumbers = Donor.phoneNumber
+                            }).ToList()
+           };
+
+            /*
             //Getting Data from database and passing number of donors,reps and organs into View
-             var viewModel = new UserHomeViewModel
+            var viewModel = new UserHomeViewModel
             {
                 numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
                                   where Donor.medicalPersonnelId == loggedIN
@@ -63,9 +92,10 @@ namespace OrganDonorSystem.Controllers
                 PhoneNumbers = (from Donor in OrganDonorSystemDB.Donors
                                 where Donor.medicalPersonnelId == loggedIN
                                 select Donor.phoneNumber).ToList(),
-            };
+            };     */
 
-             return View(viewModel);
+
+            return View(viewModel);
         }
 
         //
