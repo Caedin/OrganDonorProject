@@ -15,24 +15,27 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult Index()
         {
+            int number;
+            string blah = Request.QueryString["dID"];
+            bool result = Int32.TryParse(blah, out number);
+            int dID = number;
             var viewModel = new DonorInfoIndexViewModel
             {
 
-
-                donorID = 3,
+                donorID = dID,
                 age = (from Donor in OrganDonorSystemDatabase.Donors
-                       where Donor.DonorID == 3
+                       where Donor.DonorID == dID
                        select Donor.age).Single(),
 
                 gender = (from Donor in OrganDonorSystemDatabase.Donors
-                          where Donor.DonorID == 3
+                          where Donor.DonorID == dID
                           select Donor.gender).Single(),
 
                 phone = (from Donor in OrganDonorSystemDatabase.Donors
-                         where Donor.DonorID == 3
+                         where Donor.DonorID == dID
                          select Donor.phoneNumber).Single(),
                 registration = (from Donor in OrganDonorSystemDatabase.Donors
-                                where Donor.DonorID == 3
+                                where Donor.DonorID == dID
                                 select Donor.registrationDate).Single(),
             };
 

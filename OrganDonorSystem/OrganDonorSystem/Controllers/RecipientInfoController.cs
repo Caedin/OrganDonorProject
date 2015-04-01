@@ -12,45 +12,47 @@ namespace OrganDonorSystem.Controllers
         OrganDonorSystemEntities OrganDonorSystemDatabase = new OrganDonorSystemEntities();
         //
         // GET: /RecipientInfo/
-
+        
         public ActionResult Index()
-        {
+        {   int number;
+            string blah = Request.QueryString["rID"];
+            bool result = Int32.TryParse(blah, out number);
+            int rID = number;
             var viewModel = new RecipientInfoIndexViewModel
             {
-                recipientID = 32,
+                 
+                recipientID = rID,
                 
                 age = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID == 3
+                       where Recipient.recipentID == rID
                        select Recipient.age).Single(),
                 gender = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID == 3
+                       where Recipient.recipentID == rID
                        select Recipient.gender).Single(),
                 bloodType = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID == 3
+                       where Recipient.recipentID == rID
                        select Recipient.BloodType).Single(),
                 organNeeded = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID == 3
+                       where Recipient.recipentID ==rID
                        select Recipient.OrganType).Single(),
                 severity = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID == 3
+                       where Recipient.recipentID == rID
                        select Recipient.severity).Single(),
                 registration = (from Recipient in OrganDonorSystemDatabase.Recipients
-                                where Recipient.recipentID == 3
+                                where Recipient.recipentID == rID
                                 select Recipient.dateRegistered).Single(),
                 };
 
 
 
-             
-
-
-            return View(viewModel);
+             return View(viewModel);
 
         }
 
 
 
-        // return View();
+        
     }
 
 }
+
