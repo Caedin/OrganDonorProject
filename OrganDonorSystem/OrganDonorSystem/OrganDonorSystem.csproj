@@ -75,6 +75,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CurrentlyLoggedIn.cs" />
+    <Compile Include="Models\DonorData.cs" />
     <Compile Include="Models\OrganDonorSystemDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -12,6 +12,7 @@
             <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
             <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
             <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
+            <li><a href="">AddNew</a></li>
         </ul>
     <br />
     <br />
@@ -33,13 +34,13 @@
            { %>
             <tr>
                 <td >
-                   <a href=""><%: Model.addStringPadding(8, Model.Donors[i].ToString()) %></a>
+                   <a href=""><%: Model.addStringPadding(8, Model.theDonors[i].Donors.ToString())%></a>
                 </td>
                 <td >
-                    <%: Model.OriginalIDs[i] %>
+                    <%: Model.theDonors[i].Donors%>
                 </td>
                 <td >
-                    <%: Model.PhoneNumbers[i] %>
+                    <%: Model.theDonors[i].PhoneNumbers%>
                 </td >
             </tr>
             <% } %>

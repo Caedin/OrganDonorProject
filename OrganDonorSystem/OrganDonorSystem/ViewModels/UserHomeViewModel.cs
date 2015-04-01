@@ -26,6 +26,7 @@ namespace OrganDonorSystem.ViewModels
         public List<int> Donors { get; set; }
         public List<string> OriginalIDs { get; set; }
         public List<string> PhoneNumbers { get; set; }
+          
 
         //rep data
         public int numberOfRecipients { get; set; }
@@ -47,5 +48,14 @@ namespace OrganDonorSystem.ViewModels
 
             return inputString;
         }
+
+
+        //test objects
+        
+        public int Donor_IDs { get; set; }
+        public string Original_IDs { get; set; }
+        public string Phone_Numbers { get; set; }
+
+        public List<DonorData> theDonors { get; set; }
     }
 }
