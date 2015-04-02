@@ -9,15 +9,19 @@ namespace OrganDonorSystem.ViewModels
     //test class for dummy data
     public class UserHomeViewModel
     {
-        
+        OrganDonorSystemEntities OrganDonorSystemDB = new OrganDonorSystemEntities();
+
         public UserHomeViewModel()
         {
             //getting logged in infromation
             loggedIn = CurrentlyLoggedIn.getUserID();
+            userName = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
+                        where Medical_Personnel.medicalPersonnelId == loggedIn
+                        select Medical_Personnel.userName).ToList().First();
+
         }
         public int loggedIn { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        public string userName { get; set; }
 
         //donor data
         public int numberOfDonors { get; set; }

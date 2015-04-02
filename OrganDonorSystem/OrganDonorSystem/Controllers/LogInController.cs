@@ -21,7 +21,7 @@ namespace OrganDonorSystem.Controllers
         }
 
         // Handle Submit Login Button
-        public ActionResult Process(string inputUserName, string inputPassword)
+        public ActionResult Login(string inputUserName, string inputPassword)
         {
             List<string> username_query = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
                                            where Medical_Personnel.userName == inputUserName
@@ -35,6 +35,7 @@ namespace OrganDonorSystem.Controllers
             if (username_query.Count() != 1 && password_query.Count() != 1)
             {
                 // Error in size of queries. Either multiple users with same name, or user has multiple passwords. Send error message.
+
                 return RedirectToAction("Index");
             }
             else
@@ -51,7 +52,6 @@ namespace OrganDonorSystem.Controllers
                 if (String.Equals(required_password, inputPassword, StringComparison.Ordinal))
                 {
                     //Login Successful.
-
                     List<int> userId_query = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
                                              where Medical_Personnel.userName == inputUserName
                                              select Medical_Personnel.medicalPersonnelId).ToList();
@@ -67,7 +67,21 @@ namespace OrganDonorSystem.Controllers
                     return RedirectToAction("Index");
                 }
             }
-        } 
+        }
+
+        // Handle Submit Register Button
+        public ActionResult Register(Medical_Personnel r)
+        {
+
+            if (ModelState.IsValid && r.userName!=null)
+            {
+                OrganDonorSystemDB.Medical_Personnel.AddObject(r);
+                OrganDonorSystemDB.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
 
 
 
