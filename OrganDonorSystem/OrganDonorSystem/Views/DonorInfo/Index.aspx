@@ -8,7 +8,11 @@
 
     <h2>Donor <%: Model.donorID  %> Information</h2>
        
-
+    <ul id="nav">
+        <li><a href="/UserHome/UserHomeDonors">Go Back</a></li>
+    </ul>
+    <br />
+    <br />
     <div class="SummaryParagraph">
         <ul style="list-style-type:none">
         <li>Age: <%: Model.age %></li>

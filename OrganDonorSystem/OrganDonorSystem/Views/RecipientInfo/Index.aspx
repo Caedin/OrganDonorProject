@@ -8,7 +8,11 @@
 
     
     <h2>Recipient <%: Model.recipientID  %> Information</h2>
-        
+    <ul id="nav">
+        <li><a href="/UserHome/UserHomeRecipients">Go Back</a></li>
+    </ul>
+    <br />
+    <br />      
     <div class="SummaryParagraph">
         
         <ul style="list-style-type:none">
