@@ -19,7 +19,7 @@
         <br />
         <p><b> Your Summary Infromation:</b></p>
         <p> Number of Donors: <%: Model.numberOfDonors %></p>
-        <p> Number of Recepients <%: Model.numberOfRecipients%></p>
+        <p> Number of Recipients <%: Model.numberOfRecipients%></p>
         <p> Number of Organs: <%: Model.numberOfOrgans %></p>
    </div>
 

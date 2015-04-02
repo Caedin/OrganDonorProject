@@ -34,7 +34,8 @@
            { %>
             <tr>
                 <td >
-                    <a href=""><%: Model.RecipientsIDs[i] %></a>
+                    <%=Html.ActionLink(Model.addStringPadding(8,Model.RecipientsIDs[i].ToString()), "Index", 
+                "RecipientInfo", new {rID = Model.RecipientsIDs[i]}, null) %>
                 </td>
                 <td >
                     <%: Model.RepcipientOriginalIDs[i] %>
