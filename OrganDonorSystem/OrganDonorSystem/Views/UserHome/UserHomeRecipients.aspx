@@ -12,7 +12,7 @@
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
       <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
       <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
-      <li><a href="">AddNew</a></li>
+      <li><a href="/UserHome/UserHomeAddRecipients">AddNew</a></li>
     </ul>
     <br />
     <br />

@@ -146,5 +146,27 @@ namespace OrganDonorSystem.Controllers
             return View(viewModel);
         }
 
+        public ActionResult UserHomeAddRecipients(Recipient r)
+        {
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
+            r.medicalPersonnelID = loggedIN;
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    OrganDonorSystemDB.Recipients.AddObject(r);
+                    OrganDonorSystemDB.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+            return View();
+        }
     }
 }
