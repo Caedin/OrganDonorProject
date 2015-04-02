@@ -148,6 +148,8 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult UserHomeAddRecipients(Recipient r)
         {
+            if (r.orignialID == null) { return View(); }
+
             //getting logged in userID
             int loggedIN = CurrentlyLoggedIn.getUserID();
             r.medicalPersonnelID = loggedIN;
