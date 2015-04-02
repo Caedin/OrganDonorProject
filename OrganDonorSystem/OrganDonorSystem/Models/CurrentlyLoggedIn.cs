@@ -9,15 +9,14 @@ namespace OrganDonorSystem.Models
     {
         static private int userID = -1;
 
+        public static void setUserID(int user)
+        {
+            userID = user;
+        }
+
         public static int getUserID()
         {
             return userID;
         }
-        public static void setUserID(int user)
-        {
-            userID = user;
-
-        }
- 
     }
 }

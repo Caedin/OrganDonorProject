@@ -3,14 +3,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1">
+<head>
     <title>Login Form</title>
 </head>
 <body>
-    <div>
-    
-    <% using (Html.BeginForm("Process", "Login"))
-       { %>
+<div style="padding:25px">
+    <p style="text-align:center">
+    Login
+    </p>
+        <% using (Html.BeginForm("Login", "Login"))
+        { %>
     
     
         <label for="UserName">User Name:</label>
@@ -24,12 +26,12 @@
         <%= Html.Password("inputPassword") %>
         
         <br /><br />
-        
-        <input type="submit" value="Process" />
+        <input type="submit" value="Log In" />
     
     <% } %>
-    
-    </div>
+</div>
+
+Don't have an account? <a href="/Login/Register" title="">Register</a>
 </body>
 </html>
 
