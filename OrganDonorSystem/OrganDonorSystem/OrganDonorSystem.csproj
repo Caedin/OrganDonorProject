@@ -104,6 +104,8 @@
     <Content Include="Views\Login\Register.aspx" />
     <Content Include="Views\RecipientInfo\Index.aspx" />
     <Content Include="Views\UserHome\Index.aspx" />
+    <Content Include="Views\UserHome\UserHomeAddDonors.aspx" />
+    <Content Include="Views\UserHome\UserHomeAddOrgans.aspx" />
     <Content Include="Views\UserHome\UserHomeAddRecipients.aspx" />
     <Content Include="Views\UserHome\UserHomeDonors.aspx" />
     <Content Include="Views\UserHome\UserHomeOrgans.aspx" />

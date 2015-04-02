@@ -170,5 +170,56 @@ namespace OrganDonorSystem.Controllers
 
             return View();
         }
+
+        public ActionResult UserHomeAddOrgans(Organ r)
+        {
+            if (r.OrganID == null) { return View(); }
+
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
+            r.MedicalPersonnelID = loggedIN;
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    OrganDonorSystemDB.Organs.AddObject(r);
+                    OrganDonorSystemDB.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+            return View();
+        }
+
+        public ActionResult UserHomeAddDonors(Donor r)
+        {
+            if (r.DonorID == null) { return View(); }
+
+            //getting logged in userID
+            int loggedIN = CurrentlyLoggedIn.getUserID();
+            r.medicalPersonnelId = loggedIN;
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    OrganDonorSystemDB.Donors.AddObject(r);
+                    OrganDonorSystemDB.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+
+            return View();
+        }
+          
     }
 }
