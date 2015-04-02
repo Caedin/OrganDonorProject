@@ -173,7 +173,7 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult UserHomeAddOrgans(Organ r)
         {
-            if (r.OrganID == null) { return View(); }
+            if (r.OrginalID == null) { return View(); }
 
             //getting logged in userID
             int loggedIN = CurrentlyLoggedIn.getUserID();
@@ -198,7 +198,7 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult UserHomeAddDonors(Donor r)
         {
-            if (r.DonorID == null) { return View(); }
+            if (r.originalID == null) { return View(); }
 
             //getting logged in userID
             int loggedIN = CurrentlyLoggedIn.getUserID();
