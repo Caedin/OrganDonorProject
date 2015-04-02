@@ -31,7 +31,7 @@
            { %>
             <tr>
                 <td >
-                    <a href=""><%: Model.OrganIDs[i] %></a>
+                   <a href=""><%: Model.addStringPadding(8, Model.OrganIDs[i].ToString()) %></a>
                 </td>
                 <td >
                     <%: Model.OrganOriginalIDs[i] %>

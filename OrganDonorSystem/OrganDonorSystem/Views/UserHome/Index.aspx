@@ -17,7 +17,7 @@
    <br />
    <div class="SummaryParagraph">
         <br />
-        <p><b> Your Summary Infromation:</b></p>
+        <p><b> Your Summary Information:</b></p>
         <p> Number of Donors: <%: Model.numberOfDonors %></p>
         <p> Number of Recipients <%: Model.numberOfRecipients%></p>
         <p> Number of Organs: <%: Model.numberOfOrgans %></p>
