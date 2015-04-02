@@ -72,12 +72,18 @@ namespace OrganDonorSystem.Controllers
         // Handle Submit Register Button
         public ActionResult Register(Medical_Personnel r)
         {
-
-            if (ModelState.IsValid && r.userName!=null)
+            try
             {
-                OrganDonorSystemDB.Medical_Personnel.AddObject(r);
-                OrganDonorSystemDB.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid && r.userName != null)
+                {
+                    OrganDonorSystemDB.Medical_Personnel.AddObject(r);
+                    OrganDonorSystemDB.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                return View();
             }
 
             return View();

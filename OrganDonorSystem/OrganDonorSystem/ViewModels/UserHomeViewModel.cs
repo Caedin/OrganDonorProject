@@ -15,9 +15,13 @@ namespace OrganDonorSystem.ViewModels
         {
             //getting logged in infromation
             loggedIn = CurrentlyLoggedIn.getUserID();
-            userName = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
-                        where Medical_Personnel.medicalPersonnelId == loggedIn
-                        select Medical_Personnel.userName).ToList().First();
+
+            if (loggedIn != -1)
+            {
+                userName = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
+                            where Medical_Personnel.medicalPersonnelId == loggedIn
+                            select Medical_Personnel.userName).ToList().First();
+            }
 
         }
         public int loggedIn { get; set; }
