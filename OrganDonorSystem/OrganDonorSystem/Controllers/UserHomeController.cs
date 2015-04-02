@@ -45,18 +45,9 @@ namespace OrganDonorSystem.Controllers
             //getting logged in userID
             int loggedIN = CurrentlyLoggedIn.getUserID();
 
-            
-            /*
-            //test code for merging all queries into one
-            var viewModel = (from Donor in OrganDonorSystemDB.Donors
-                             where Donor.medicalPersonnelId == loggedIN
-                             select new UserHomeViewModel
-                             {
-                                   Donor_IDs=Donor.DonorID,    
-                                   Original_IDs=Donor.originalID, Phone_Numbers=Donor.phoneNumber
-                             });
-            */
 
+
+            //test code for merging all queries into one
             var viewModel = new UserHomeViewModel
            {
                numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
@@ -73,7 +64,7 @@ namespace OrganDonorSystem.Controllers
                             }).ToList()
            };
 
-            /*
+            /*  OLD CODE
             //Getting Data from database and passing number of donors,reps and organs into View
             var viewModel = new UserHomeViewModel
             {
