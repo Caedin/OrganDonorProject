@@ -23,3 +23,8 @@ C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorSystem\Orga
 C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorSystem\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.pdb
 C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorSystem\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\bin\OrganDonorSystem.dll
 C:\Users\Keith\Desktop\Workspace\Database Project\Git-Repo\OrganDonorSystem\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\bin\OrganDonorSystem.pdb
+C:\cosc3380\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\bin\OrganDonorSystem.dll
+C:\cosc3380\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\bin\OrganDonorSystem.pdb
+C:\cosc3380\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.csprojResolveAssemblyReference.cache
+C:\cosc3380\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.dll
+C:\cosc3380\OrganDonorProject\OrganDonorSystem\OrganDonorSystem\obj\Debug\OrganDonorSystem.pdb
