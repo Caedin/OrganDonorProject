@@ -63,11 +63,11 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.OrginalID) %>
+                <%: Html.LabelFor(model => model.OriginalID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.OrginalID) %>
-                <%: Html.ValidationMessageFor(model => model.OrginalID) %>
+                <%: Html.TextBoxFor(model => model.OriginalID) %>
+                <%: Html.ValidationMessageFor(model => model.OriginalID) %>
             </div>
             
             <div class="editor-label">

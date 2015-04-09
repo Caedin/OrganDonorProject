@@ -30,7 +30,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_OrganExpirationTime_OrganType1", "OrganType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.OrganType), "OrganExpirationTime", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.OrganExpirationTime), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_organ_organID_idx", "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OrganDonorSystem.Models.Organ), "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Recipient), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Organs_organType", "OrganType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.OrganType), "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Organ), true)]
-[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Organs_RecipientID", "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Recipient), "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Organ), true)]
+[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Organs_RecipientID", "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(OrganDonorSystem.Models.Recipient), "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Organ), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_organType_organTypeID_ibfk_1", "OrganType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.OrganType), "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Recipient), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Donor_has_Organs", "Donor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Donor), "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Organ))]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Medical_Personnnel_has_Donors", "Donor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Donor), "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Medical_Personnel))]
@@ -964,7 +964,7 @@ namespace OrganDonorSystem.Models
         /// <param name="create_time">Initial value of the create_time property.</param>
         /// <param name="state_StateID">Initial value of the State_StateID property.</param>
         /// <param name="city_CityID">Initial value of the City_CityID property.</param>
-        public static Medical_Personnel CreateMedical_Personnel(global::System.Int32 medicalPersonnelId, global::System.String userName, global::System.String userPassword, global::System.String medicalFacility, global::System.String contactEmail, global::System.Int32 phoneNumber, global::System.Boolean validatedUser, global::System.DateTime create_time, global::System.Int32 state_StateID, global::System.Int32 city_CityID)
+        public static Medical_Personnel CreateMedical_Personnel(global::System.Int32 medicalPersonnelId, global::System.String userName, global::System.String userPassword, global::System.String medicalFacility, global::System.String contactEmail, global::System.String phoneNumber, global::System.Boolean validatedUser, global::System.DateTime create_time, global::System.Int32 state_StateID, global::System.Int32 city_CityID)
         {
             Medical_Personnel medical_Personnel = new Medical_Personnel();
             medical_Personnel.medicalPersonnelId = medicalPersonnelId;
@@ -1112,7 +1112,7 @@ namespace OrganDonorSystem.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 phoneNumber
+        public global::System.String phoneNumber
         {
             get
             {
@@ -1122,13 +1122,13 @@ namespace OrganDonorSystem.Models
             {
                 OnphoneNumberChanging(value);
                 ReportPropertyChanging("phoneNumber");
-                _phoneNumber = StructuralObject.SetValidValue(value);
+                _phoneNumber = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("phoneNumber");
                 OnphoneNumberChanged();
             }
         }
-        private global::System.Int32 _phoneNumber;
-        partial void OnphoneNumberChanging(global::System.Int32 value);
+        private global::System.String _phoneNumber;
+        partial void OnphoneNumberChanging(global::System.String value);
         partial void OnphoneNumberChanged();
     
         /// <summary>
@@ -1438,22 +1438,22 @@ namespace OrganDonorSystem.Models
         /// <param name="organID">Initial value of the OrganID property.</param>
         /// <param name="organType_organtypeID">Initial value of the organType_organtypeID property.</param>
         /// <param name="bloodType_BloodTypeID">Initial value of the BloodType_BloodTypeID property.</param>
+        /// <param name="dateAqcuired">Initial value of the dateAqcuired property.</param>
+        /// <param name="expirationDate">Initial value of the expirationDate property.</param>
         /// <param name="medicalPersonnelID">Initial value of the MedicalPersonnelID property.</param>
-        /// <param name="orginalID">Initial value of the OrginalID property.</param>
-        /// <param name="available">Initial value of the available property.</param>
-        /// <param name="recipient_RecipientID">Initial value of the Recipient_RecipientID property.</param>
         /// <param name="originalID">Initial value of the OriginalID property.</param>
-        public static Organ CreateOrgan(global::System.Int32 organID, global::System.Int32 organType_organtypeID, global::System.Int32 bloodType_BloodTypeID, global::System.Int32 medicalPersonnelID, global::System.String orginalID, global::System.Boolean available, global::System.Int32 recipient_RecipientID, global::System.String originalID)
+        /// <param name="available">Initial value of the available property.</param>
+        public static Organ CreateOrgan(global::System.Int32 organID, global::System.Int32 organType_organtypeID, global::System.Int32 bloodType_BloodTypeID, global::System.DateTime dateAqcuired, global::System.DateTime expirationDate, global::System.Int32 medicalPersonnelID, global::System.String originalID, global::System.Boolean available)
         {
             Organ organ = new Organ();
             organ.OrganID = organID;
             organ.organType_organtypeID = organType_organtypeID;
             organ.BloodType_BloodTypeID = bloodType_BloodTypeID;
+            organ.dateAqcuired = dateAqcuired;
+            organ.expirationDate = expirationDate;
             organ.MedicalPersonnelID = medicalPersonnelID;
-            organ.OrginalID = orginalID;
-            organ.available = available;
-            organ.Recipient_RecipientID = recipient_RecipientID;
             organ.OriginalID = originalID;
+            organ.available = available;
             return organ;
         }
 
@@ -1539,9 +1539,9 @@ namespace OrganDonorSystem.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> dateAqcuired
+        public global::System.DateTime dateAqcuired
         {
             get
             {
@@ -1556,16 +1556,16 @@ namespace OrganDonorSystem.Models
                 OndateAqcuiredChanged();
             }
         }
-        private Nullable<global::System.DateTime> _dateAqcuired;
-        partial void OndateAqcuiredChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _dateAqcuired;
+        partial void OndateAqcuiredChanging(global::System.DateTime value);
         partial void OndateAqcuiredChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> expirationDate
+        public global::System.DateTime expirationDate
         {
             get
             {
@@ -1580,8 +1580,8 @@ namespace OrganDonorSystem.Models
                 OnexpirationDateChanged();
             }
         }
-        private Nullable<global::System.DateTime> _expirationDate;
-        partial void OnexpirationDateChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _expirationDate;
+        partial void OnexpirationDateChanging(global::System.DateTime value);
         partial void OnexpirationDateChanged();
     
         /// <summary>
@@ -1613,24 +1613,24 @@ namespace OrganDonorSystem.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String OrginalID
+        public global::System.String OriginalID
         {
             get
             {
-                return _OrginalID;
+                return _OriginalID;
             }
             set
             {
-                OnOrginalIDChanging(value);
-                ReportPropertyChanging("OrginalID");
-                _OrginalID = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("OrginalID");
-                OnOrginalIDChanged();
+                OnOriginalIDChanging(value);
+                ReportPropertyChanging("OriginalID");
+                _OriginalID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OriginalID");
+                OnOriginalIDChanged();
             }
         }
-        private global::System.String _OrginalID;
-        partial void OnOrginalIDChanging(global::System.String value);
-        partial void OnOrginalIDChanged();
+        private global::System.String _OriginalID;
+        partial void OnOriginalIDChanging(global::System.String value);
+        partial void OnOriginalIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1659,9 +1659,9 @@ namespace OrganDonorSystem.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 Recipient_RecipientID
+        public Nullable<global::System.Int32> Recipient_RecipientID
         {
             get
             {
@@ -1676,33 +1676,9 @@ namespace OrganDonorSystem.Models
                 OnRecipient_RecipientIDChanged();
             }
         }
-        private global::System.Int32 _Recipient_RecipientID;
-        partial void OnRecipient_RecipientIDChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _Recipient_RecipientID;
+        partial void OnRecipient_RecipientIDChanging(Nullable<global::System.Int32> value);
         partial void OnRecipient_RecipientIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String OriginalID
-        {
-            get
-            {
-                return _OriginalID;
-            }
-            set
-            {
-                OnOriginalIDChanging(value);
-                ReportPropertyChanging("OriginalID");
-                _OriginalID = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("OriginalID");
-                OnOriginalIDChanged();
-            }
-        }
-        private global::System.String _OriginalID;
-        partial void OnOriginalIDChanging(global::System.String value);
-        partial void OnOriginalIDChanged();
 
         #endregion
 

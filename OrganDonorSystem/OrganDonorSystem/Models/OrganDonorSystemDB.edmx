@@ -163,7 +163,7 @@
           <Property Name="userPassword" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="medicalFacility" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="contactEmail" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="phoneNumber" Type="int" Nullable="false" />
+          <Property Name="phoneNumber" Type="char" Nullable="false" MaxLength="13" />
           <Property Name="validatedUser" Type="bool" Nullable="false" />
           <Property Name="create_time" Type="datetime" Nullable="false" />
           <Property Name="State_StateID" Type="int" Nullable="false" />
@@ -209,13 +209,12 @@
           <Property Name="OrganID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="organType_organtypeID" Type="int" Nullable="false" />
           <Property Name="BloodType_BloodTypeID" Type="int" Nullable="false" />
-          <Property Name="dateAqcuired" Type="datetime" />
-          <Property Name="expirationDate" Type="datetime" />
+          <Property Name="dateAqcuired" Type="datetime" Nullable="false" />
+          <Property Name="expirationDate" Type="datetime" Nullable="false" />
           <Property Name="MedicalPersonnelID" Type="int" Nullable="false" />
-          <Property Name="OrginalID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="OriginalID" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="available" Type="bool" Nullable="false" />
-          <Property Name="Recipient_RecipientID" Type="int" Nullable="false" />
-          <Property Name="OriginalID" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="Recipient_RecipientID" Type="int" />
         </EntityType>
         <EntityType Name="OrganType">
           <Key>
@@ -463,7 +462,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Organs_RecipientID">
-          <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="1" />
+          <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="0..1" />
           <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Recipients">
@@ -598,7 +597,7 @@
           <Property Name="userPassword" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="medicalFacility" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="contactEmail" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="phoneNumber" Type="Int32" Nullable="false" />
+          <Property Name="phoneNumber" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="false" />
           <Property Name="validatedUser" Type="Boolean" Nullable="false" />
           <Property Name="create_time" Type="DateTime" Nullable="false" />
           <Property Name="State_StateID" Type="Int32" Nullable="false" />
@@ -627,13 +626,12 @@
           <Property Name="OrganID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="organType_organtypeID" Type="Int32" Nullable="false" />
           <Property Name="BloodType_BloodTypeID" Type="Int32" Nullable="false" />
-          <Property Name="dateAqcuired" Type="DateTime" />
-          <Property Name="expirationDate" Type="DateTime" />
+          <Property Name="dateAqcuired" Type="DateTime" Nullable="false" />
+          <Property Name="expirationDate" Type="DateTime" Nullable="false" />
           <Property Name="MedicalPersonnelID" Type="Int32" Nullable="false" />
-          <Property Name="OrginalID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="OriginalID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="available" Type="Boolean" Nullable="false" />
-          <Property Name="Recipient_RecipientID" Type="Int32" Nullable="false" />
-          <Property Name="OriginalID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="Recipient_RecipientID" Type="Int32" />
           <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.Organs_BloodType" FromRole="Organs" ToRole="BloodType" />
           <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Organs_MedicalPersonnel" FromRole="Organs" ToRole="Medical_Personnel" />
           <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_organ_organID_idx" FromRole="Organs" ToRole="Recipients" />
@@ -814,7 +812,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Organs_RecipientID">
-          <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="1" />
+          <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="0..1" />
           <End Role="Organs" Type="OrganDonorSystemModel.Organ" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Recipients">
@@ -919,10 +917,9 @@
                 <ScalarProperty Name="dateAqcuired" ColumnName="dateAqcuired" />
                 <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
                 <ScalarProperty Name="MedicalPersonnelID" ColumnName="MedicalPersonnelID" />
-                <ScalarProperty Name="OrginalID" ColumnName="OrginalID" />
+                <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
                 <ScalarProperty Name="available" ColumnName="available" />
                 <ScalarProperty Name="Recipient_RecipientID" ColumnName="Recipient_RecipientID" />
-                <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1007,22 +1004,26 @@
         <EntityTypeShape EntityType="OrganDonorSystemModel.City" Width="1.5" PointX="3" PointY="2.25" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="OrganDonorSystemModel.Donor" Width="1.5" PointX="7.5" PointY="1.625" Height="3.1340950520833335" IsExpanded="true" />
         <EntityTypeShape EntityType="OrganDonorSystemModel.Medical_Personnel" Width="1.5" PointX="5.25" PointY="1" Height="4.2879036458333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganExpirationTime" Width="1.5" PointX="9.5" PointY="10" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Organ" Width="1.5" PointX="9.75" PointY="1.125" Height="4.0956022135416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganType" Width="1.5" PointX="9.75" PointY="7.25" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganExpirationTime" Width="1.5" PointX="9.75" PointY="9.625" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Organ" Width="1.5" PointX="9.75" PointY="1.25" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganType" Width="1.5" PointX="7.5" PointY="9.5" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="OrganDonorSystemModel.Recipient" Width="1.5" PointX="12" PointY="1.125" Height="4.0956022135416674" IsExpanded="true" />
         <EntityTypeShape EntityType="OrganDonorSystemModel.State" Width="1.5" PointX="0.75" PointY="2.25" Height="1.7879850260416674" IsExpanded="true" />
         <AssociationConnector Association="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="6.7703743782552088" />
-          <ConnectorPoint PointX="10.854166666666666" PointY="6.7703743782552079" />
-          <ConnectorPoint PointX="11.020833333333334" PointY="6.7703743782552088" />
-          <ConnectorPoint PointX="12.03125" PointY="6.7703743782552088" />
-          <ConnectorPoint PointX="12.03125" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="9" PointY="6.7689925130208337" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="6.7689925130208328" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="6.7689925130208337" />
+          <ConnectorPoint PointX="12.260414166666665" PointY="6.7689925130208328" />
+          <ConnectorPoint PointX="12.427080833333333" PointY="6.7689925130208337" />
+          <ConnectorPoint PointX="12.75" PointY="6.7689925130208337" />
+          <ConnectorPoint PointX="12.75" PointY="5.2206022135416674" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_BloodType" ManuallyRouted="false">
           <ConnectorPoint PointX="9" PointY="6.290743756510417" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="6.2907437565104161" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="6.290743756510417" />
           <ConnectorPoint PointX="10.5" PointY="6.290743756510417" />
-          <ConnectorPoint PointX="10.5" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="10.5" PointY="5.15330078125" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_State_stateID_ibfk_1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="3.1439925130208337" />
@@ -1037,15 +1038,8 @@
           <ConnectorPoint PointX="7.5" PointY="3.1920475260416667" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="5.2879036458333317" />
-          <ConnectorPoint PointX="7.125" PointY="5.6629036458333317" />
-          <ConnectorPoint PointX="7.125" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="5.5956022135416665" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="10.854166666666666" PointY="5.5956022135416665" />
-          <ConnectorPoint PointX="11.020833333333334" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="11.625" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="12" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="6.75" PointY="1.15625" />
+          <ConnectorPoint PointX="12" PointY="1.15625" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnel_ibfk_1" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="4.0379850260416674" />
@@ -1053,44 +1047,54 @@
           <ConnectorPoint PointX="5.25" PointY="4.7903450520833326" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_MedicalPersonnel" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="1.34375" />
-          <ConnectorPoint PointX="9.75" PointY="1.34375" />
+          <ConnectorPoint PointX="6.75" PointY="4.9874479166666665" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="4.9874479166666656" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="4.9874479166666665" />
+          <ConnectorPoint PointX="9.75" PointY="4.9874479166666665" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_OrganExpirationTime_OrganType1" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.375" PointY="9.2302864583333317" />
-          <ConnectorPoint PointX="10.375" PointY="10" />
+          <ConnectorPoint PointX="9" PointY="10.422841796875" />
+          <ConnectorPoint PointX="9.75" PointY="10.422841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_organ_organID_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="3.1415486067708329" />
-          <ConnectorPoint PointX="12" PointY="3.1415486067708329" />
+          <ConnectorPoint PointX="11.25" PointY="3.201650390625" />
+          <ConnectorPoint PointX="12" PointY="3.201650390625" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_organType" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.9375" PointY="7.25" />
-          <ConnectorPoint PointX="10.9375" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="9" PointY="9.5" />
+          <ConnectorPoint PointX="9.375" PointY="9.125" />
+          <ConnectorPoint PointX="9.375" PointY="3.0874719583333325" />
+          <ConnectorPoint PointX="9.75" PointY="3.0874719583333325" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_RecipientID" ManuallyRouted="false">
-          <ConnectorPoint PointX="12" PointY="4.2123229101562494" />
-          <ConnectorPoint PointX="11.25" PointY="4.2123229101562494" />
+          <ConnectorPoint PointX="12" PointY="2.1633251953125" />
+          <ConnectorPoint PointX="11.25" PointY="2.1633251953125" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_organType_organTypeID_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="8.2401432291666659" />
-          <ConnectorPoint PointX="12.7968775" PointY="8.2401432291666659" />
-          <ConnectorPoint PointX="12.7968775" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="9" PointY="11.381735026041666" />
+          <ConnectorPoint PointX="12.3437475" PointY="11.381735026041666" />
+          <ConnectorPoint PointX="12.3437475" PointY="5.2206022135416674" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Donor_has_Organs" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="2.406714053385417" />
-          <ConnectorPoint PointX="9.75" PointY="2.406714053385417" />
+          <ConnectorPoint PointX="9" PointY="3.985783505208333" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="3.9857835052083326" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="3.985783505208333" />
+          <ConnectorPoint PointX="9.75" PointY="3.985783505208333" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnnel_has_Donors" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="2.3460237630208334" />
           <ConnectorPoint PointX="6.75" PointY="2.3460237630208334" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnnel_has_Recipients" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="1.0011528461538464" />
-          <ConnectorPoint PointX="7.125" PointY="0.62615284615384681" />
-          <ConnectorPoint PointX="7.125" PointY="0.75" />
-          <ConnectorPoint PointX="11.625" PointY="0.75" />
-          <ConnectorPoint PointX="12" PointY="1.125" />
+          <ConnectorPoint PointX="6.75" PointY="5.2879036458333317" />
+          <ConnectorPoint PointX="7.125" PointY="5.6629036458333317" />
+          <ConnectorPoint PointX="7.125" PointY="5.5956022135416674" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="5.5956022135416665" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="5.5956022135416674" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="5.5956022135416665" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="5.5956022135416674" />
+          <ConnectorPoint PointX="11.625" PointY="5.5956022135416674" />
+          <ConnectorPoint PointX="12" PointY="5.2206022135416674" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -119,7 +119,7 @@
     <Property Name="userPassword" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
     <Property Name="medicalFacility" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
     <Property Name="contactEmail" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="phoneNumber" Type="Int32" Nullable="false" />
+    <Property Name="phoneNumber" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="false" />
     <Property Name="validatedUser" Type="Boolean" Nullable="false" />
     <Property Name="create_time" Type="DateTime" Nullable="false" />
     <Property Name="State_StateID" Type="Int32" Nullable="false" />
@@ -148,13 +148,12 @@
     <Property Name="OrganID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="organType_organtypeID" Type="Int32" Nullable="false" />
     <Property Name="BloodType_BloodTypeID" Type="Int32" Nullable="false" />
-    <Property Name="dateAqcuired" Type="DateTime" />
-    <Property Name="expirationDate" Type="DateTime" />
+    <Property Name="dateAqcuired" Type="DateTime" Nullable="false" />
+    <Property Name="expirationDate" Type="DateTime" Nullable="false" />
     <Property Name="MedicalPersonnelID" Type="Int32" Nullable="false" />
-    <Property Name="OrginalID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="OriginalID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="available" Type="Boolean" Nullable="false" />
-    <Property Name="Recipient_RecipientID" Type="Int32" Nullable="false" />
-    <Property Name="OriginalID" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="Recipient_RecipientID" Type="Int32" />
     <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.Organs_BloodType" FromRole="Organs" ToRole="BloodType" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Organs_MedicalPersonnel" FromRole="Organs" ToRole="Medical_Personnel" />
     <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_organ_organID_idx" FromRole="Organs" ToRole="Recipients" />
@@ -335,7 +334,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Organs_RecipientID">
-    <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="1" />
+    <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="0..1" />
     <End Role="Organs" Type="OrganDonorSystemModel.Organ" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Recipients">

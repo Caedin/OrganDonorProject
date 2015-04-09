@@ -13,7 +13,7 @@ namespace OrganDonorSystem.ViewModels
           public string userName { get; set; }  
           public string medicalFacility { get; set; }
           public string contactEmail { get; set; }
-          public int phoneNumber { get; set; }
+          public string phoneNumber { get; set; }
           public bool validatedUser { get; set; }
           public System.DateTime create_time { get; set; }
           public int State_StateID { get; set; }

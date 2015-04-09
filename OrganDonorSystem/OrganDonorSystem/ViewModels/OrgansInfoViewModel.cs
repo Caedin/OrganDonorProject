@@ -17,6 +17,6 @@ namespace OrganDonorSystem.ViewModels
         public System.DateTime? expirationDate { get; set; }
         public int MedicalPersonnelID { get; set; }
         public bool available { get; set; }
-        public int Recipient_RecipientID { get; set; }
+        public int? Recipient_RecipientID { get; set; }
     }
 }

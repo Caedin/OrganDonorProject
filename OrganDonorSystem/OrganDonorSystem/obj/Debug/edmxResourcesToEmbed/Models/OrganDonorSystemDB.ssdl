@@ -158,7 +158,7 @@
     <Property Name="userPassword" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="medicalFacility" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="contactEmail" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="phoneNumber" Type="int" Nullable="false" />
+    <Property Name="phoneNumber" Type="char" Nullable="false" MaxLength="13" />
     <Property Name="validatedUser" Type="bool" Nullable="false" />
     <Property Name="create_time" Type="datetime" Nullable="false" />
     <Property Name="State_StateID" Type="int" Nullable="false" />
@@ -204,13 +204,12 @@
     <Property Name="OrganID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="organType_organtypeID" Type="int" Nullable="false" />
     <Property Name="BloodType_BloodTypeID" Type="int" Nullable="false" />
-    <Property Name="dateAqcuired" Type="datetime" />
-    <Property Name="expirationDate" Type="datetime" />
+    <Property Name="dateAqcuired" Type="datetime" Nullable="false" />
+    <Property Name="expirationDate" Type="datetime" Nullable="false" />
     <Property Name="MedicalPersonnelID" Type="int" Nullable="false" />
-    <Property Name="OrginalID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="OriginalID" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="available" Type="bool" Nullable="false" />
-    <Property Name="Recipient_RecipientID" Type="int" Nullable="false" />
-    <Property Name="OriginalID" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="Recipient_RecipientID" Type="int" />
   </EntityType>
   <EntityType Name="OrganType">
     <Key>
@@ -458,7 +457,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="Organs_RecipientID">
-    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="1" />
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="0..1" />
     <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Recipients">
