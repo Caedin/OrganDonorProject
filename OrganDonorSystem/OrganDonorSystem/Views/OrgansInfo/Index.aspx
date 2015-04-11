@@ -18,7 +18,8 @@
         <h2>Index</h2>
         <li>Organ ID: <%: Model.OrganID %></li>
         <li>Original ID: <%: Model.OriginalID %></li>
-        <li>Organ Type ID: <%: Model.organType_organTypeID %></li>
+        <li>Organ Type: <%: Model.organTypeName %></li>
+        <li>Blood Type: <%: Model.bloodTypeName %></li>
         <li>Date Organ was obtained: <%: Model.dateAqcuired %></li>
         <li>Date Organ expires: <%: Model.expirationDate %></li>
         <li>Medical Personnel ID organ is assigned to: <%: Model.MedicalPersonnelID %></li>

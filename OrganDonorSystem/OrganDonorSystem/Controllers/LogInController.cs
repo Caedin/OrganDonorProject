@@ -17,12 +17,17 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult Index()
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN != null) { return RedirectToAction("", ""); }
+
             return View();
         }
 
         // Handle Submit Login Button
         public ActionResult Login(string inputUserName, string inputPassword)
         {
+
             List<string> username_query = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
                                            where Medical_Personnel.userName == inputUserName
                                            select Medical_Personnel.userName).ToList();

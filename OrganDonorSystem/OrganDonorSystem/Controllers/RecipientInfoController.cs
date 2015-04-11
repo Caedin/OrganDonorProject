@@ -15,7 +15,13 @@ namespace OrganDonorSystem.Controllers
         // GET: /RecipientInfo/
         
         public ActionResult Index()
-        {   int number;
+        {
+
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
+            int number;
             string blah = Request.QueryString["rID"];
             bool result = Int32.TryParse(blah, out number);
             int rID = number;
@@ -31,22 +37,29 @@ namespace OrganDonorSystem.Controllers
                        where Recipient.recipentID == rID
                        select Recipient.gender).Single(),
                 bloodType = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID == rID
-                       select Recipient.bloodTypeBloodTypeID).Single(),
+                             join BloodTypes in OrganDonorSystemDatabase.BloodTypes on Recipient.bloodTypeBloodTypeID equals BloodTypes.bloodTypeID
+                             where Recipient.recipentID == rID
+                             select BloodTypes.bloodTypeName).Single(),
                 organNeeded = (from Recipient in OrganDonorSystemDatabase.Recipients
-                       where Recipient.recipentID ==rID
-                       select Recipient.organTypeOrganTypeID).Single(),
+                               join OrgansType in OrganDonorSystemDatabase.OrganTypes on Recipient.organTypeOrganTypeID equals OrgansType.organTypeID
+                               where Recipient.recipentID ==rID
+                               select OrgansType.organName).Single(),
                 severity = (from Recipient in OrganDonorSystemDatabase.Recipients
                        where Recipient.recipentID == rID
                        select Recipient.severity).Single(),
                 registration = (from Recipient in OrganDonorSystemDatabase.Recipients
                                 where Recipient.recipentID == rID
                                 select Recipient.dateRegistered).Single(),
+                MedicalPersonnelID = (from Recipient in OrganDonorSystemDatabase.Recipients
+                                      where Recipient.recipentID == rID
+                                      select Recipient.medicalPersonnelID).Single(),
                 };
 
 
+            //checks to see if user is trying to access data that is not theirs, if so sends them back to userHome
+            if (viewModel.MedicalPersonnelID != CurrentlyLoggedIn.getUserID()) { return RedirectToAction("Index", "UserHome"); }
 
-             return View(viewModel);
+            return View(viewModel);
 
         }
 

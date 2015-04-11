@@ -16,7 +16,7 @@ namespace OrganDonorSystem.ViewModels
             //getting logged in infromation
             loggedIn = CurrentlyLoggedIn.getUserID();
 
-            if (loggedIn != -1)
+            if (loggedIn != null)
             {
                 userName = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
                             where Medical_Personnel.medicalPersonnelId == loggedIn
@@ -24,7 +24,7 @@ namespace OrganDonorSystem.ViewModels
             }
 
         }
-        public int loggedIn { get; set; }
+        public int? loggedIn { get; set; }
         public string userName { get; set; }
 
         //donor data

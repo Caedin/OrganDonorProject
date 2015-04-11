@@ -15,54 +15,73 @@ namespace OrganDonorSystem.Controllers
         // GET: /UserHome/
         public ActionResult Index()
         {
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
 
-
-            //Getting Data Count from database and passing number of donors,reps and organs into View
-            var viewModel = new UserHomeViewModel
+            try
             {
-                
-                numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
-                                  where Donor.medicalPersonnelId == loggedIN
-                                     select Donor.DonorID).Count(),
-                numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
-                                      where Recipient.medicalPersonnelID == loggedIN
-                                     select Recipient.recipentID).Count(),
+                //Getting Data Count from database and passing number of donors,reps and organs into View
+                var viewModel = new UserHomeViewModel
+                {
 
-                numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
-                                  where Organ.MedicalPersonnelID == loggedIN
-                                  select Organ.OrganID).Count(),
-            };
+                    numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                                      where Donor.medicalPersonnelId == loggedIN
+                                      select Donor.DonorID).Count(),
+                    numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
+                                          where Recipient.medicalPersonnelID == loggedIN
+                                          select Recipient.recipentID).Count(),
 
-            return View(viewModel);
+                    numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
+                                      where Organ.MedicalPersonnelID == loggedIN
+                                      select Organ.OrganID).Count(),
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception e)
+            {   
+                //redirect to error page and passage message
+                return RedirectToAction("UserHomeError", "UserHome", new { message = "Error counting Donors, Recipients, and Organs from database" });
+            }
+
         }
 
         //
         // GET: /UserHome/UserHomeDonors
         public ActionResult UserHomeDonors()
         {
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
 
+            try
+            {
+                //test code for merging all queries into one
+                var viewModel = new UserHomeViewModel
+                {
+                    numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                                      where Donor.medicalPersonnelId == loggedIN
+                                      select Donor.DonorID).Count(),
 
-
-            //test code for merging all queries into one
-            var viewModel = new UserHomeViewModel
-           {
-               numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                    theDonors = (from Donor in OrganDonorSystemDB.Donors
                                  where Donor.medicalPersonnelId == loggedIN
-                                 select Donor.DonorID).Count(),
+                                 select new DonorData
+                                 {
+                                     Donors = Donor.DonorID,
+                                     OriginalIDs = Donor.originalID,
+                                     PhoneNumbers = Donor.phoneNumber
+                                 }).ToList()
+                };
 
-               theDonors = (from Donor in OrganDonorSystemDB.Donors
-                            where Donor.medicalPersonnelId == loggedIN
-                            select new DonorData
-                            {
-                                Donors = Donor.DonorID,
-                                OriginalIDs = Donor.originalID,
-                                PhoneNumbers = Donor.phoneNumber
-                            }).ToList()
-           };
+                return View(viewModel);
+            }
+
+            catch (Exception e)
+            {
+                //redirect to error page and pass message
+                return RedirectToAction("UserHomeError", "UserHome", new { message = "Error accessing donor list from database" });
+            }
 
             /*  OLD CODE
             //Getting Data from database and passing number of donors,reps and organs into View
@@ -84,39 +103,46 @@ namespace OrganDonorSystem.Controllers
                                 where Donor.medicalPersonnelId == loggedIN
                                 select Donor.phoneNumber).ToList(),
             };     */
-
-
-            return View(viewModel);
+ 
         }
 
         //
         // GET: /UserHome/UserHomeRecipients
         public ActionResult UserHomeRecipients()
         {
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
 
-            //Getting Data from database and passing number of donors,reps and organs into View
-            var viewModel = new UserHomeViewModel
+            try
             {
-                numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
-                                      where Recipient.medicalPersonnelID == loggedIN
-                                      select Recipient.recipentID).Count(),
+                //Getting Data from database and passing number of donors,reps and organs into View
+                var viewModel = new UserHomeViewModel
+                {
+                    numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
+                                          where Recipient.medicalPersonnelID == loggedIN
+                                          select Recipient.recipentID).Count(),
 
-                RecipientsIDs = (from Recipient in OrganDonorSystemDB.Recipients
-                                 where Recipient.medicalPersonnelID == loggedIN
-                                 select Recipient.recipentID).ToList(),
+                    RecipientsIDs = (from Recipient in OrganDonorSystemDB.Recipients
+                                     where Recipient.medicalPersonnelID == loggedIN
+                                     select Recipient.recipentID).ToList(),
 
-                RepcipientOriginalIDs = (from Recipient in OrganDonorSystemDB.Recipients
-                                         where Recipient.medicalPersonnelID == loggedIN
-                                         select Recipient.orignialID).ToList(),
+                    RepcipientOriginalIDs = (from Recipient in OrganDonorSystemDB.Recipients
+                                             where Recipient.medicalPersonnelID == loggedIN
+                                             select Recipient.orignialID).ToList(),
 
-                DatesRegistered = (from Recipient in OrganDonorSystemDB.Recipients
-                                   where Recipient.medicalPersonnelID == loggedIN
-                                   select Recipient.dateRegistered).ToList(),
-            };
+                    DatesRegistered = (from Recipient in OrganDonorSystemDB.Recipients
+                                       where Recipient.medicalPersonnelID == loggedIN
+                                       select Recipient.dateRegistered).ToList(),
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception e)
+            {
+                //redirect to error page and pass message
+                return RedirectToAction("UserHomeError", "UserHome", new { message = "Error accessing recipients list from database" });
+            }
            
         }
 
@@ -124,35 +150,47 @@ namespace OrganDonorSystem.Controllers
         // GET: /UserHome/UserHomeOrgans
         public ActionResult UserHomeOrgans()
         {
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
 
-            //Getting Data from database and passing number of donors,reps and organs into View
-            var viewModel = new UserHomeViewModel
+            try
             {
-                numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
-                                  where Organ.MedicalPersonnelID == loggedIN
-                                  select Organ.OrganID).Count(),
+                //Getting Data from database and passing number of donors,reps and organs into View
+                var viewModel = new UserHomeViewModel
+                {
+                    numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
+                                      where Organ.MedicalPersonnelID == loggedIN
+                                      select Organ.OrganID).Count(),
 
-                OrganIDs = (from Organ in OrganDonorSystemDB.Organs
-                            where Organ.MedicalPersonnelID == loggedIN
-                            select Organ.OrganID).ToList(),
+                    OrganIDs = (from Organ in OrganDonorSystemDB.Organs
+                                where Organ.MedicalPersonnelID == loggedIN
+                                select Organ.OrganID).ToList(),
 
-                OrganOriginalIDs = (from Organ in OrganDonorSystemDB.Organs
-                                    where Organ.MedicalPersonnelID == loggedIN
-                                    select Organ.OriginalID).ToList(),
-            };
+                    OrganOriginalIDs = (from Organ in OrganDonorSystemDB.Organs
+                                        where Organ.MedicalPersonnelID == loggedIN
+                                        select Organ.OriginalID).ToList(),
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            catch (Exception e)
+            {
+                //redirect to error page and pass message
+                return RedirectToAction("UserHomeError", "UserHome", new { message = "Error accessing organs list from database" });
+            }
         }
 
         public ActionResult UserHomeAddRecipients(Recipient r)
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
+
             if (r.orignialID == null) { return View(); }
 
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
-            r.medicalPersonnelID = loggedIN;
+            r.medicalPersonnelID = loggedIN.Value;
 
             try
             {
@@ -173,11 +211,13 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult UserHomeAddOrgans(Organ r)
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
             if (r.OriginalID == null) { return View(); }
 
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
-            r.MedicalPersonnelID = loggedIN;
+            r.MedicalPersonnelID = loggedIN.Value;
 
             try
             {
@@ -198,11 +238,13 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult UserHomeAddDonors(Donor r)
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
             if (r.originalID == null) { return View(); }
 
-            //getting logged in userID
-            int loggedIN = CurrentlyLoggedIn.getUserID();
-            r.medicalPersonnelId = loggedIN;
+            r.medicalPersonnelId = loggedIN.Value;
 
             try
             {
@@ -218,6 +260,14 @@ namespace OrganDonorSystem.Controllers
                 return View();
             }
 
+            return View();
+        }
+
+        //
+        // GET: /UserHome/UserHomeError
+        public ActionResult UserHomeError(string message)
+        {
+            ViewData["message"] = message;
             return View();
         }
           

@@ -13,5 +13,6 @@ namespace OrganDonorSystem.ViewModels
         public string gender { get; set; }
         public string phone { get; set; }
         public DateTime registration { get; set; }
+        public int MedicalPersonnelID { get; set; }
     }
 }

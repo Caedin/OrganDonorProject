@@ -16,6 +16,10 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult Index()
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
             int number;
             string blah = Request.QueryString["dID"];
             bool result = Int32.TryParse(blah, out number);
@@ -38,9 +42,14 @@ namespace OrganDonorSystem.Controllers
                 registration = (from Donor in OrganDonorSystemDatabase.Donors
                                 where Donor.DonorID == dID
                                 select Donor.registrationDate).Single(),
+                MedicalPersonnelID = (from Donor in OrganDonorSystemDatabase.Donors
+                                    where Donor.DonorID == dID
+                                    select Donor.medicalPersonnelId).Single(),
             };
 
-        
+
+            //checks to see if user is trying to access data that is not theirs, if so sends them back to userHome
+            if (viewModel.MedicalPersonnelID != CurrentlyLoggedIn.getUserID()) { return RedirectToAction("Index", "UserHome"); }
 
             return View(viewModel);
 
@@ -49,7 +58,7 @@ namespace OrganDonorSystem.Controllers
             
             
            
-        }
-
     }
+
+}
            

@@ -114,6 +114,7 @@
     <Content Include="Views\UserHome\UserHomeAddOrgans.aspx" />
     <Content Include="Views\UserHome\UserHomeAddRecipients.aspx" />
     <Content Include="Views\UserHome\UserHomeDonors.aspx" />
+    <Content Include="Views\UserHome\UserHomeError.aspx" />
     <Content Include="Views\UserHome\UserHomeOrgans.aspx" />
     <Content Include="Views\UserHome\UserHomeRecipients.aspx" />
     <Content Include="Web.config">
