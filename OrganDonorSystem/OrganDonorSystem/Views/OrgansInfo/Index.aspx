@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-     <h2>Donor <%: Model.OrganID  %> Information</h2>
+     <h2>Organ <%: Model.OrganID  %> Information</h2>
        
     <ul id="nav">
         <li><a href="/UserHome/UserHomeOrgans">Go Back</a></li>
