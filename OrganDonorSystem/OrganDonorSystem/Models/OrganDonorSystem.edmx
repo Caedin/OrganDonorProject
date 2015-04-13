@@ -15,6 +15,7 @@
       `Donor_has_Organs`.`Donor_DonorID`
       FROM `Donor_has_Organs` AS `Donor_has_Organs`</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="MatchTable" EntityType="OrganDonorSystemModel.Store.MatchTable" store:Type="Tables" Schema="OrganDonorSystem" />
           <EntitySet Name="Medical_Personnel" EntityType="OrganDonorSystemModel.Store.Medical_Personnel" store:Type="Tables" Schema="OrganDonorSystem" />
           <EntitySet Name="Medical_Personnnel_has_Donors" EntityType="OrganDonorSystemModel.Store.Medical_Personnnel_has_Donors" store:Type="Tables" store:Schema="OrganDonorSystem" store:Name="Medical_Personnnel_has_Donors">
             <DefiningQuery>SELECT
@@ -86,6 +87,22 @@
             <End Role="State" EntitySet="State" />
             <End Role="City" EntitySet="City" />
           </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_1" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_1">
+            <End Role="Organs" EntitySet="Organs" />
+            <End Role="MatchTable" EntitySet="MatchTable" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_2" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_2">
+            <End Role="OrganType" EntitySet="OrganType" />
+            <End Role="MatchTable" EntitySet="MatchTable" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_3" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_3">
+            <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+            <End Role="MatchTable" EntitySet="MatchTable" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_4" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_4">
+            <End Role="Recipients" EntitySet="Recipients" />
+            <End Role="MatchTable" EntitySet="MatchTable" />
+          </AssociationSet>
           <AssociationSet Name="Medical_Personnel_ibfk_1" Association="OrganDonorSystemModel.Store.Medical_Personnel_ibfk_1">
             <End Role="State" EntitySet="State" />
             <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
@@ -153,6 +170,17 @@
           </Key>
           <Property Name="Organ_OrganID" Type="int" Nullable="false" />
           <Property Name="Donor_DonorID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatchTable">
+          <Key>
+            <PropertyRef Name="transactionID" />
+          </Key>
+          <Property Name="transactionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="organID" Type="int" Nullable="false" />
+          <Property Name="organType" Type="int" Nullable="false" />
+          <Property Name="medicalPersonnelIdForRecipient" Type="int" Nullable="false" />
+          <Property Name="recipientID" Type="int" Nullable="false" />
+          <Property Name="acceptedOrDeclined" Type="tinyint" />
         </EntityType>
         <EntityType Name="Medical_Personnel">
           <Key>
@@ -389,6 +417,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="MatchTable_ibfk_1">
+          <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organs">
+              <PropertyRef Name="OrganID" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="organID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_2">
+          <End Role="OrganType" Type="OrganDonorSystemModel.Store.OrganType" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrganType">
+              <PropertyRef Name="organTypeID" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="organType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_3">
+          <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medical_Personnel">
+              <PropertyRef Name="medicalPersonnelId" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="medicalPersonnelIdForRecipient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_4">
+          <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipients">
+              <PropertyRef Name="recipentID" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="recipientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Medical_Personnel_ibfk_1">
           <End Role="State" Type="OrganDonorSystemModel.Store.State" Multiplicity="1" />
           <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="*" />
@@ -482,6 +558,7 @@
           <EntitySet Name="BloodTypes" EntityType="OrganDonorSystemModel.BloodType" />
           <EntitySet Name="Cities" EntityType="OrganDonorSystemModel.City" />
           <EntitySet Name="Donors" EntityType="OrganDonorSystemModel.Donor" />
+          <EntitySet Name="MatchTables" EntityType="OrganDonorSystemModel.MatchTable" />
           <EntitySet Name="Medical_Personnel" EntityType="OrganDonorSystemModel.Medical_Personnel" />
           <EntitySet Name="OrganExpirationTimes" EntityType="OrganDonorSystemModel.OrganExpirationTime" />
           <EntitySet Name="Organs" EntityType="OrganDonorSystemModel.Organ" />
@@ -507,6 +584,22 @@
           <AssociationSet Name="fk_Donor_medicalPersonnelID" Association="OrganDonorSystemModel.fk_Donor_medicalPersonnelID">
             <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
             <End Role="Donor" EntitySet="Donors" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_1" Association="OrganDonorSystemModel.MatchTable_ibfk_1">
+            <End Role="Organs" EntitySet="Organs" />
+            <End Role="MatchTable" EntitySet="MatchTables" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_2" Association="OrganDonorSystemModel.MatchTable_ibfk_2">
+            <End Role="OrganType" EntitySet="OrganTypes" />
+            <End Role="MatchTable" EntitySet="MatchTables" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_3" Association="OrganDonorSystemModel.MatchTable_ibfk_3">
+            <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+            <End Role="MatchTable" EntitySet="MatchTables" />
+          </AssociationSet>
+          <AssociationSet Name="MatchTable_ibfk_4" Association="OrganDonorSystemModel.MatchTable_ibfk_4">
+            <End Role="Recipients" EntitySet="Recipients" />
+            <End Role="MatchTable" EntitySet="MatchTables" />
           </AssociationSet>
           <AssociationSet Name="fk_Medical_Personnel_medicalPersonnel_idx" Association="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx">
             <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
@@ -588,6 +681,21 @@
           <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Donor_has_Organs" FromRole="Donor" ToRole="Organs" />
           <NavigationProperty Name="Medical_Personnel1" Relationship="OrganDonorSystemModel.Medical_Personnnel_has_Donors" FromRole="Donor" ToRole="Medical_Personnel" />
         </EntityType>
+        <EntityType Name="MatchTable">
+          <Key>
+            <PropertyRef Name="transactionID" />
+          </Key>
+          <Property Name="transactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="organID" Type="Int32" Nullable="false" />
+          <Property Name="organType" Type="Int32" Nullable="false" />
+          <Property Name="medicalPersonnelIdForRecipient" Type="Int32" Nullable="false" />
+          <Property Name="recipientID" Type="Int32" Nullable="false" />
+          <Property Name="acceptedOrDeclined" Type="SByte" />
+          <NavigationProperty Name="Organ" Relationship="OrganDonorSystemModel.MatchTable_ibfk_1" FromRole="MatchTable" ToRole="Organs" />
+          <NavigationProperty Name="OrganType1" Relationship="OrganDonorSystemModel.MatchTable_ibfk_2" FromRole="MatchTable" ToRole="OrganType" />
+          <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="MatchTable" ToRole="Medical_Personnel" />
+          <NavigationProperty Name="Recipient" Relationship="OrganDonorSystemModel.MatchTable_ibfk_4" FromRole="MatchTable" ToRole="Recipients" />
+        </EntityType>
         <EntityType Name="Medical_Personnel">
           <Key>
             <PropertyRef Name="medicalPersonnelId" />
@@ -604,6 +712,7 @@
           <Property Name="City_CityID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="City" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_2" FromRole="Medical_Personnel" ToRole="City" />
           <NavigationProperty Name="Donors" Relationship="OrganDonorSystemModel.fk_Donor_medicalPersonnelID" FromRole="Medical_Personnel" ToRole="Donor" />
+          <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="Medical_Personnel" ToRole="MatchTable" />
           <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" FromRole="Medical_Personnel" ToRole="Recipients" />
           <NavigationProperty Name="State" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_1" FromRole="Medical_Personnel" ToRole="State" />
           <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_MedicalPersonnel" FromRole="Medical_Personnel" ToRole="Organs" />
@@ -633,6 +742,7 @@
           <Property Name="available" Type="Boolean" Nullable="false" />
           <Property Name="Recipient_RecipientID" Type="Int32" />
           <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.Organs_BloodType" FromRole="Organs" ToRole="BloodType" />
+          <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_1" FromRole="Organs" ToRole="MatchTable" />
           <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Organs_MedicalPersonnel" FromRole="Organs" ToRole="Medical_Personnel" />
           <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_organ_organID_idx" FromRole="Organs" ToRole="Recipients" />
           <NavigationProperty Name="OrganType" Relationship="OrganDonorSystemModel.Organs_organType" FromRole="Organs" ToRole="OrganType" />
@@ -645,6 +755,7 @@
           </Key>
           <Property Name="organTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="organName" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_2" FromRole="OrganType" ToRole="MatchTable" />
           <NavigationProperty Name="OrganExpirationTimes" Relationship="OrganDonorSystemModel.fk_OrganExpirationTime_OrganType1" FromRole="OrganType" ToRole="OrganExpirationTime" />
           <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_organType" FromRole="OrganType" ToRole="Organs" />
           <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_organType_organTypeID_ibfk_1" FromRole="OrganType" ToRole="Recipients" />
@@ -664,6 +775,7 @@
           <Property Name="organTypeOrganTypeID" Type="Int32" Nullable="false" />
           <Property Name="bloodTypeBloodTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" FromRole="Recipients" ToRole="BloodType" />
+          <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_4" FromRole="Recipients" ToRole="MatchTable" />
           <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" FromRole="Recipients" ToRole="Medical_Personnel" />
           <NavigationProperty Name="Organ" Relationship="OrganDonorSystemModel.fk_organ_organID_idx" FromRole="Recipients" ToRole="Organs" />
           <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_RecipientID" FromRole="Recipients" ToRole="Organs" />
@@ -736,6 +848,54 @@
             </Principal>
             <Dependent Role="Donor">
               <PropertyRef Name="medicalPersonnelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_1">
+          <End Role="Organs" Type="OrganDonorSystemModel.Organ" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organs">
+              <PropertyRef Name="OrganID" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="organID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_2">
+          <End Role="OrganType" Type="OrganDonorSystemModel.OrganType" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrganType">
+              <PropertyRef Name="organTypeID" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="organType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_3">
+          <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Medical_Personnel" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medical_Personnel">
+              <PropertyRef Name="medicalPersonnelId" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="medicalPersonnelIdForRecipient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MatchTable_ibfk_4">
+          <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="1" />
+          <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipients">
+              <PropertyRef Name="recipentID" />
+            </Principal>
+            <Dependent Role="MatchTable">
+              <PropertyRef Name="recipientID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -884,6 +1044,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MatchTables">
+            <EntityTypeMapping TypeName="OrganDonorSystemModel.MatchTable">
+              <MappingFragment StoreEntitySet="MatchTable">
+                <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+                <ScalarProperty Name="organID" ColumnName="organID" />
+                <ScalarProperty Name="organType" ColumnName="organType" />
+                <ScalarProperty Name="medicalPersonnelIdForRecipient" ColumnName="medicalPersonnelIdForRecipient" />
+                <ScalarProperty Name="recipientID" ColumnName="recipientID" />
+                <ScalarProperty Name="acceptedOrDeclined" ColumnName="acceptedOrDeclined" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Medical_Personnel">
             <EntityTypeMapping TypeName="OrganDonorSystemModel.Medical_Personnel">
               <MappingFragment StoreEntitySet="Medical_Personnel">
@@ -999,102 +1171,126 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="OrganDonorSystemDB">
-        <EntityTypeShape EntityType="OrganDonorSystemModel.BloodType" Width="1.5" PointX="7.5" PointY="5.875" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.City" Width="1.5" PointX="3" PointY="2.25" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Donor" Width="1.5" PointX="7.5" PointY="1.625" Height="3.1340950520833335" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Medical_Personnel" Width="1.5" PointX="5.25" PointY="1" Height="4.2879036458333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganExpirationTime" Width="1.5" PointX="9.75" PointY="9.625" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Organ" Width="1.5" PointX="9.75" PointY="1.25" Height="3.9033007812499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganType" Width="1.5" PointX="7.5" PointY="9.5" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Recipient" Width="1.5" PointX="12" PointY="1.125" Height="4.0956022135416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.State" Width="1.5" PointX="0.75" PointY="2.25" Height="1.7879850260416674" IsExpanded="true" />
+      <Diagram Name="OrganDonorSystem">
+        <EntityTypeShape EntityType="OrganDonorSystemModel.BloodType" Width="1.5" PointX="7.5" PointY="0.875" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.City" Width="1.5" PointX="3" PointY="4.25" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Donor" Width="1.5" PointX="7.5" PointY="3.625" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.MatchTable" Width="1.5" PointX="12" PointY="3.75" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Medical_Personnel" Width="1.5" PointX="5.25" PointY="3" Height="4.480205078125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganExpirationTime" Width="1.5" PointX="9.75" PointY="8.625" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Organ" Width="1.5" PointX="9.75" PointY="3.125" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganType" Width="1.5" PointX="7.5" PointY="8.375" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Recipient" Width="1.5" PointX="15" PointY="3.125" Height="4.2879036458333353" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.State" Width="1.5" PointX="0.75" PointY="4.375" Height="1.7879850260416674" IsExpanded="true" />
         <AssociationConnector Association="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="6.7689925130208337" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="6.7689925130208328" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="6.7689925130208337" />
-          <ConnectorPoint PointX="12.260414166666665" PointY="6.7689925130208328" />
-          <ConnectorPoint PointX="12.427080833333333" PointY="6.7689925130208337" />
-          <ConnectorPoint PointX="12.75" PointY="6.7689925130208337" />
-          <ConnectorPoint PointX="12.75" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="9" PointY="1.7689925130208333" />
+          <ConnectorPoint PointX="15.75" PointY="1.7689925130208333" />
+          <ConnectorPoint PointX="15.75" PointY="3.125" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_BloodType" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="6.290743756510417" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="6.2907437565104161" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="6.290743756510417" />
-          <ConnectorPoint PointX="10.5" PointY="6.290743756510417" />
-          <ConnectorPoint PointX="10.5" PointY="5.15330078125" />
+          <ConnectorPoint PointX="9" PointY="2.2472412695312496" />
+          <ConnectorPoint PointX="10.5" PointY="2.2472412695312496" />
+          <ConnectorPoint PointX="10.5" PointY="3.125" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_State_stateID_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="3.1439925130208337" />
-          <ConnectorPoint PointX="3" PointY="3.1439925130208337" />
+          <ConnectorPoint PointX="2.25" PointY="5.2689925130208337" />
+          <ConnectorPoint PointX="3" PointY="5.2689925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnel_ibfk_2" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.2401432291666667" />
-          <ConnectorPoint PointX="5.25" PointY="3.2401432291666667" />
+          <ConnectorPoint PointX="4.5" PointY="5.2401432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="5.2401432291666667" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_Donor_medicalPersonnelID" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="3.1920475260416667" />
-          <ConnectorPoint PointX="7.5" PointY="3.1920475260416667" />
+          <ConnectorPoint PointX="6.75" PointY="5.1920475260416667" />
+          <ConnectorPoint PointX="7.5" PointY="5.1920475260416667" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="11.25" PointY="5.2208968098958328" />
+          <ConnectorPoint PointX="12" PointY="5.2208968098958328" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_2" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="10.4153857421875" />
+          <ConnectorPoint PointX="12.75" PointY="10.4153857421875" />
+          <ConnectorPoint PointX="12.75" PointY="6.6917936197916656" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_3" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="7.3816536458333335" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="7.3816536458333326" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="7.3816536458333335" />
+          <ConnectorPoint PointX="12.3437475" PointY="7.3816536458333335" />
+          <ConnectorPoint PointX="12.3437475" PointY="6.6917936197916656" />
+        </AssociationConnector>
+        <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_4" ManuallyRouted="false">
+          <ConnectorPoint PointX="15" PointY="5.2208968098958328" />
+          <ConnectorPoint PointX="13.5" PointY="5.2208968098958328" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="1.15625" />
-          <ConnectorPoint PointX="12" PointY="1.15625" />
+          <ConnectorPoint PointX="6.75" PointY="7.4548194627403843" />
+          <ConnectorPoint PointX="6.875" PointY="7.855205078125" />
+          <ConnectorPoint PointX="6.875" PointY="7.6629036458333353" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="7.6629036458333344" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="7.6629036458333353" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="7.6629036458333344" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="7.6629036458333353" />
+          <ConnectorPoint PointX="14.725769230769231" PointY="7.6629036458333353" />
+          <ConnectorPoint PointX="15" PointY="7.3886728766025653" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnel_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="4.0379850260416674" />
-          <ConnectorPoint PointX="1.5" PointY="4.7903450520833326" />
-          <ConnectorPoint PointX="5.25" PointY="4.7903450520833326" />
+          <ConnectorPoint PointX="1.5" PointY="6.1629850260416674" />
+          <ConnectorPoint PointX="1.5" PointY="6.8864957682291665" />
+          <ConnectorPoint PointX="5.25" PointY="6.8864957682291665" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_MedicalPersonnel" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="4.9874479166666665" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="4.9874479166666656" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="4.9874479166666665" />
-          <ConnectorPoint PointX="9.75" PointY="4.9874479166666665" />
+          <ConnectorPoint PointX="6.75" PointY="3.34375" />
+          <ConnectorPoint PointX="9.75" PointY="3.34375" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_OrganExpirationTime_OrganType1" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="10.422841796875" />
-          <ConnectorPoint PointX="9.75" PointY="10.422841796875" />
+          <ConnectorPoint PointX="9" PointY="9.422841796875" />
+          <ConnectorPoint PointX="9.75" PointY="9.422841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_organ_organID_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="3.201650390625" />
-          <ConnectorPoint PointX="12" PointY="3.201650390625" />
+          <ConnectorPoint PointX="11.25" PointY="3.40625" />
+          <ConnectorPoint PointX="15" PointY="3.40625" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_organType" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="9.5" />
-          <ConnectorPoint PointX="9.375" PointY="9.125" />
-          <ConnectorPoint PointX="9.375" PointY="3.0874719583333325" />
-          <ConnectorPoint PointX="9.75" PointY="3.0874719583333325" />
+          <ConnectorPoint PointX="9" PointY="8.375" />
+          <ConnectorPoint PointX="9.375" PointY="8" />
+          <ConnectorPoint PointX="9.375" PointY="5.313428106770834" />
+          <ConnectorPoint PointX="9.75" PointY="5.313428106770834" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_RecipientID" ManuallyRouted="false">
-          <ConnectorPoint PointX="12" PointY="2.1633251953125" />
-          <ConnectorPoint PointX="11.25" PointY="2.1633251953125" />
+          <ConnectorPoint PointX="15" PointY="6.9874479166666665" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="6.9874479166666656" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="6.9874479166666665" />
+          <ConnectorPoint PointX="12.427080833333333" PointY="6.9874479166666656" />
+          <ConnectorPoint PointX="12.260414166666665" PointY="6.9874479166666665" />
+          <ConnectorPoint PointX="11.25" PointY="6.9874479166666665" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_organType_organTypeID_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="11.381735026041666" />
-          <ConnectorPoint PointX="12.3437475" PointY="11.381735026041666" />
-          <ConnectorPoint PointX="12.3437475" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="9" PointY="8.5000025" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="8.5000025" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="8.5000025" />
+          <ConnectorPoint PointX="15.7812525" PointY="8.5000025" />
+          <ConnectorPoint PointX="15.7812525" PointY="7.4129036458333353" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Donor_has_Organs" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="3.985783505208333" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="3.9857835052083326" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="3.985783505208333" />
-          <ConnectorPoint PointX="9.75" PointY="3.985783505208333" />
+          <ConnectorPoint PointX="9" PointY="4.406714053385417" />
+          <ConnectorPoint PointX="9.75" PointY="4.406714053385417" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnnel_has_Donors" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="2.3460237630208334" />
-          <ConnectorPoint PointX="6.75" PointY="2.3460237630208334" />
+          <ConnectorPoint PointX="7.5" PointY="4.3460237630208329" />
+          <ConnectorPoint PointX="6.75" PointY="4.3460237630208329" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnnel_has_Recipients" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="5.2879036458333317" />
-          <ConnectorPoint PointX="7.125" PointY="5.6629036458333317" />
-          <ConnectorPoint PointX="7.125" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="5.5956022135416665" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="10.416666666666666" PointY="5.5956022135416665" />
-          <ConnectorPoint PointX="10.583333333333334" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="11.625" PointY="5.5956022135416674" />
-          <ConnectorPoint PointX="12" PointY="5.2206022135416674" />
+          <ConnectorPoint PointX="6.75" PointY="7.4732810012019222" />
+          <ConnectorPoint PointX="7.15625" PointY="7.8795310012019222" />
+          <ConnectorPoint PointX="7.15625" PointY="7.7879036458333353" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="7.7879036458333344" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="7.7879036458333353" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="7.7879036458333344" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="7.7879036458333353" />
+          <ConnectorPoint PointX="14.650383615384616" PointY="7.7879036458333353" />
+          <ConnectorPoint PointX="15.025383615384616" PointY="7.4129036458333353" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

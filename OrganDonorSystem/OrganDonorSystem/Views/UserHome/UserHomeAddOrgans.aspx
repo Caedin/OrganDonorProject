@@ -13,15 +13,7 @@
 
         <fieldset>
             <legend>Fields</legend>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.OrganID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.OrganID) %>
-                <%: Html.ValidationMessageFor(model => model.OrganID) %>
-            </div>
-            
+
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.organType_organtypeID) %>
             </div>
@@ -55,14 +47,6 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.MedicalPersonnelID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.MedicalPersonnelID) %>
-                <%: Html.ValidationMessageFor(model => model.MedicalPersonnelID) %>
-            </div>
-            
-            <div class="editor-label">
                 <%: Html.LabelFor(model => model.OriginalID) %>
             </div>
             <div class="editor-field">
@@ -84,14 +68,6 @@
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Recipient_RecipientID) %>
                 <%: Html.ValidationMessageFor(model => model.Recipient_RecipientID) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.OriginalID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.OriginalID) %>
-                <%: Html.ValidationMessageFor(model => model.OriginalID) %>
             </div>
             
             <p>

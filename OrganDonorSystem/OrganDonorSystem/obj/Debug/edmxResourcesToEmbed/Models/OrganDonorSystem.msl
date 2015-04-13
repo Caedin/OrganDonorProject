@@ -32,6 +32,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MatchTables">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.MatchTable">
+        <MappingFragment StoreEntitySet="MatchTable">
+          <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+          <ScalarProperty Name="organID" ColumnName="organID" />
+          <ScalarProperty Name="organType" ColumnName="organType" />
+          <ScalarProperty Name="medicalPersonnelIdForRecipient" ColumnName="medicalPersonnelIdForRecipient" />
+          <ScalarProperty Name="recipientID" ColumnName="recipientID" />
+          <ScalarProperty Name="acceptedOrDeclined" ColumnName="acceptedOrDeclined" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Medical_Personnel">
       <EntityTypeMapping TypeName="OrganDonorSystemModel.Medical_Personnel">
         <MappingFragment StoreEntitySet="Medical_Personnel">
@@ -65,10 +77,9 @@
           <ScalarProperty Name="dateAqcuired" ColumnName="dateAqcuired" />
           <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
           <ScalarProperty Name="MedicalPersonnelID" ColumnName="MedicalPersonnelID" />
-          <ScalarProperty Name="OrginalID" ColumnName="OrginalID" />
+          <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
           <ScalarProperty Name="available" ColumnName="available" />
           <ScalarProperty Name="Recipient_RecipientID" ColumnName="Recipient_RecipientID" />
-          <ScalarProperty Name="OriginalID" ColumnName="OriginalID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

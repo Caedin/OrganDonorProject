@@ -79,11 +79,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrganDonorSystemDB.Designer.cs">
+    <Compile Include="Models\OrganDonorSystem.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrganDonorSystemDB.edmx</DependentUpon>
+      <DependentUpon>OrganDonorSystem.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecipientWaitList.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\CurrentlyLoggedIn.cs" />
     <Compile Include="Models\DonorData.cs" />
@@ -103,7 +104,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\DonorInfo\Index.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Login\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Login\Register.aspx" />
     <Content Include="Views\MedicalPersonnelInfo\Index.aspx" />
@@ -147,9 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <EntityDeploy Include="Models\OrganDonorSystemDB.edmx">
+    <EntityDeploy Include="Models\OrganDonorSystem.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrganDonorSystemDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>OrganDonorSystem.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

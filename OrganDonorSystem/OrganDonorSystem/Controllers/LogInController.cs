@@ -24,7 +24,14 @@ namespace OrganDonorSystem.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         // Handle Submit Login Button
+        [HttpPost]
         public ActionResult Login(string inputUserName, string inputPassword)
         {
 
@@ -75,6 +82,7 @@ namespace OrganDonorSystem.Controllers
         }
 
         // Handle Submit Register Button
+        [HttpPost]
         public ActionResult Register(Medical_Personnel r)
         {
             try
@@ -94,7 +102,11 @@ namespace OrganDonorSystem.Controllers
             return View();
         }
 
-
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
 
 
         // AUTO GENERATED CODED BELOW
