@@ -16,35 +16,19 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Index()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (CurrentlyLoggedIn.getUserID() == null) { return RedirectToAction("", ""); }
 
             try
             {
-                //Getting Data Count from database and passing number of donors,reps and organs into View
-                var viewModel = new UserHomeViewModel
-                {
-
-                    numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
-                                      where Donor.medicalPersonnelId == loggedIN
-                                      select Donor.DonorID).Count(),
-                    numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
-                                          where Recipient.medicalPersonnelID == loggedIN
-                                          select Recipient.recipentID).Count(),
-
-                    numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
-                                      where Organ.MedicalPersonnelID == loggedIN
-                                      select Organ.OrganID).Count(),
-                };
-
+                //viewModel has counts
+                var viewModel = new UserHomeViewModel();
                 return View(viewModel);
             }
             catch (Exception e)
-            {   
-                //redirect to error page and passage message
-                return RedirectToAction("UserHomeError", "UserHome", new { message = "Error counting Donors, Recipients, and Organs from database" });
+            {
+                //redirect to error page and pass message
+                return RedirectToAction("UserHomeError", "UserHome", new { message = "Error accessing counts from database" });
             }
-
         }
 
         //
@@ -57,22 +41,9 @@ namespace OrganDonorSystem.Controllers
 
             try
             {
-                //test code for merging all queries into one
-                var viewModel = new UserHomeViewModel
-                {
-                    numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
-                                      where Donor.medicalPersonnelId == loggedIN
-                                      select Donor.DonorID).Count(),
-
-                    theDonors = (from Donor in OrganDonorSystemDB.Donors
-                                 where Donor.medicalPersonnelId == loggedIN
-                                 select new DonorData
-                                 {
-                                     Donors = Donor.DonorID,
-                                     OriginalIDs = Donor.originalID,
-                                     PhoneNumbers = Donor.phoneNumber
-                                 }).ToList()
-                };
+                //view model contains queries and stores data
+                var viewModel = new UserHomeViewModel();
+                viewModel.setDonorsFromMedicalID(loggedIN.Value);
 
                 return View(viewModel);
             }
@@ -83,26 +54,6 @@ namespace OrganDonorSystem.Controllers
                 return RedirectToAction("UserHomeError", "UserHome", new { message = "Error accessing donor list from database" });
             }
 
-            /*  OLD CODE
-            //Getting Data from database and passing number of donors,reps and organs into View
-            var viewModel = new UserHomeViewModel
-            {
-                numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
-                                  where Donor.medicalPersonnelId == loggedIN
-                                select Donor.DonorID).Count(),
-
-                Donors = (from Donor in OrganDonorSystemDB.Donors
-                          where Donor.medicalPersonnelId == loggedIN
-                           select Donor.DonorID).ToList(),
-
-                OriginalIDs = (from Donor in OrganDonorSystemDB.Donors
-                               where Donor.medicalPersonnelId == loggedIN
-                                select Donor.originalID).ToList(),
-
-                PhoneNumbers = (from Donor in OrganDonorSystemDB.Donors
-                                where Donor.medicalPersonnelId == loggedIN
-                                select Donor.phoneNumber).ToList(),
-            };     */
  
         }
 

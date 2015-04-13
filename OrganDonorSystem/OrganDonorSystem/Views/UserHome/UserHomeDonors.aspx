@@ -27,7 +27,7 @@
                 Orginal ID
             </td>
             <td>
-                PhoneNumber ID
+                PhoneNumber
             </td>
         </tr>
         <% for(int i=0;i<Model.numberOfDonors;i++)
