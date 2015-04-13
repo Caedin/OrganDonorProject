@@ -104,6 +104,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\DonorInfo\Index.aspx" />
+    <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Login\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Login\Register.aspx" />

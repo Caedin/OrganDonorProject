@@ -200,7 +200,8 @@ namespace OrganDonorSystem.Controllers
                     OrganDonorSystemDB.SaveChanges();
 
 
-                    runMatchMaking();
+                    Action matchMakingAsynch = runMatchMaking;
+                    matchMakingAsynch.BeginInvoke(ar => matchMakingAsynch.EndInvoke(ar), null);
                     return RedirectToAction("Index");
                 }
             }
@@ -255,11 +256,31 @@ namespace OrganDonorSystem.Controllers
         private void runMatchMaking()
         {
             // This will run match making on all of the organs that are currently not matched.
-            List<Organ> organs = (from Organ in OrganDonorSystemDB.Organs
+
+            // List of organs with a NULL recipient
+            List<Organ> organs_not_assigned = (from Organ in OrganDonorSystemDB.Organs
                                   where Organ.Recipient_RecipientID == null
                                   select Organ).ToList();
 
-            foreach(Organ y in organs)
+            // List of organs that are already in the matching table, minus declined organs.
+            List<int> matched_organs = (from MatchTable in OrganDonorSystemDB.MatchTables
+                                               where MatchTable.acceptedOrDeclined == 1 ||
+                                               MatchTable.acceptedOrDeclined == null
+                                               select MatchTable.organID).ToList();
+
+            // Remove duplicates
+            HashSet<int> matched_organ_ids = new HashSet<int>();
+            foreach (int x in matched_organs) matched_organ_ids.Add(x);
+
+
+            // Remove from list of NULL recipient organs the ones that are already in the matching table, except declines that must be re-matched.
+            foreach (int x in matched_organ_ids)
+            {
+                organs_not_assigned.RemoveAll(i => i.OrganID == x);
+            }
+
+            // Calculate the match for each organ, and enter it into the match table.
+            foreach (Organ y in organs_not_assigned)
             {
                 calculateMatch(y);
             }
