@@ -15,13 +15,6 @@ namespace OrganDonorSystem.ViewModels
         public int? loggedIn { get; set; }
         public string userName { get; set; }
 
-        /*old code
-        //donor data
- 
-        public List<int> Donors { get; set; }
-        public List<string> OriginalIDs { get; set; }
-        public List<string> PhoneNumbers { get; set; }
-         * */
         public int numberOfDonors { get; set; }
           
 

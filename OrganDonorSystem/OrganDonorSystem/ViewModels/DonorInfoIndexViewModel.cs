@@ -15,25 +15,26 @@ namespace OrganDonorSystem.ViewModels
         public string phone { get; set; }
         public DateTime registration { get; set; }
         public int MedicalPersonnelID { get; set; }
-        Donor theDonor {get;set;}
         public void setSingleDonorFromID(int ID)
         {
+            donorID = ID;
+
             age = (from Donor in OrganDonorSystemDatabase.Donors
                        where Donor.DonorID == ID
                        select Donor.age).Single();
 
-             gender = (from Donor in OrganDonorSystemDatabase.Donors
+            gender = (from Donor in OrganDonorSystemDatabase.Donors
                           where Donor.DonorID == ID
                           select Donor.gender).Single();
 
-             phone = (from Donor in OrganDonorSystemDatabase.Donors
+            phone = (from Donor in OrganDonorSystemDatabase.Donors
                          where Donor.DonorID == ID
                          select Donor.phoneNumber).Single();
-             registration = (from Donor in OrganDonorSystemDatabase.Donors
+            registration = (from Donor in OrganDonorSystemDatabase.Donors
                                 where Donor.DonorID == ID
                                 select Donor.registrationDate).Single();
 
-             MedicalPersonnelID = (from Donor in OrganDonorSystemDatabase.Donors
+            MedicalPersonnelID = (from Donor in OrganDonorSystemDatabase.Donors
                                    where Donor.DonorID == ID
                                    select Donor.medicalPersonnelId).Single();
 
