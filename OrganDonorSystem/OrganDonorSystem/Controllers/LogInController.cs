@@ -24,7 +24,14 @@ namespace OrganDonorSystem.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         // Handle Submit Login Button
+        [HttpPost]
         public ActionResult Login(string inputUserName, string inputPassword)
         {
 
@@ -75,20 +82,9 @@ namespace OrganDonorSystem.Controllers
         }
 
         // Handle Submit Register Button
+        [HttpPost]
         public ActionResult Register(Medical_Personnel r)
         {
-            /* testing State dropdown
-            List<SelectListItem> listStates = new List<SelectListItem>();
-            var statesViewModel = new CityStateViewModel();
-            foreach (State singleState in statesViewModel.TheStates)
-            {
-                listStates.Add(new SelectListItem { Text = singleState.state1, Value = singleState.stateID.ToString() });
-            }
-
-            ViewData["ListStates"] = listStates;
-             */
-
-
             try
             {
                 if (ModelState.IsValid && r.userName != null)
@@ -106,7 +102,13 @@ namespace OrganDonorSystem.Controllers
             return View();
         }
 
-
+        [HttpGet]
+        public ActionResult Register()
+        {
+            CityStateViewModel states = new CityStateViewModel();
+            ViewData["States"] = states;
+            return View();
+        }
 
 
         // AUTO GENERATED CODED BELOW

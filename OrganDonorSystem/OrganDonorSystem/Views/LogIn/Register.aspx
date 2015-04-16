@@ -58,9 +58,9 @@
                 <%: Html.LabelFor(model => model.State_StateID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.State_StateID) %>
+                <%: Html.DropDownListFor(model => model.State_StateID,@ViewData["States"]) %>
                 <%: Html.ValidationMessageFor(model => model.State_StateID) %>
-            </div>
+            </div>  
             
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.City_CityID) %>

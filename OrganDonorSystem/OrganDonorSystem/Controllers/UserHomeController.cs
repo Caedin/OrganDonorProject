@@ -97,7 +97,8 @@ namespace OrganDonorSystem.Controllers
            
         }
 
-        //
+       
+
         // GET: /UserHome/UserHomeOrgans
         public ActionResult UserHomeOrgans()
         {
@@ -132,6 +133,26 @@ namespace OrganDonorSystem.Controllers
             }
         }
 
+
+        [HttpGet]
+        public ActionResult UserHomeAddOrgans()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UserHomeAddRecipients()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UserHomeAddDonors()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult UserHomeAddRecipients(Recipient r)
         {
             //getting logged in userID and insuring some one is logged in
@@ -160,6 +181,7 @@ namespace OrganDonorSystem.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult UserHomeAddOrgans(Organ r)
         {
             //getting logged in userID and insuring some one is logged in
@@ -169,13 +191,17 @@ namespace OrganDonorSystem.Controllers
             if (r.OriginalID == null) { return View(); }
 
             r.MedicalPersonnelID = loggedIN.Value;
-
+            
             try
             {
                 if (ModelState.IsValid)
                 {
                     OrganDonorSystemDB.Organs.AddObject(r);
                     OrganDonorSystemDB.SaveChanges();
+
+
+                    Action matchMakingAsynch = runMatchMaking;
+                    matchMakingAsynch.BeginInvoke(ar => matchMakingAsynch.EndInvoke(ar), null);
                     return RedirectToAction("Index");
                 }
             }
@@ -187,6 +213,7 @@ namespace OrganDonorSystem.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult UserHomeAddDonors(Donor r)
         {
             //getting logged in userID and insuring some one is logged in
@@ -203,6 +230,7 @@ namespace OrganDonorSystem.Controllers
                 {
                     OrganDonorSystemDB.Donors.AddObject(r);
                     OrganDonorSystemDB.SaveChanges();
+
                     return RedirectToAction("Index");
                 }
             }
@@ -220,6 +248,74 @@ namespace OrganDonorSystem.Controllers
         {
             ViewData["message"] = message;
             return View();
+        }
+
+
+
+
+        private void runMatchMaking()
+        {
+            // This will run match making on all of the organs that are currently not matched.
+
+            // List of organs with a NULL recipient
+            List<Organ> organs_not_assigned = (from Organ in OrganDonorSystemDB.Organs
+                                  where Organ.Recipient_RecipientID == null
+                                  select Organ).ToList();
+
+            // List of organs that are already in the matching table, minus declined organs.
+            List<int> matched_organs = (from MatchTable in OrganDonorSystemDB.MatchTables
+                                               where MatchTable.acceptedOrDeclined == 1 ||
+                                               MatchTable.acceptedOrDeclined == null
+                                               select MatchTable.organID).ToList();
+
+            // Remove duplicates
+            HashSet<int> matched_organ_ids = new HashSet<int>();
+            foreach (int x in matched_organs) matched_organ_ids.Add(x);
+
+
+            // Remove from list of NULL recipient organs the ones that are already in the matching table, except declines that must be re-matched.
+            foreach (int x in matched_organ_ids)
+            {
+                organs_not_assigned.RemoveAll(i => i.OrganID == x);
+            }
+
+            // Calculate the match for each organ, and enter it into the match table.
+            foreach (Organ y in organs_not_assigned)
+            {
+                calculateMatch(y);
+            }
+        }
+
+
+
+        private void calculateMatch(Organ r)
+        {
+            // This will query the recipient wait list with information from the added organ r.
+            // Next it will extract the top recipient from the wait list.
+            // It will then add the recipient to the match table, intiating the trigger which will prompt the owner if they want to accept the organ.
+            // FUTURE: Deal with cases where there is no need for the organ.
+
+            RecipientWaitList waitList = new RecipientWaitList();
+            int userID = CurrentlyLoggedIn.getUserID() ?? default(int);
+
+            Medical_Personnel m = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
+                                   where Medical_Personnel.medicalPersonnelId == userID
+                                       select Medical_Personnel).Single();
+
+            waitList.populateList(r.organType_organtypeID, r.BloodType_BloodTypeID, m.State, m.City);
+
+            Recipient reciever = waitList.getList()[0];
+
+            MatchTable newEntry = new MatchTable();
+            newEntry.acceptedOrDeclined = null;
+            newEntry.medicalPersonnelIdForRecipient = reciever.medicalPersonnelID;
+            newEntry.organID = r.OrganID;
+            newEntry.organType = r.organType_organtypeID;
+            newEntry.recipientID = reciever.recipentID;
+
+
+            OrganDonorSystemDB.AddToMatchTables(newEntry);
+            OrganDonorSystemDB.SaveChanges();
         }
           
     }

@@ -118,6 +118,7 @@
     <Content Include="Views\UserHome\UserHomeError.aspx" />
     <Content Include="Views\UserHome\UserHomeOrgans.aspx" />
     <Content Include="Views\UserHome\UserHomeRecipients.aspx" />
+    <Content Include="Views\Web.config" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
