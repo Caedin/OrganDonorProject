@@ -77,6 +77,18 @@ namespace OrganDonorSystem.Controllers
         // Handle Submit Register Button
         public ActionResult Register(Medical_Personnel r)
         {
+            /* testing State dropdown
+            List<SelectListItem> listStates = new List<SelectListItem>();
+            var statesViewModel = new CityStateViewModel();
+            foreach (State singleState in statesViewModel.TheStates)
+            {
+                listStates.Add(new SelectListItem { Text = singleState.state1, Value = singleState.stateID.ToString() });
+            }
+
+            ViewData["ListStates"] = listStates;
+             */
+
+
             try
             {
                 if (ModelState.IsValid && r.userName != null)

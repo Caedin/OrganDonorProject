@@ -74,7 +74,7 @@
                 <%: Html.LabelFor(model => model.available) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.available) %>
+                <%: Html.DropDownListFor(model => model.available, new SelectList(new List<Object> { new { Value = 1, text = "Yes" }, new { Value = 0, text = "No" } }, "value", "text", 1))%>
                 <%: Html.ValidationMessageFor(model => model.available) %>
             </div>
             

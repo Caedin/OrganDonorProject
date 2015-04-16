@@ -66,7 +66,7 @@
                 <%: Html.LabelFor(model => model.gender) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.gender) %>
+                <%: Html.DropDownListFor(model => model.gender, new SelectList(new List<Object> {new{Value = "M", text = "Male"},new {Value = "F",text="Female"}},"value","text","M")) %>
                 <%: Html.ValidationMessageFor(model => model.gender) %>
             </div>
             

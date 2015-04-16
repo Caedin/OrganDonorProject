@@ -88,6 +88,7 @@
     <Compile Include="Models\CurrentlyLoggedIn.cs" />
     <Compile Include="Models\DonorData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CityStateViewModel.cs" />
     <Compile Include="ViewModels\DonorInfoIndexViewModel.cs" />
     <Compile Include="ViewModels\MedicalPersonnelInfoViewModel.cs" />
     <Compile Include="ViewModels\OrgansInfoViewModel.cs" />
