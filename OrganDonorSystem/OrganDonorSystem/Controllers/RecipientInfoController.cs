@@ -33,6 +33,7 @@ namespace OrganDonorSystem.Controllers
                 age = (from Recipient in OrganDonorSystemDatabase.Recipients
                        where Recipient.recipentID == rID
                        select Recipient.age).Single(),
+
                 gender = (from Recipient in OrganDonorSystemDatabase.Recipients
                        where Recipient.recipentID == rID
                        select Recipient.gender).Single(),

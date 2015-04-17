@@ -17,7 +17,8 @@ namespace OrganDonorSystem.Models
             recipients = (from Recipient in OrganDonorSystemDatabase.Recipients
                           where Recipient.organsOrganID == null &&
                                 Recipient.bloodTypeBloodTypeID == bloodType &&
-                                Recipient.organTypeOrganTypeID == organType
+                                Recipient.organTypeOrganTypeID == organType &&
+                                Recipient.needsOrgan == "T"
                           select Recipient).ToList();
 
             recipients = sortList(recipients, state, city);

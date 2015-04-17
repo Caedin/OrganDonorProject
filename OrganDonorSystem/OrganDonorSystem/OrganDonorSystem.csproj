@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AcceptAndDeclineController.cs" />
     <Compile Include="Controllers\DonorInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Models\CurrentlyLoggedIn.cs" />
     <Compile Include="Models\DonorData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\MatchingViewModel.cs" />
     <Compile Include="ViewModels\DonorInfoIndexViewModel.cs" />
     <Compile Include="ViewModels\MedicalPersonnelInfoViewModel.cs" />
     <Compile Include="ViewModels\OrgansInfoViewModel.cs" />
@@ -103,9 +105,9 @@
     <Content Include="Content\images\bgON.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Views\AcceptAndDecline\Index.aspx" />
     <Content Include="Views\DonorInfo\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Login\Home\Index.aspx" />
     <Content Include="Views\Login\Index.aspx" />
     <Content Include="Views\Login\Register.aspx" />
     <Content Include="Views\MedicalPersonnelInfo\Index.aspx" />

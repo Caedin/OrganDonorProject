@@ -987,7 +987,8 @@ namespace OrganDonorSystem.Models
         /// <param name="organType">Initial value of the organType property.</param>
         /// <param name="medicalPersonnelIdForRecipient">Initial value of the medicalPersonnelIdForRecipient property.</param>
         /// <param name="recipientID">Initial value of the recipientID property.</param>
-        public static MatchTable CreateMatchTable(global::System.Int32 transactionID, global::System.Int32 organID, global::System.Int32 organType, global::System.Int32 medicalPersonnelIdForRecipient, global::System.Int32 recipientID)
+        /// <param name="dateMatched">Initial value of the dateMatched property.</param>
+        public static MatchTable CreateMatchTable(global::System.Int32 transactionID, global::System.Int32 organID, global::System.Int32 organType, global::System.Int32 medicalPersonnelIdForRecipient, global::System.Int32 recipientID, global::System.DateTime dateMatched)
         {
             MatchTable matchTable = new MatchTable();
             matchTable.transactionID = transactionID;
@@ -995,6 +996,7 @@ namespace OrganDonorSystem.Models
             matchTable.organType = organType;
             matchTable.medicalPersonnelIdForRecipient = medicalPersonnelIdForRecipient;
             matchTable.recipientID = recipientID;
+            matchTable.dateMatched = dateMatched;
             return matchTable;
         }
 
@@ -1148,6 +1150,30 @@ namespace OrganDonorSystem.Models
         private Nullable<global::System.SByte> _acceptedOrDeclined;
         partial void OnacceptedOrDeclinedChanging(Nullable<global::System.SByte> value);
         partial void OnacceptedOrDeclinedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dateMatched
+        {
+            get
+            {
+                return _dateMatched;
+            }
+            set
+            {
+                OndateMatchedChanging(value);
+                ReportPropertyChanging("dateMatched");
+                _dateMatched = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dateMatched");
+                OndateMatchedChanged();
+            }
+        }
+        private global::System.DateTime _dateMatched;
+        partial void OndateMatchedChanging(global::System.DateTime value);
+        partial void OndateMatchedChanged();
 
         #endregion
 
@@ -2622,7 +2648,8 @@ namespace OrganDonorSystem.Models
         /// <param name="age">Initial value of the age property.</param>
         /// <param name="organTypeOrganTypeID">Initial value of the organTypeOrganTypeID property.</param>
         /// <param name="bloodTypeBloodTypeID">Initial value of the bloodTypeBloodTypeID property.</param>
-        public static Recipient CreateRecipient(global::System.Int32 recipentID, global::System.Int32 medicalPersonnelID, global::System.String severity, global::System.String gender, global::System.DateTime dateRegistered, global::System.Int64 age, global::System.Int32 organTypeOrganTypeID, global::System.Int32 bloodTypeBloodTypeID)
+        /// <param name="needsOrgan">Initial value of the needsOrgan property.</param>
+        public static Recipient CreateRecipient(global::System.Int32 recipentID, global::System.Int32 medicalPersonnelID, global::System.String severity, global::System.String gender, global::System.DateTime dateRegistered, global::System.Int64 age, global::System.Int32 organTypeOrganTypeID, global::System.Int32 bloodTypeBloodTypeID, global::System.String needsOrgan)
         {
             Recipient recipient = new Recipient();
             recipient.recipentID = recipentID;
@@ -2633,6 +2660,7 @@ namespace OrganDonorSystem.Models
             recipient.age = age;
             recipient.organTypeOrganTypeID = organTypeOrganTypeID;
             recipient.bloodTypeBloodTypeID = bloodTypeBloodTypeID;
+            recipient.needsOrgan = needsOrgan;
             return recipient;
         }
 
@@ -2882,6 +2910,30 @@ namespace OrganDonorSystem.Models
         private global::System.Int32 _bloodTypeBloodTypeID;
         partial void OnbloodTypeBloodTypeIDChanging(global::System.Int32 value);
         partial void OnbloodTypeBloodTypeIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String needsOrgan
+        {
+            get
+            {
+                return _needsOrgan;
+            }
+            set
+            {
+                OnneedsOrganChanging(value);
+                ReportPropertyChanging("needsOrgan");
+                _needsOrgan = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("needsOrgan");
+                OnneedsOrganChanged();
+            }
+        }
+        private global::System.String _needsOrgan;
+        partial void OnneedsOrganChanging(global::System.String value);
+        partial void OnneedsOrganChanged();
 
         #endregion
 

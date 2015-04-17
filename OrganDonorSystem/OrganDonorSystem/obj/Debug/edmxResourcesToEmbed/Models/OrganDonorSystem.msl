@@ -41,6 +41,7 @@
           <ScalarProperty Name="medicalPersonnelIdForRecipient" ColumnName="medicalPersonnelIdForRecipient" />
           <ScalarProperty Name="recipientID" ColumnName="recipientID" />
           <ScalarProperty Name="acceptedOrDeclined" ColumnName="acceptedOrDeclined" />
+          <ScalarProperty Name="dateMatched" ColumnName="dateMatched" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -181,6 +181,7 @@
           <Property Name="medicalPersonnelIdForRecipient" Type="int" Nullable="false" />
           <Property Name="recipientID" Type="int" Nullable="false" />
           <Property Name="acceptedOrDeclined" Type="tinyint" />
+          <Property Name="dateMatched" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Medical_Personnel">
           <Key>
@@ -265,6 +266,7 @@
           <Property Name="organsOrganID" Type="int" />
           <Property Name="organTypeOrganTypeID" Type="int" Nullable="false" />
           <Property Name="bloodTypeBloodTypeID" Type="int" Nullable="false" />
+          <Property Name="needsOrgan" Type="enum" Nullable="false" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -691,6 +693,7 @@
           <Property Name="medicalPersonnelIdForRecipient" Type="Int32" Nullable="false" />
           <Property Name="recipientID" Type="Int32" Nullable="false" />
           <Property Name="acceptedOrDeclined" Type="SByte" />
+          <Property Name="dateMatched" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Organ" Relationship="OrganDonorSystemModel.MatchTable_ibfk_1" FromRole="MatchTable" ToRole="Organs" />
           <NavigationProperty Name="OrganType1" Relationship="OrganDonorSystemModel.MatchTable_ibfk_2" FromRole="MatchTable" ToRole="OrganType" />
           <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="MatchTable" ToRole="Medical_Personnel" />
@@ -774,6 +777,7 @@
           <Property Name="organsOrganID" Type="Int32" />
           <Property Name="organTypeOrganTypeID" Type="Int32" Nullable="false" />
           <Property Name="bloodTypeBloodTypeID" Type="Int32" Nullable="false" />
+          <Property Name="needsOrgan" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" FromRole="Recipients" ToRole="BloodType" />
           <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_4" FromRole="Recipients" ToRole="MatchTable" />
           <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" FromRole="Recipients" ToRole="Medical_Personnel" />
@@ -1053,6 +1057,7 @@
                 <ScalarProperty Name="medicalPersonnelIdForRecipient" ColumnName="medicalPersonnelIdForRecipient" />
                 <ScalarProperty Name="recipientID" ColumnName="recipientID" />
                 <ScalarProperty Name="acceptedOrDeclined" ColumnName="acceptedOrDeclined" />
+                <ScalarProperty Name="dateMatched" ColumnName="dateMatched" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1116,6 +1121,7 @@
                 <ScalarProperty Name="organsOrganID" ColumnName="organsOrganID" />
                 <ScalarProperty Name="organTypeOrganTypeID" ColumnName="organTypeOrganTypeID" />
                 <ScalarProperty Name="bloodTypeBloodTypeID" ColumnName="bloodTypeBloodTypeID" />
+                <ScalarProperty Name="needsOrgan" ColumnName="needsOrgan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1172,125 +1178,119 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="OrganDonorSystem">
-        <EntityTypeShape EntityType="OrganDonorSystemModel.BloodType" Width="1.5" PointX="7.5" PointY="0.875" Height="1.7879850260416665" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.City" Width="1.5" PointX="3" PointY="4.25" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Donor" Width="1.5" PointX="7.5" PointY="3.625" Height="3.1340950520833335" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.MatchTable" Width="1.5" PointX="12" PointY="3.75" Height="2.9417936197916656" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Medical_Personnel" Width="1.5" PointX="5.25" PointY="3" Height="4.480205078125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganExpirationTime" Width="1.5" PointX="9.75" PointY="8.625" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Organ" Width="1.5" PointX="9.75" PointY="3.125" Height="4.0956022135416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganType" Width="1.5" PointX="7.5" PointY="8.375" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.Recipient" Width="1.5" PointX="15" PointY="3.125" Height="4.2879036458333353" IsExpanded="true" />
-        <EntityTypeShape EntityType="OrganDonorSystemModel.State" Width="1.5" PointX="0.75" PointY="4.375" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.BloodType" Width="1.5" PointX="7.5" PointY="1.125" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.City" Width="1.5" PointX="3" PointY="4.375" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Donor" Width="1.5" PointX="7.5" PointY="3.875" Height="3.1340950520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.MatchTable" Width="1.5" PointX="12" PointY="3.875" Height="3.1340950520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Medical_Personnel" Width="1.5" PointX="5.25" PointY="3.125" Height="4.480205078125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganExpirationTime" Width="1.5" PointX="9.75" PointY="8.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Organ" Width="1.5" PointX="9.75" PointY="3.375" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.OrganType" Width="1.5" PointX="7.5" PointY="8.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.Recipient" Width="1.5" PointX="15" PointY="3.125" Height="4.4802050781250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="OrganDonorSystemModel.State" Width="1.5" PointX="0.75" PointY="4.5" Height="1.7879850260416674" IsExpanded="true" />
         <AssociationConnector Association="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="1.7689925130208333" />
-          <ConnectorPoint PointX="15.75" PointY="1.7689925130208333" />
+          <ConnectorPoint PointX="9" PointY="2.0189925130208333" />
+          <ConnectorPoint PointX="15.75" PointY="2.0189925130208333" />
           <ConnectorPoint PointX="15.75" PointY="3.125" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_BloodType" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="2.2472412695312496" />
-          <ConnectorPoint PointX="10.5" PointY="2.2472412695312496" />
-          <ConnectorPoint PointX="10.5" PointY="3.125" />
+          <ConnectorPoint PointX="9" PointY="2.4972412695312496" />
+          <ConnectorPoint PointX="10.5" PointY="2.4972412695312496" />
+          <ConnectorPoint PointX="10.5" PointY="3.375" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_State_stateID_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.2689925130208337" />
-          <ConnectorPoint PointX="3" PointY="5.2689925130208337" />
+          <ConnectorPoint PointX="2.25" PointY="5.3939925130208337" />
+          <ConnectorPoint PointX="3" PointY="5.3939925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnel_ibfk_2" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="5.2401432291666667" />
-          <ConnectorPoint PointX="5.25" PointY="5.2401432291666667" />
+          <ConnectorPoint PointX="4.5" PointY="5.3651432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="5.3651432291666667" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_Donor_medicalPersonnelID" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="5.1920475260416667" />
-          <ConnectorPoint PointX="7.5" PointY="5.1920475260416667" />
+          <ConnectorPoint PointX="6.75" PointY="5.4420475260416667" />
+          <ConnectorPoint PointX="7.5" PointY="5.4420475260416667" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="5.2208968098958328" />
-          <ConnectorPoint PointX="12" PointY="5.2208968098958328" />
+          <ConnectorPoint PointX="11.25" PointY="5.4420475260416659" />
+          <ConnectorPoint PointX="12" PointY="5.4420475260416659" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_2" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="10.4153857421875" />
-          <ConnectorPoint PointX="12.75" PointY="10.4153857421875" />
-          <ConnectorPoint PointX="12.75" PointY="6.6917936197916656" />
+          <ConnectorPoint PointX="9" PointY="10.6653857421875" />
+          <ConnectorPoint PointX="12.75" PointY="10.6653857421875" />
+          <ConnectorPoint PointX="12.75" PointY="7.0090950520833317" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_3" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="7.3816536458333335" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="7.3816536458333326" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="7.3816536458333335" />
-          <ConnectorPoint PointX="12.3437475" PointY="7.3816536458333335" />
-          <ConnectorPoint PointX="12.3437475" PointY="6.6917936197916656" />
+          <ConnectorPoint PointX="6.75" PointY="7.5691536458333335" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="7.5691536458333326" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="7.5691536458333335" />
+          <ConnectorPoint PointX="12.3437475" PointY="7.5691536458333335" />
+          <ConnectorPoint PointX="12.3437475" PointY="7.0090950520833317" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.MatchTable_ibfk_4" ManuallyRouted="false">
-          <ConnectorPoint PointX="15" PointY="5.2208968098958328" />
-          <ConnectorPoint PointX="13.5" PointY="5.2208968098958328" />
+          <ConnectorPoint PointX="15" PointY="5.4420475260416659" />
+          <ConnectorPoint PointX="13.5" PointY="5.4420475260416659" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="7.4548194627403843" />
-          <ConnectorPoint PointX="6.875" PointY="7.855205078125" />
-          <ConnectorPoint PointX="6.875" PointY="7.6629036458333353" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="7.6629036458333344" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="7.6629036458333353" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="7.6629036458333344" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="7.6629036458333353" />
-          <ConnectorPoint PointX="14.725769230769231" PointY="7.6629036458333353" />
-          <ConnectorPoint PointX="15" PointY="7.3886728766025653" />
+          <ConnectorPoint PointX="6.75" PointY="3.21875" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="3.2187499999999996" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="3.21875" />
+          <ConnectorPoint PointX="15" PointY="3.21875" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnel_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="6.1629850260416674" />
-          <ConnectorPoint PointX="1.5" PointY="6.8864957682291665" />
-          <ConnectorPoint PointX="5.25" PointY="6.8864957682291665" />
+          <ConnectorPoint PointX="1.5" PointY="6.2879850260416674" />
+          <ConnectorPoint PointX="1.5" PointY="7.0114957682291665" />
+          <ConnectorPoint PointX="5.25" PointY="7.0114957682291665" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_MedicalPersonnel" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="3.34375" />
-          <ConnectorPoint PointX="9.75" PointY="3.34375" />
+          <ConnectorPoint PointX="6.75" PointY="3.59375" />
+          <ConnectorPoint PointX="9.75" PointY="3.59375" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_OrganExpirationTime_OrganType1" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="9.422841796875" />
-          <ConnectorPoint PointX="9.75" PointY="9.422841796875" />
+          <ConnectorPoint PointX="9" PointY="9.672841796875" />
+          <ConnectorPoint PointX="9.75" PointY="9.672841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_organ_organID_idx" ManuallyRouted="false">
-          <ConnectorPoint PointX="11.25" PointY="3.40625" />
-          <ConnectorPoint PointX="15" PointY="3.40625" />
+          <ConnectorPoint PointX="11.25" PointY="3.59375" />
+          <ConnectorPoint PointX="15" PointY="3.59375" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_organType" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="8.375" />
-          <ConnectorPoint PointX="9.375" PointY="8" />
-          <ConnectorPoint PointX="9.375" PointY="5.313428106770834" />
-          <ConnectorPoint PointX="9.75" PointY="5.313428106770834" />
+          <ConnectorPoint PointX="9" PointY="8.625" />
+          <ConnectorPoint PointX="9.375" PointY="8.25" />
+          <ConnectorPoint PointX="9.375" PointY="5.563428106770834" />
+          <ConnectorPoint PointX="9.75" PointY="5.563428106770834" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Organs_RecipientID" ManuallyRouted="false">
-          <ConnectorPoint PointX="15" PointY="6.9874479166666665" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="6.9874479166666656" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="6.9874479166666665" />
-          <ConnectorPoint PointX="12.427080833333333" PointY="6.9874479166666656" />
-          <ConnectorPoint PointX="12.260414166666665" PointY="6.9874479166666665" />
-          <ConnectorPoint PointX="11.25" PointY="6.9874479166666665" />
+          <ConnectorPoint PointX="15" PointY="7.2710986328125" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="7.2710986328124987" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="7.2710986328125" />
+          <ConnectorPoint PointX="12.427080833333333" PointY="7.2710986328124987" />
+          <ConnectorPoint PointX="12.260414166666665" PointY="7.2710986328125" />
+          <ConnectorPoint PointX="11.25" PointY="7.2710986328125" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.fk_organType_organTypeID_ibfk_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="8.5000025" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="8.5000025" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="8.5000025" />
-          <ConnectorPoint PointX="15.7812525" PointY="8.5000025" />
-          <ConnectorPoint PointX="15.7812525" PointY="7.4129036458333353" />
+          <ConnectorPoint PointX="9" PointY="8.7500025" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="8.7500025" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="8.7500025" />
+          <ConnectorPoint PointX="15.75" PointY="8.7500025" />
+          <ConnectorPoint PointX="15.75" PointY="7.6052050781250031" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Donor_has_Organs" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="4.406714053385417" />
-          <ConnectorPoint PointX="9.75" PointY="4.406714053385417" />
+          <ConnectorPoint PointX="9" PointY="4.656714053385417" />
+          <ConnectorPoint PointX="9.75" PointY="4.656714053385417" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnnel_has_Donors" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="4.3460237630208329" />
-          <ConnectorPoint PointX="6.75" PointY="4.3460237630208329" />
+          <ConnectorPoint PointX="7.5" PointY="4.5960237630208329" />
+          <ConnectorPoint PointX="6.75" PointY="4.5960237630208329" />
         </AssociationConnector>
         <AssociationConnector Association="OrganDonorSystemModel.Medical_Personnnel_has_Recipients" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="7.4732810012019222" />
-          <ConnectorPoint PointX="7.15625" PointY="7.8795310012019222" />
-          <ConnectorPoint PointX="7.15625" PointY="7.7879036458333353" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="7.7879036458333344" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="7.7879036458333353" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="7.7879036458333344" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="7.7879036458333353" />
-          <ConnectorPoint PointX="14.650383615384616" PointY="7.7879036458333353" />
-          <ConnectorPoint PointX="15.025383615384616" PointY="7.4129036458333353" />
+          <ConnectorPoint PointX="6.75" PointY="7.605205078125" />
+          <ConnectorPoint PointX="7.1250000000000036" PointY="7.9802050781250031" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="7.9802050781250022" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="7.9802050781250031" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="7.9802050781250022" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="7.9802050781250031" />
+          <ConnectorPoint PointX="14.625" PointY="7.9802050781250031" />
+          <ConnectorPoint PointX="15" PointY="7.6052050781250031" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

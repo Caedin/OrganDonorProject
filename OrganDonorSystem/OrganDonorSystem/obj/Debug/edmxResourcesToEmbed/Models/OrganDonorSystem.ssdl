@@ -176,6 +176,7 @@
     <Property Name="medicalPersonnelIdForRecipient" Type="int" Nullable="false" />
     <Property Name="recipientID" Type="int" Nullable="false" />
     <Property Name="acceptedOrDeclined" Type="tinyint" />
+    <Property Name="dateMatched" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="Medical_Personnel">
     <Key>

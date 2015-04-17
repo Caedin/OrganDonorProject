@@ -137,6 +137,7 @@
     <Property Name="medicalPersonnelIdForRecipient" Type="Int32" Nullable="false" />
     <Property Name="recipientID" Type="Int32" Nullable="false" />
     <Property Name="acceptedOrDeclined" Type="SByte" />
+    <Property Name="dateMatched" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="Organ" Relationship="OrganDonorSystemModel.MatchTable_ibfk_1" FromRole="MatchTable" ToRole="Organs" />
     <NavigationProperty Name="OrganType1" Relationship="OrganDonorSystemModel.MatchTable_ibfk_2" FromRole="MatchTable" ToRole="OrganType" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="MatchTable" ToRole="Medical_Personnel" />
