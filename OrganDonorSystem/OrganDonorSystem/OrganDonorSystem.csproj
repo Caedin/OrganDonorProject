@@ -84,6 +84,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrganDonorSystemDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecipientWaitList.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\CurrentlyLoggedIn.cs" />
     <Compile Include="Models\DonorData.cs" />

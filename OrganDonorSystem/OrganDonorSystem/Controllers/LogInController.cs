@@ -106,7 +106,7 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Register()
         {
             CityStateViewModel states = new CityStateViewModel();
-            ViewData["States"] = states;
+            ViewData["States"] = states.listStates;
             return View();
         }
 
