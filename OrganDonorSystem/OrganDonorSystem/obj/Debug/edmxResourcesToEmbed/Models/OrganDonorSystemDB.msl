@@ -32,6 +32,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MatchTables">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.MatchTable">
+        <MappingFragment StoreEntitySet="MatchTable">
+          <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+          <ScalarProperty Name="organID" ColumnName="organID" />
+          <ScalarProperty Name="organType" ColumnName="organType" />
+          <ScalarProperty Name="medicalPersonnelIdForRecipient" ColumnName="medicalPersonnelIdForRecipient" />
+          <ScalarProperty Name="recipientID" ColumnName="recipientID" />
+          <ScalarProperty Name="acceptedOrDeclined" ColumnName="acceptedOrDeclined" />
+          <ScalarProperty Name="dateMatched" ColumnName="dateMatched" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Medical_Personnel">
       <EntityTypeMapping TypeName="OrganDonorSystemModel.Medical_Personnel">
         <MappingFragment StoreEntitySet="Medical_Personnel">
@@ -92,6 +105,7 @@
           <ScalarProperty Name="organsOrganID" ColumnName="organsOrganID" />
           <ScalarProperty Name="organTypeOrganTypeID" ColumnName="organTypeOrganTypeID" />
           <ScalarProperty Name="bloodTypeBloodTypeID" ColumnName="bloodTypeBloodTypeID" />
+          <ScalarProperty Name="needsOrgan" ColumnName="needsOrgan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

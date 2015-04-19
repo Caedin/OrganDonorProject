@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OrganDonorSystem.Models;
 
 namespace OrganDonorSystem.Controllers
 {
@@ -13,6 +14,8 @@ namespace OrganDonorSystem.Controllers
 
         public ActionResult Index()
         {
+            //insures login information is clear
+            CurrentlyLoggedIn.setUserID(null);
             return View();
         }
 

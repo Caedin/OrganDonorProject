@@ -10,6 +10,7 @@
       `Donor_has_Organs`.`Donor_DonorID`
       FROM `Donor_has_Organs` AS `Donor_has_Organs`</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="MatchTable" EntityType="OrganDonorSystemModel.Store.MatchTable" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="Medical_Personnel" EntityType="OrganDonorSystemModel.Store.Medical_Personnel" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="Medical_Personnnel_has_Donors" EntityType="OrganDonorSystemModel.Store.Medical_Personnnel_has_Donors" store:Type="Tables" store:Schema="OrganDonorSystem" store:Name="Medical_Personnnel_has_Donors">
       <DefiningQuery>SELECT
@@ -81,6 +82,22 @@
       <End Role="State" EntitySet="State" />
       <End Role="City" EntitySet="City" />
     </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_1" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_1">
+      <End Role="Organs" EntitySet="Organs" />
+      <End Role="MatchTable" EntitySet="MatchTable" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_2" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_2">
+      <End Role="OrganType" EntitySet="OrganType" />
+      <End Role="MatchTable" EntitySet="MatchTable" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_3" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_3">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="MatchTable" EntitySet="MatchTable" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_4" Association="OrganDonorSystemModel.Store.MatchTable_ibfk_4">
+      <End Role="Recipients" EntitySet="Recipients" />
+      <End Role="MatchTable" EntitySet="MatchTable" />
+    </AssociationSet>
     <AssociationSet Name="Medical_Personnel_ibfk_1" Association="OrganDonorSystemModel.Store.Medical_Personnel_ibfk_1">
       <End Role="State" EntitySet="State" />
       <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
@@ -148,6 +165,18 @@
     </Key>
     <Property Name="Organ_OrganID" Type="int" Nullable="false" />
     <Property Name="Donor_DonorID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MatchTable">
+    <Key>
+      <PropertyRef Name="transactionID" />
+    </Key>
+    <Property Name="transactionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="organID" Type="int" Nullable="false" />
+    <Property Name="organType" Type="int" Nullable="false" />
+    <Property Name="medicalPersonnelIdForRecipient" Type="int" Nullable="false" />
+    <Property Name="recipientID" Type="int" Nullable="false" />
+    <Property Name="acceptedOrDeclined" Type="tinyint" />
+    <Property Name="dateMatched" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="Medical_Personnel">
     <Key>
@@ -232,6 +261,7 @@
     <Property Name="organsOrganID" Type="int" />
     <Property Name="organTypeOrganTypeID" Type="int" Nullable="false" />
     <Property Name="bloodTypeBloodTypeID" Type="int" Nullable="false" />
+    <Property Name="needsOrgan" Type="enum" Nullable="false" />
   </EntityType>
   <EntityType Name="State">
     <Key>
@@ -381,6 +411,54 @@
       </Principal>
       <Dependent Role="City">
         <PropertyRef Name="stateStateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_1">
+    <End Role="Organs" Type="OrganDonorSystemModel.Store.Organs" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organs">
+        <PropertyRef Name="OrganID" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="organID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_2">
+    <End Role="OrganType" Type="OrganDonorSystemModel.Store.OrganType" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganType">
+        <PropertyRef Name="organTypeID" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="organType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_3">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="medicalPersonnelIdForRecipient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_4">
+    <End Role="Recipients" Type="OrganDonorSystemModel.Store.Recipients" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.Store.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipients">
+        <PropertyRef Name="recipentID" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="recipientID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

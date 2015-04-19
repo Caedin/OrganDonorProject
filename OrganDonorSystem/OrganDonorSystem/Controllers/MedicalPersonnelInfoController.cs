@@ -14,6 +14,10 @@ namespace OrganDonorSystem.Controllers
         OrganDonorSystemEntities OrganDonorSystemDatabase = new OrganDonorSystemEntities();
         public ActionResult Index()
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
             int number;
             string convertMe = Request.QueryString["dID"];
             bool result = Int32.TryParse( convertMe, out number);

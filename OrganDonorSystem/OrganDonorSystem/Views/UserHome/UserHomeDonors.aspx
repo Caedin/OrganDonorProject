@@ -27,7 +27,7 @@
                 Orginal ID
             </td>
             <td>
-                PhoneNumber ID
+                PhoneNumber
             </td>
         </tr>
         <% for(int i=0;i<Model.numberOfDonors;i++)
@@ -35,7 +35,7 @@
             <tr>
                 <td >
                   <%=Html.ActionLink(Model.addStringPadding(8, Model.theDonors[i].Donors.ToString()), "Index", 
-                "DonorInfo", new {dID = Model.theDonors[i].Donors}, null) %>
+                "DonorInfo", new {kID = Model.theDonors[i].Donors}, null) %>
                 </td>
                 <td >
                     <%: Model.theDonors[i].Donors%>
