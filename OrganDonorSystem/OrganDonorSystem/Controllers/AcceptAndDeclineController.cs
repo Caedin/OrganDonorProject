@@ -17,9 +17,8 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Index()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
-            int userID = CurrentlyLoggedIn.getUserID() ?? default(int);
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int userID = Int32.Parse(Session["UserName"].ToString());
 
             MatchingViewModel viewModel = new MatchingViewModel();
             viewModel.getMatches(userID);
@@ -29,7 +28,7 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Accept()
         {
             // This code handles the accepting of an organ.
-            int userID = CurrentlyLoggedIn.getUserID() ?? default(int);
+            int userID = Int32.Parse(Session["UserName"].ToString());
             int tID;
             string transcation_id = Request.QueryString["tID"];
             bool result = Int32.TryParse(transcation_id, out tID);
@@ -75,7 +74,7 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Decline()
         {
             // This code handles the declining of an organ.
-            int userID = CurrentlyLoggedIn.getUserID() ?? default(int);
+            int userID = Int32.Parse(Session["UserName"].ToString());
             int tID;
             string transcation_id = Request.QueryString["tID"];
             bool result = Int32.TryParse(transcation_id, out tID);

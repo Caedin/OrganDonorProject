@@ -37,10 +37,14 @@ namespace OrganDonorSystem.ViewModels
         public string Phone_Numbers { get; set; }
         public List<DonorData> theDonors { get; set; }
 
-        public UserHomeViewModel()
+        public UserHomeViewModel(String userID)
         {
             //getting logged in infromation
-            loggedIn = CurrentlyLoggedIn.getUserID();
+            int number;
+            bool result = Int32.TryParse(userID, out number);
+            loggedIn = number;
+
+
 
             if (loggedIn != null)
             {

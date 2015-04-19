@@ -18,8 +18,7 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Index()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN != null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] != null) { return RedirectToAction("", ""); }
 
             return View();
         }
@@ -69,7 +68,7 @@ namespace OrganDonorSystem.Controllers
                                              select Medical_Personnel.medicalPersonnelId).ToList();
 
                     int userID = userId_query[0];
-                    CurrentlyLoggedIn.setUserID(userID);
+                    Session["UserName"] = userID;
 
                     return RedirectToAction("Index", "UserHome");
                 }

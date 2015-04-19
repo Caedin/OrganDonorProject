@@ -15,7 +15,7 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Index()
         {
             //insures login information is clear
-            CurrentlyLoggedIn.setUserID(null);
+            Session["UserName"] = null;
             return View();
         }
 

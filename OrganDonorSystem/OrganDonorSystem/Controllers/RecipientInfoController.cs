@@ -18,8 +18,7 @@ namespace OrganDonorSystem.Controllers
         {
 
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
 
             int number;
             string blah = Request.QueryString["rID"];
@@ -58,7 +57,7 @@ namespace OrganDonorSystem.Controllers
 
 
             //checks to see if user is trying to access data that is not theirs, if so sends them back to userHome
-            if (viewModel.MedicalPersonnelID != CurrentlyLoggedIn.getUserID()) { return RedirectToAction("Index", "UserHome"); }
+            if (viewModel.MedicalPersonnelID != Int32.Parse(Session["UserName"].ToString())) { return RedirectToAction("Index", "UserHome"); }
 
             return View(viewModel);
 

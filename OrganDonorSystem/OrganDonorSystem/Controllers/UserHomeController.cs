@@ -16,12 +16,12 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Index()
         {
             //getting logged in userID and insuring some one is logged in
-            if (CurrentlyLoggedIn.getUserID() == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
 
             try
             {
                 //viewModel has counts
-                var viewModel = new UserHomeViewModel();
+                var viewModel = new UserHomeViewModel(Session["UserName"].ToString());
                 return View(viewModel);
             }
             catch (Exception e)
@@ -36,14 +36,13 @@ namespace OrganDonorSystem.Controllers
         public ActionResult UserHomeDonors()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
 
             try
             {
                 //view model contains queries and stores data
-                var viewModel = new UserHomeViewModel();
-                viewModel.setDonorsFromMedicalID(loggedIN.Value);
+                var viewModel = new UserHomeViewModel(Session["UserName"].ToString());
+                viewModel.setDonorsFromMedicalID(Int32.Parse(Session["UserName"].ToString()));
 
                 return View(viewModel);
             }
@@ -62,13 +61,13 @@ namespace OrganDonorSystem.Controllers
         public ActionResult UserHomeRecipients()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             try
             {
                 //Getting Data from database and passing number of donors,reps and organs into View
-                var viewModel = new UserHomeViewModel
+                var viewModel = new UserHomeViewModel(Session["UserName"].ToString())
                 {
                     numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
                                           where Recipient.medicalPersonnelID == loggedIN
@@ -103,13 +102,13 @@ namespace OrganDonorSystem.Controllers
         public ActionResult UserHomeOrgans()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             try
             {
                 //Getting Data from database and passing number of donors,reps and organs into View
-                var viewModel = new UserHomeViewModel
+                var viewModel = new UserHomeViewModel(Session["UserName"].ToString())
                 {
                     numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
                                       where Organ.MedicalPersonnelID == loggedIN
@@ -156,13 +155,13 @@ namespace OrganDonorSystem.Controllers
         public ActionResult UserHomeAddRecipients(Recipient r)
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
 
             if (r.orignialID == null) { return View(); }
 
-            r.medicalPersonnelID = loggedIN.Value;
+            r.medicalPersonnelID = loggedIN;
 
             try
             {
@@ -185,12 +184,12 @@ namespace OrganDonorSystem.Controllers
         public ActionResult UserHomeAddOrgans(Organ r)
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             if (r.OriginalID == null) { return View(); }
 
-            r.MedicalPersonnelID = loggedIN.Value;
+            r.MedicalPersonnelID = loggedIN;
             
             try
             {
@@ -217,12 +216,12 @@ namespace OrganDonorSystem.Controllers
         public ActionResult UserHomeAddDonors(Donor r)
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             if (r.originalID == null) { return View(); }
 
-            r.medicalPersonnelId = loggedIN.Value;
+            r.medicalPersonnelId = loggedIN;
 
             try
             {
@@ -296,10 +295,10 @@ namespace OrganDonorSystem.Controllers
             // FUTURE: Deal with cases where there is no need for the organ.
 
             RecipientWaitList waitList = new RecipientWaitList();
-            int userID = CurrentlyLoggedIn.getUserID() ?? default(int);
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             Medical_Personnel m = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
-                                   where Medical_Personnel.medicalPersonnelId == userID
+                                   where Medical_Personnel.medicalPersonnelId == loggedIN
                                        select Medical_Personnel).Single();
 
             waitList.populateList(r.organType_organtypeID, r.BloodType_BloodTypeID, m.State, m.City);

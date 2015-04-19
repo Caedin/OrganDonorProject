@@ -15,8 +15,7 @@ namespace OrganDonorSystem.Controllers
         public ActionResult Index()
         {
             //getting logged in userID and insuring some one is logged in
-            int? loggedIN = CurrentlyLoggedIn.getUserID();
-            if (loggedIN == null) { return RedirectToAction("", ""); }
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
 
             int number;
             string convertMe = Request.QueryString["dID"];
