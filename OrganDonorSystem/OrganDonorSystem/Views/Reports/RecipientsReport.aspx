@@ -6,23 +6,33 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>RecipientsReport</h2>
-
+    <h2>Recipients Information </h2>
+    <br />
     <form action="/Reports/RecipientsResults" method="get">
-    <select name="Recip" >
-    <option >   Select State   </option>
-    <option > Texas</option>
-    <option > Louisiana </option>
-    <option > Georgia </option>
+    <select name="Organs" >
+    <option > Select Organ Needed   </option>
+    <option > Heart</option>
+    <option > Kidney </option>
+    <option > Liver </option>
+    <option > Lungs </option>
+    <option > Pancreas </option>
     </select>
-    <select name="Severe" >
-    <option >   Select Severity   </option>
-    <option > 1 </option>
-    <option > 2 </option>
+    <select name="Blood" >
+    <option >   Select Blood Type   </option>
+    <option > A+</option>
+    <option > A- </option>
+    <option > AB+ </option>
+    <option > AB- </option>
+    <option > B+ </option>
+    <option > B- </option>
+    <option > O+ </option>
+    <option > O- </option>
     </select>
     <p><input type="submit" /></p>
     </form>
-    
+    <ul id="nav">
+        <li><a href="/Reports/Index">Go Back</a></li>
+    </ul>
 
 
 </asp:Content>

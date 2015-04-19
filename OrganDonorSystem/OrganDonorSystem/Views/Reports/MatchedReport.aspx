@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Matched Organs Report</h2>
-
+    <br />
     <form action="/Reports/MatchedResults" method="get">
     <select name="Matched" >
     <option >   Select Year   </option>
@@ -35,6 +35,8 @@
     </select>
     <p><input type="submit" /></p>
     </form>
-    
+    <ul id="nav">
+        <li><a href="/Reports/Index">Go Back</a></li>
+    </ul>
 
 </asp:Content>

@@ -6,12 +6,20 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>OrganResults</h2>
+    <h2>Organ History </h2>
+     <p>Organ: <%: Model.result1%> </p>
+     <p>Status: <%:Model.result2 %></p>
      <div class="CssTableSmooth">
         <table>
         <tr>
             <td>
                 Organ ID
+            </td>
+            <td>
+                Blood Type
+            </td>
+            <td>
+                Date Obtained
             </td>
             <td>
                 Expiration Date
@@ -24,6 +32,12 @@
             <tr>
                 <td >
                   <%: Model.availableOrgans[i].organID%>
+                </td>
+                <td >
+                  <%: Model.availableOrgans[i].bloodTypeID%>
+                </td>
+                <td >
+                  <%: Model.availableOrgans[i].regDate%>
                 </td>
                 <td >
                   <%: Model.availableOrgans[i].exp%>

@@ -6,7 +6,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>MatchedResults</h2>
+    <h2>Match Results </h2>
+    <p> Year: <%: Model.result1%> </p>
+    <p>  Status: <%: Model.result2%>  </p>
     <div class="CssTableSmooth">
         <table>
         <tr>

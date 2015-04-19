@@ -9,12 +9,11 @@
    <h2>Reports</h2>
 
     <p>Please select which report you would like to view:</p>
-    <br />
-    <br />
+    
     <ul>
-      <li><a href="/Reports/OrgansReport">Current Organs Available</a></li>
-      <li><a href="/Reports/RecipientsReport">Current Recipients Waiting</a></li>
-      <li><a href="/Reports/MatchedReport">Matches Completed</a></li>
-    </ul> <h2>Index</h2>
+      <li><a href="/Reports/OrgansReport">Organs History</a></li>
+      <li><a href="/Reports/RecipientsReport">Current Recipient Waitlist</a></li>
+      <li><a href="/Reports/MatchedReport">Matching Report</a></li>
+    </ul> 
 
 </asp:Content>

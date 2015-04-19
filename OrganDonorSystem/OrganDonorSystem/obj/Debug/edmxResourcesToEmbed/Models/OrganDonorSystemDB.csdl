@@ -4,6 +4,7 @@
     <EntitySet Name="BloodTypes" EntityType="OrganDonorSystemModel.BloodType" />
     <EntitySet Name="Cities" EntityType="OrganDonorSystemModel.City" />
     <EntitySet Name="Donors" EntityType="OrganDonorSystemModel.Donor" />
+    <EntitySet Name="MatchTables" EntityType="OrganDonorSystemModel.MatchTable" />
     <EntitySet Name="Medical_Personnel" EntityType="OrganDonorSystemModel.Medical_Personnel" />
     <EntitySet Name="OrganExpirationTimes" EntityType="OrganDonorSystemModel.OrganExpirationTime" />
     <EntitySet Name="Organs" EntityType="OrganDonorSystemModel.Organ" />
@@ -29,6 +30,22 @@
     <AssociationSet Name="fk_Donor_medicalPersonnelID" Association="OrganDonorSystemModel.fk_Donor_medicalPersonnelID">
       <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
       <End Role="Donor" EntitySet="Donors" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_1" Association="OrganDonorSystemModel.MatchTable_ibfk_1">
+      <End Role="Organs" EntitySet="Organs" />
+      <End Role="MatchTable" EntitySet="MatchTables" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_2" Association="OrganDonorSystemModel.MatchTable_ibfk_2">
+      <End Role="OrganType" EntitySet="OrganTypes" />
+      <End Role="MatchTable" EntitySet="MatchTables" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_3" Association="OrganDonorSystemModel.MatchTable_ibfk_3">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="MatchTable" EntitySet="MatchTables" />
+    </AssociationSet>
+    <AssociationSet Name="MatchTable_ibfk_4" Association="OrganDonorSystemModel.MatchTable_ibfk_4">
+      <End Role="Recipients" EntitySet="Recipients" />
+      <End Role="MatchTable" EntitySet="MatchTables" />
     </AssociationSet>
     <AssociationSet Name="fk_Medical_Personnel_medicalPersonnel_idx" Association="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx">
       <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
@@ -80,7 +97,7 @@
       <PropertyRef Name="bloodTypeID" />
     </Key>
     <Property Name="bloodTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="bloodTypeName" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="bloodTypeName" Type="String" Nullable="false" />
     <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" FromRole="BloodType" ToRole="Recipients" />
     <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_BloodType" FromRole="BloodType" ToRole="Organs" />
   </EntityType>
@@ -90,7 +107,7 @@
     </Key>
     <Property Name="cityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="stateStateID" Type="Int32" Nullable="false" />
-    <Property Name="city1" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="city1" Type="String" Nullable="false" />
     <NavigationProperty Name="State" Relationship="OrganDonorSystemModel.fk_State_stateID_ibfk_1" FromRole="City" ToRole="State" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_2" FromRole="City" ToRole="Medical_Personnel" />
   </EntityType>
@@ -99,33 +116,50 @@
       <PropertyRef Name="DonorID" />
     </Key>
     <Property Name="DonorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="phoneNumber" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="false" />
-    <Property Name="registrationDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="phoneNumber" Type="String" Nullable="false" />
+    <Property Name="registrationDate" Type="DateTime" Nullable="false" />
     <Property Name="endDate" Type="DateTime" />
     <Property Name="medicalPersonnelId" Type="Int32" Nullable="false" />
-    <Property Name="originalID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="gender" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
+    <Property Name="originalID" Type="String" Nullable="false" />
+    <Property Name="gender" Type="String" Nullable="false" />
     <Property Name="age" Type="Int64" Nullable="false" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.fk_Donor_medicalPersonnelID" FromRole="Donor" ToRole="Medical_Personnel" />
     <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Donor_has_Organs" FromRole="Donor" ToRole="Organs" />
     <NavigationProperty Name="Medical_Personnel1" Relationship="OrganDonorSystemModel.Medical_Personnnel_has_Donors" FromRole="Donor" ToRole="Medical_Personnel" />
+  </EntityType>
+  <EntityType Name="MatchTable">
+    <Key>
+      <PropertyRef Name="transactionID" />
+    </Key>
+    <Property Name="transactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="organID" Type="Int32" Nullable="false" />
+    <Property Name="organType" Type="Int32" Nullable="false" />
+    <Property Name="medicalPersonnelIdForRecipient" Type="Int32" Nullable="false" />
+    <Property Name="recipientID" Type="Int32" Nullable="false" />
+    <Property Name="acceptedOrDeclined" Type="SByte" />
+    <Property Name="dateMatched" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Organ" Relationship="OrganDonorSystemModel.MatchTable_ibfk_1" FromRole="MatchTable" ToRole="Organs" />
+    <NavigationProperty Name="OrganType1" Relationship="OrganDonorSystemModel.MatchTable_ibfk_2" FromRole="MatchTable" ToRole="OrganType" />
+    <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="MatchTable" ToRole="Medical_Personnel" />
+    <NavigationProperty Name="Recipient" Relationship="OrganDonorSystemModel.MatchTable_ibfk_4" FromRole="MatchTable" ToRole="Recipients" />
   </EntityType>
   <EntityType Name="Medical_Personnel">
     <Key>
       <PropertyRef Name="medicalPersonnelId" />
     </Key>
     <Property Name="medicalPersonnelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="userName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-    <Property Name="userPassword" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-    <Property Name="medicalFacility" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-    <Property Name="contactEmail" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="phoneNumber" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="false" />
+    <Property Name="userName" Type="String" Nullable="false" />
+    <Property Name="userPassword" Type="String" Nullable="false" />
+    <Property Name="medicalFacility" Type="String" Nullable="false" />
+    <Property Name="contactEmail" Type="String" Nullable="false" />
+    <Property Name="phoneNumber" Type="String" Nullable="false" />
     <Property Name="validatedUser" Type="Boolean" Nullable="false" />
     <Property Name="create_time" Type="DateTime" Nullable="false" />
     <Property Name="State_StateID" Type="Int32" Nullable="false" />
     <Property Name="City_CityID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="City" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_2" FromRole="Medical_Personnel" ToRole="City" />
     <NavigationProperty Name="Donors" Relationship="OrganDonorSystemModel.fk_Donor_medicalPersonnelID" FromRole="Medical_Personnel" ToRole="Donor" />
+    <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="Medical_Personnel" ToRole="MatchTable" />
     <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" FromRole="Medical_Personnel" ToRole="Recipients" />
     <NavigationProperty Name="State" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_1" FromRole="Medical_Personnel" ToRole="State" />
     <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_MedicalPersonnel" FromRole="Medical_Personnel" ToRole="Organs" />
@@ -151,10 +185,11 @@
     <Property Name="dateAqcuired" Type="DateTime" Nullable="false" />
     <Property Name="expirationDate" Type="DateTime" Nullable="false" />
     <Property Name="MedicalPersonnelID" Type="Int32" Nullable="false" />
-    <Property Name="OriginalID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="OriginalID" Type="String" Nullable="false" />
     <Property Name="available" Type="Boolean" Nullable="false" />
     <Property Name="Recipient_RecipientID" Type="Int32" />
     <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.Organs_BloodType" FromRole="Organs" ToRole="BloodType" />
+    <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_1" FromRole="Organs" ToRole="MatchTable" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Organs_MedicalPersonnel" FromRole="Organs" ToRole="Medical_Personnel" />
     <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_organ_organID_idx" FromRole="Organs" ToRole="Recipients" />
     <NavigationProperty Name="OrganType" Relationship="OrganDonorSystemModel.Organs_organType" FromRole="Organs" ToRole="OrganType" />
@@ -166,7 +201,8 @@
       <PropertyRef Name="organTypeID" />
     </Key>
     <Property Name="organTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="organName" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="organName" Type="String" Nullable="false" />
+    <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_2" FromRole="OrganType" ToRole="MatchTable" />
     <NavigationProperty Name="OrganExpirationTimes" Relationship="OrganDonorSystemModel.fk_OrganExpirationTime_OrganType1" FromRole="OrganType" ToRole="OrganExpirationTime" />
     <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_organType" FromRole="OrganType" ToRole="Organs" />
     <NavigationProperty Name="Recipients" Relationship="OrganDonorSystemModel.fk_organType_organTypeID_ibfk_1" FromRole="OrganType" ToRole="Recipients" />
@@ -177,15 +213,17 @@
     </Key>
     <Property Name="recipentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="medicalPersonnelID" Type="Int32" Nullable="false" />
-    <Property Name="severity" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
-    <Property Name="orignialID" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="gender" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
-    <Property Name="dateRegistered" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="severity" Type="String" Nullable="false" />
+    <Property Name="orignialID" Type="String" />
+    <Property Name="gender" Type="String" Nullable="false" />
+    <Property Name="dateRegistered" Type="DateTime" Nullable="false" />
     <Property Name="age" Type="Int64" Nullable="false" />
     <Property Name="organsOrganID" Type="Int32" />
     <Property Name="organTypeOrganTypeID" Type="Int32" Nullable="false" />
     <Property Name="bloodTypeBloodTypeID" Type="Int32" Nullable="false" />
+    <Property Name="needsOrgan" Type="String" Nullable="false" />
     <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" FromRole="Recipients" ToRole="BloodType" />
+    <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_4" FromRole="Recipients" ToRole="MatchTable" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" FromRole="Recipients" ToRole="Medical_Personnel" />
     <NavigationProperty Name="Organ" Relationship="OrganDonorSystemModel.fk_organ_organID_idx" FromRole="Recipients" ToRole="Organs" />
     <NavigationProperty Name="Organs" Relationship="OrganDonorSystemModel.Organs_RecipientID" FromRole="Recipients" ToRole="Organs" />
@@ -197,7 +235,7 @@
       <PropertyRef Name="stateID" />
     </Key>
     <Property Name="stateID" Type="Int32" Nullable="false" />
-    <Property Name="state1" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="state1" Type="String" Nullable="false" />
     <NavigationProperty Name="Cities" Relationship="OrganDonorSystemModel.fk_State_stateID_ibfk_1" FromRole="State" ToRole="City" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_1" FromRole="State" ToRole="Medical_Personnel" />
   </EntityType>
@@ -258,6 +296,54 @@
       </Principal>
       <Dependent Role="Donor">
         <PropertyRef Name="medicalPersonnelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_1">
+    <End Role="Organs" Type="OrganDonorSystemModel.Organ" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organs">
+        <PropertyRef Name="OrganID" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="organID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_2">
+    <End Role="OrganType" Type="OrganDonorSystemModel.OrganType" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganType">
+        <PropertyRef Name="organTypeID" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="organType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_3">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Medical_Personnel" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="medicalPersonnelIdForRecipient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MatchTable_ibfk_4">
+    <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="1" />
+    <End Role="MatchTable" Type="OrganDonorSystemModel.MatchTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipients">
+        <PropertyRef Name="recipentID" />
+      </Principal>
+      <Dependent Role="MatchTable">
+        <PropertyRef Name="recipientID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

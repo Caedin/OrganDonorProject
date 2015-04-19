@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using OrganDonorSystem.ViewModels;
 using OrganDonorSystem.Models;
+using System.Data.Entity;
 
 namespace OrganDonorSystemDB.Controllers
 {
@@ -46,25 +47,25 @@ namespace OrganDonorSystemDB.Controllers
 
             bool Organresult;
             string organResult = Request.QueryString["Organs"];
-            string bloodResult = Request.QueryString["Blood"];
             string availResult = Request.QueryString["Avail"];
             if (availResult == "Available")
                 Organresult = true;
             else Organresult = false;
 
-
             var Oresults = (from organ in OrganDonorSystemDatabase.Organs
                            join bloodType in OrganDonorSystemDatabase.BloodTypes on organ.BloodType_BloodTypeID equals bloodType.bloodTypeID
                            join organType in OrganDonorSystemDatabase.OrganTypes on organ.organType_organtypeID equals organType.organTypeID
-                           where bloodType.bloodTypeName == bloodResult
-                               && organType.organName == organResult
+                           where organType.organName == organResult
                                 && organ.available == Organresult
-                           select new AvailableOrgans { organID = organ.OrganID, exp = organ.expirationDate, bloodTypeID = bloodType.bloodTypeName }).ToList();
+                                                   
+                           select new AvailableOrgans {  regDate = organ.dateAqcuired ,organID = organ.OrganID, exp = organ.expirationDate, bloodTypeID = bloodType.bloodTypeName}).ToList();
 
 
 
             var viewModel = new ReportsViewModel()
             {
+                result1 = organResult,
+                result2 = availResult,
                 availableOrgans = Oresults
 
             };
@@ -77,36 +78,35 @@ namespace OrganDonorSystemDB.Controllers
 
         public ActionResult RecipientsResults()
         {
-            /*int? loggedIN = CurrentlyLoggedIn.getUserID();
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
             if (loggedIN == null) { return RedirectToAction("", ""); }
 
-            bool result;
+            
             string organResult = Request.QueryString["Organs"];
             string bloodResult = Request.QueryString["Blood"];
-            string availResult = Request.QueryString["Available"];
-            if (availResult == "Available")
-                result = true;
-            else result = false;
-
-
-            var results = (from organ in OrganDonorSystemDatabase.Organs
-                           join bloodType in OrganDonorSystemDatabase.BloodTypes on organ.BloodType_BloodTypeID equals bloodType.bloodTypeID
-                           join organType in OrganDonorSystemDatabase.OrganTypes on organ.organType_organtypeID equals organType.organTypeID
+            DateTime current = DateTime.Now;
+            
+            var Rresults = (from recipient in OrganDonorSystemDatabase.Recipients
+                           join bloodType in OrganDonorSystemDatabase.BloodTypes on recipient.bloodTypeBloodTypeID equals bloodType.bloodTypeID
+                           join organType in OrganDonorSystemDatabase.OrganTypes on  recipient.organTypeOrganTypeID equals organType.organTypeID
                            where bloodType.bloodTypeName == bloodResult
                                && organType.organName == organResult
-                                && organ.available == result
-                           select new AvailableOrgans { organID = organ.OrganID, exp = organ.expirationDate, bloodTypeID = bloodType.bloodTypeName }).ToList();
-
-
+                                && recipient.organsOrganID ==null
+                           select new RecipientsWaiting { waitTime = recipient.dateRegistered, recepID = recipient.recipentID, gender = recipient.gender, age = recipient.age, severity = recipient.severity }).ToList();
+            
+            
 
             var viewModel = new ReportsViewModel()
             {
-                availableOrgans = results
-
+                recipientsWaiting = Rresults,
+                     
+                result1 = organResult,
+                result2 = bloodResult,
+                
             };
 
-            */
-            return View();
+            
+            return View(viewModel);
             
         }
 
@@ -133,10 +133,14 @@ namespace OrganDonorSystemDB.Controllers
                            where matched.acceptedOrDeclined == Matchedresult
                                 && matched.dateMatched.Year  == yearInt
                            select new Matched { organID = matched.organID, recipientID = matched.recipientID, organType = organType.organName, dateMatched = matched.dateMatched, transID = matched.transactionID }).ToList();
-             
+            
+            
             var viewModel = new ReportsViewModel()
             {
-                matchedList = Mresults
+                matchedList = Mresults,
+                result1 = year,
+                result2 = status
+                
 
             };
 

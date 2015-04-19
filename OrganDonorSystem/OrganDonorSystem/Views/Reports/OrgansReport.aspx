@@ -6,25 +6,17 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-     <h2>Organs Information</h2>
-   
-    
+    <h2>Organs Information</h2>
+    <br />
     <form action="/Reports/OrganResults" method="get">
     <select name="Organs" >
     <option >   Select Organ Type   </option>
     <option > Heart</option>
-    <option > Lungs </option>
     <option > Kidney </option>
     <option > Liver </option>
+    <option > Lungs </option>
+    <option > Pancreas </option>
     </select>
-    <select name="Blood" >
-    <option >   Select Blood Type   </option>
-    <option > O+</option>
-    <option > O- </option>
-    <option > A- </option>
-    <option > A+ </option>
-    </select>
-    
     <select name="Avail" >
     <option >   Select Availability   </option>
     <option > Available</option>
@@ -32,6 +24,9 @@
     </select>
     <p><input type="submit" /></p>
     </form>
-    
+    <ul id="nav">
+        <li><a href="/Reports/Index">Go Back</a></li>
+    </ul>
+
 
 </asp:Content>

@@ -24,6 +24,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_State_stateID_ibfk_1", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.State), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.City), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Medical_Personnel_ibfk_2", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.City), "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Medical_Personnel), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_Donor_medicalPersonnelID", "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Medical_Personnel), "Donor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Donor), true)]
+[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "MatchTable_ibfk_1", "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Organ), "MatchTable", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.MatchTable), true)]
+[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "MatchTable_ibfk_2", "OrganType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.OrganType), "MatchTable", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.MatchTable), true)]
+[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "MatchTable_ibfk_3", "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Medical_Personnel), "MatchTable", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.MatchTable), true)]
+[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "MatchTable_ibfk_4", "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Recipient), "MatchTable", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.MatchTable), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_Medical_Personnel_medicalPersonnel_idx", "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Medical_Personnel), "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Recipient), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Medical_Personnel_ibfk_1", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.State), "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Medical_Personnel), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Organs_MedicalPersonnel", "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Medical_Personnel), "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Organ), true)]
@@ -133,6 +137,22 @@ namespace OrganDonorSystem.Models
             }
         }
         private ObjectSet<Donor> _Donors;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MatchTable> MatchTables
+        {
+            get
+            {
+                if ((_MatchTables == null))
+                {
+                    _MatchTables = base.CreateObjectSet<MatchTable>("MatchTables");
+                }
+                return _MatchTables;
+            }
+        }
+        private ObjectSet<MatchTable> _MatchTables;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -256,6 +276,14 @@ namespace OrganDonorSystem.Models
         public void AddToDonors(Donor donor)
         {
             base.AddObject("Donors", donor);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MatchTables EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMatchTables(MatchTable matchTable)
+        {
+            base.AddObject("MatchTables", matchTable);
         }
     
         /// <summary>
@@ -944,6 +972,373 @@ namespace OrganDonorSystem.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OrganDonorSystemModel", Name="MatchTable")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MatchTable : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MatchTable object.
+        /// </summary>
+        /// <param name="transactionID">Initial value of the transactionID property.</param>
+        /// <param name="organID">Initial value of the organID property.</param>
+        /// <param name="organType">Initial value of the organType property.</param>
+        /// <param name="medicalPersonnelIdForRecipient">Initial value of the medicalPersonnelIdForRecipient property.</param>
+        /// <param name="recipientID">Initial value of the recipientID property.</param>
+        /// <param name="dateMatched">Initial value of the dateMatched property.</param>
+        public static MatchTable CreateMatchTable(global::System.Int32 transactionID, global::System.Int32 organID, global::System.Int32 organType, global::System.Int32 medicalPersonnelIdForRecipient, global::System.Int32 recipientID, global::System.DateTime dateMatched)
+        {
+            MatchTable matchTable = new MatchTable();
+            matchTable.transactionID = transactionID;
+            matchTable.organID = organID;
+            matchTable.organType = organType;
+            matchTable.medicalPersonnelIdForRecipient = medicalPersonnelIdForRecipient;
+            matchTable.recipientID = recipientID;
+            matchTable.dateMatched = dateMatched;
+            return matchTable;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 transactionID
+        {
+            get
+            {
+                return _transactionID;
+            }
+            set
+            {
+                if (_transactionID != value)
+                {
+                    OntransactionIDChanging(value);
+                    ReportPropertyChanging("transactionID");
+                    _transactionID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("transactionID");
+                    OntransactionIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _transactionID;
+        partial void OntransactionIDChanging(global::System.Int32 value);
+        partial void OntransactionIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 organID
+        {
+            get
+            {
+                return _organID;
+            }
+            set
+            {
+                OnorganIDChanging(value);
+                ReportPropertyChanging("organID");
+                _organID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("organID");
+                OnorganIDChanged();
+            }
+        }
+        private global::System.Int32 _organID;
+        partial void OnorganIDChanging(global::System.Int32 value);
+        partial void OnorganIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 organType
+        {
+            get
+            {
+                return _organType;
+            }
+            set
+            {
+                OnorganTypeChanging(value);
+                ReportPropertyChanging("organType");
+                _organType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("organType");
+                OnorganTypeChanged();
+            }
+        }
+        private global::System.Int32 _organType;
+        partial void OnorganTypeChanging(global::System.Int32 value);
+        partial void OnorganTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 medicalPersonnelIdForRecipient
+        {
+            get
+            {
+                return _medicalPersonnelIdForRecipient;
+            }
+            set
+            {
+                OnmedicalPersonnelIdForRecipientChanging(value);
+                ReportPropertyChanging("medicalPersonnelIdForRecipient");
+                _medicalPersonnelIdForRecipient = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("medicalPersonnelIdForRecipient");
+                OnmedicalPersonnelIdForRecipientChanged();
+            }
+        }
+        private global::System.Int32 _medicalPersonnelIdForRecipient;
+        partial void OnmedicalPersonnelIdForRecipientChanging(global::System.Int32 value);
+        partial void OnmedicalPersonnelIdForRecipientChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 recipientID
+        {
+            get
+            {
+                return _recipientID;
+            }
+            set
+            {
+                OnrecipientIDChanging(value);
+                ReportPropertyChanging("recipientID");
+                _recipientID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("recipientID");
+                OnrecipientIDChanged();
+            }
+        }
+        private global::System.Int32 _recipientID;
+        partial void OnrecipientIDChanging(global::System.Int32 value);
+        partial void OnrecipientIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.SByte> acceptedOrDeclined
+        {
+            get
+            {
+                return _acceptedOrDeclined;
+            }
+            set
+            {
+                OnacceptedOrDeclinedChanging(value);
+                ReportPropertyChanging("acceptedOrDeclined");
+                _acceptedOrDeclined = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("acceptedOrDeclined");
+                OnacceptedOrDeclinedChanged();
+            }
+        }
+        private Nullable<global::System.SByte> _acceptedOrDeclined;
+        partial void OnacceptedOrDeclinedChanging(Nullable<global::System.SByte> value);
+        partial void OnacceptedOrDeclinedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime dateMatched
+        {
+            get
+            {
+                return _dateMatched;
+            }
+            set
+            {
+                OndateMatchedChanging(value);
+                ReportPropertyChanging("dateMatched");
+                _dateMatched = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("dateMatched");
+                OndateMatchedChanged();
+            }
+        }
+        private global::System.DateTime _dateMatched;
+        partial void OndateMatchedChanging(global::System.DateTime value);
+        partial void OndateMatchedChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_1", "Organs")]
+        public Organ Organ
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organ>("OrganDonorSystemModel.MatchTable_ibfk_1", "Organs").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organ>("OrganDonorSystemModel.MatchTable_ibfk_1", "Organs").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Organ> OrganReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organ>("OrganDonorSystemModel.MatchTable_ibfk_1", "Organs");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Organ>("OrganDonorSystemModel.MatchTable_ibfk_1", "Organs", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_2", "OrganType")]
+        public OrganType OrganType1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrganType>("OrganDonorSystemModel.MatchTable_ibfk_2", "OrganType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrganType>("OrganDonorSystemModel.MatchTable_ibfk_2", "OrganType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<OrganType> OrganType1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<OrganType>("OrganDonorSystemModel.MatchTable_ibfk_2", "OrganType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OrganType>("OrganDonorSystemModel.MatchTable_ibfk_2", "OrganType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_3", "Medical_Personnel")]
+        public Medical_Personnel Medical_Personnel
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Medical_Personnel>("OrganDonorSystemModel.MatchTable_ibfk_3", "Medical_Personnel").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Medical_Personnel>("OrganDonorSystemModel.MatchTable_ibfk_3", "Medical_Personnel").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Medical_Personnel> Medical_PersonnelReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Medical_Personnel>("OrganDonorSystemModel.MatchTable_ibfk_3", "Medical_Personnel");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Medical_Personnel>("OrganDonorSystemModel.MatchTable_ibfk_3", "Medical_Personnel", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_4", "Recipients")]
+        public Recipient Recipient
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Recipient>("OrganDonorSystemModel.MatchTable_ibfk_4", "Recipients").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Recipient>("OrganDonorSystemModel.MatchTable_ibfk_4", "Recipients").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Recipient> RecipientReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Recipient>("OrganDonorSystemModel.MatchTable_ibfk_4", "Recipients");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Recipient>("OrganDonorSystemModel.MatchTable_ibfk_4", "Recipients", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="OrganDonorSystemModel", Name="Medical_Personnel")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1288,6 +1683,28 @@ namespace OrganDonorSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Donor>("OrganDonorSystemModel.fk_Donor_medicalPersonnelID", "Donor", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_3", "MatchTable")]
+        public EntityCollection<MatchTable> MatchTables
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_3", "MatchTable");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_3", "MatchTable", value);
                 }
             }
         }
@@ -1729,6 +2146,28 @@ namespace OrganDonorSystem.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_1", "MatchTable")]
+        public EntityCollection<MatchTable> MatchTables
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_1", "MatchTable");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_1", "MatchTable", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "Organs_MedicalPersonnel", "Medical_Personnel")]
         public Medical_Personnel Medical_Personnel
         {
@@ -2102,6 +2541,28 @@ namespace OrganDonorSystem.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_2", "MatchTable")]
+        public EntityCollection<MatchTable> MatchTables
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_2", "MatchTable");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_2", "MatchTable", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "fk_OrganExpirationTime_OrganType1", "OrganExpirationTime")]
         public EntityCollection<OrganExpirationTime> OrganExpirationTimes
         {
@@ -2187,7 +2648,8 @@ namespace OrganDonorSystem.Models
         /// <param name="age">Initial value of the age property.</param>
         /// <param name="organTypeOrganTypeID">Initial value of the organTypeOrganTypeID property.</param>
         /// <param name="bloodTypeBloodTypeID">Initial value of the bloodTypeBloodTypeID property.</param>
-        public static Recipient CreateRecipient(global::System.Int32 recipentID, global::System.Int32 medicalPersonnelID, global::System.String severity, global::System.String gender, global::System.DateTime dateRegistered, global::System.Int64 age, global::System.Int32 organTypeOrganTypeID, global::System.Int32 bloodTypeBloodTypeID)
+        /// <param name="needsOrgan">Initial value of the needsOrgan property.</param>
+        public static Recipient CreateRecipient(global::System.Int32 recipentID, global::System.Int32 medicalPersonnelID, global::System.String severity, global::System.String gender, global::System.DateTime dateRegistered, global::System.Int64 age, global::System.Int32 organTypeOrganTypeID, global::System.Int32 bloodTypeBloodTypeID, global::System.String needsOrgan)
         {
             Recipient recipient = new Recipient();
             recipient.recipentID = recipentID;
@@ -2198,6 +2660,7 @@ namespace OrganDonorSystem.Models
             recipient.age = age;
             recipient.organTypeOrganTypeID = organTypeOrganTypeID;
             recipient.bloodTypeBloodTypeID = bloodTypeBloodTypeID;
+            recipient.needsOrgan = needsOrgan;
             return recipient;
         }
 
@@ -2447,6 +2910,30 @@ namespace OrganDonorSystem.Models
         private global::System.Int32 _bloodTypeBloodTypeID;
         partial void OnbloodTypeBloodTypeIDChanging(global::System.Int32 value);
         partial void OnbloodTypeBloodTypeIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String needsOrgan
+        {
+            get
+            {
+                return _needsOrgan;
+            }
+            set
+            {
+                OnneedsOrganChanging(value);
+                ReportPropertyChanging("needsOrgan");
+                _needsOrgan = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("needsOrgan");
+                OnneedsOrganChanged();
+            }
+        }
+        private global::System.String _needsOrgan;
+        partial void OnneedsOrganChanging(global::System.String value);
+        partial void OnneedsOrganChanged();
 
         #endregion
 
@@ -2487,6 +2974,28 @@ namespace OrganDonorSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<BloodType>("OrganDonorSystemModel.fk_BloodType_BloodType1_idx", "BloodType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "MatchTable_ibfk_4", "MatchTable")]
+        public EntityCollection<MatchTable> MatchTables
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_4", "MatchTable");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MatchTable>("OrganDonorSystemModel.MatchTable_ibfk_4", "MatchTable", value);
                 }
             }
         }
