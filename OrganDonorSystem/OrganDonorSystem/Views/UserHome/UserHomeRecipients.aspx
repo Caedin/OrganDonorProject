@@ -9,7 +9,7 @@
     <h2>Recipients</h2>
     <h3>Recipients under your account: <%: Model.numberOfRecipients %></h3>
     <ul id="nav">
-      <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
+     <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
       <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
       <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
       <li><a href="/UserHome/UserHomeAddRecipients">AddNew</a></li>

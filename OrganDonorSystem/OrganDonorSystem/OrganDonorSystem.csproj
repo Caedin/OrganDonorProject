@@ -75,6 +75,7 @@
     <Compile Include="Controllers\MedicalPersonnelInfoController.cs" />
     <Compile Include="Controllers\OrgansInfoController.cs" />
     <Compile Include="Controllers\RecipientInfoController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\UserHomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -92,6 +93,7 @@
     <Compile Include="ViewModels\MedicalPersonnelInfoViewModel.cs" />
     <Compile Include="ViewModels\OrgansInfoViewModel.cs" />
     <Compile Include="ViewModels\RecipientInfoIndexViewModel.cs" />
+    <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="ViewModels\UserHomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +111,13 @@
     <Content Include="Views\MedicalPersonnelInfo\Index.aspx" />
     <Content Include="Views\OrgansInfo\Index.aspx" />
     <Content Include="Views\RecipientInfo\Index.aspx" />
+    <Content Include="Views\Reports\Index.aspx" />
+    <Content Include="Views\Reports\MatchedReport.aspx" />
+    <Content Include="Views\Reports\MatchedResults.aspx" />
+    <Content Include="Views\Reports\OrganResults.aspx" />
+    <Content Include="Views\Reports\OrgansReport.aspx" />
+    <Content Include="Views\Reports\RecipientsReport.aspx" />
+    <Content Include="Views\Reports\RecipientsResults.aspx" />
     <Content Include="Views\UserHome\Index.aspx" />
     <Content Include="Views\UserHome\UserHomeAddDonors.aspx" />
     <Content Include="Views\UserHome\UserHomeAddOrgans.aspx" />
