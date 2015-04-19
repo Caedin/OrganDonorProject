@@ -26,7 +26,7 @@
                 <%: Html.LabelFor(model => model.organType_organtypeID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.organType_organtypeID) %>
+                <%: Html.DropDownListFor(model => model.organType_organtypeID, (IEnumerable<SelectListItem>)ViewData["organTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.organType_organtypeID) %>
             </div>
             
@@ -34,7 +34,7 @@
                 <%: Html.LabelFor(model => model.BloodType_BloodTypeID) %>
             </div>
             <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.BloodType_BloodTypeID, (IEnumerable<SelectListItem>)ViewData["listTypes"], "Select One")%>
+                <%: Html.DropDownListFor(model => model.BloodType_BloodTypeID, (IEnumerable<SelectListItem>)ViewData["listBloodTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.BloodType_BloodTypeID) %>
             </div>
             
@@ -74,7 +74,7 @@
                 <%: Html.LabelFor(model => model.available) %>
             </div>
             <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.available, new SelectList(new List<Object> { new { Value = 1, text = "Yes" }, new { Value = 0, text = "No" } }, "value", "text", 1))%>
+                <%: Html.DropDownListFor(model => model.available, new SelectList(new List<Object> { new { Value = true, text = "Yes" }, new { Value = false, text = "No" } }, "value", "text", 1))%>
                 <%: Html.ValidationMessageFor(model => model.available) %>
             </div>
             
@@ -86,12 +86,6 @@
                 <%: Html.ValidationMessageFor(model => model.Recipient_RecipientID) %>
             </div>
             
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.OriginalID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.OriginalID) %>
-                <%: Html.ValidationMessageFor(model => model.OriginalID) %>
             </div>
             
             <p>

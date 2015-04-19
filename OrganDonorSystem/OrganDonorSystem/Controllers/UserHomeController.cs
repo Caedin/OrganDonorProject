@@ -137,22 +137,39 @@ namespace OrganDonorSystem.Controllers
         [HttpGet]
         public ActionResult UserHomeAddOrgans()
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
             BloodTypeViewModel list = new BloodTypeViewModel();
-            ViewData["listTypes"] = list.listTypes;
+            ViewData["listBloodTypes"] = list.listBloodTypes;
             return View();
         }
 
         [HttpGet]
         public ActionResult UserHomeAddRecipients()
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
             BloodTypeViewModel list = new BloodTypeViewModel();
-            ViewData["listTypes"] = list.listTypes;
+            ViewData["listBloodTypes"] = list.listBloodTypes;
             return View();
         }
 
         [HttpGet]
         public ActionResult UserHomeAddDonors()
         {
+            //getting logged in userID and insuring some one is logged in
+            int? loggedIN = CurrentlyLoggedIn.getUserID();
+            if (loggedIN == null) { return RedirectToAction("", ""); }
+
             return View();
         }
 
@@ -167,6 +184,12 @@ namespace OrganDonorSystem.Controllers
             if (r.orignialID == null) { return View(); }
 
             r.medicalPersonnelID = loggedIN.Value;
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listBloodTypes"] = list.listBloodTypes;
 
             try
             {
@@ -195,7 +218,13 @@ namespace OrganDonorSystem.Controllers
             if (r.OriginalID == null) { return View(); }
 
             r.MedicalPersonnelID = loggedIN.Value;
-            
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listBloodTypes"] = list.listBloodTypes;
+
             try
             {
                 if (ModelState.IsValid)

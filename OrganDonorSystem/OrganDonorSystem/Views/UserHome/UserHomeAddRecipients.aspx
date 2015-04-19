@@ -18,7 +18,7 @@
                 <%: Html.LabelFor(model => model.severity) %>
             </div>
             <div class="editor-field">
-                 <%: Html.DropDownListFor(model => model.severity, new SelectList(new List<Object> { new { Value = 1, text = "1-Not Severe" }, new { Value = 2, text = "2" }, new { Value = 3, text = "3" }, new { Value = 4, text = "4" }, new { Value = 5, text = "5-Very Severe" } }, "value", "text", 1))%>
+                 <%: Html.DropDownListFor(model => model.severity, new SelectList(new List<Object> { new { Value = '1', text = "1-Not Severe" }, new { Value = '2', text = "2" }, new { Value = '3', text = "3" }, new { Value = '4', text = "4" }, new { Value = '5', text = "5-Very Severe" } }, "value", "text", '1'))%>
                 <%: Html.ValidationMessageFor(model => model.severity) %>
             </div>
             
@@ -58,7 +58,7 @@
                 <%: Html.LabelFor(model => model.organTypeOrganTypeID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.organTypeOrganTypeID) %>
+                <%: Html.DropDownListFor(model => model.organTypeOrganTypeID, (IEnumerable<SelectListItem>)ViewData["organTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.organTypeOrganTypeID) %>
             </div>
             
@@ -66,7 +66,7 @@
                 <%: Html.LabelFor(model => model.bloodTypeBloodTypeID) %>
             </div>
             <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.bloodTypeBloodTypeID, (IEnumerable<SelectListItem>)ViewData["listTypes"], "Select One")%>
+                <%: Html.DropDownListFor(model => model.bloodTypeBloodTypeID, (IEnumerable<SelectListItem>)ViewData["listBloodTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.bloodTypeBloodTypeID) %>
             </div>
             

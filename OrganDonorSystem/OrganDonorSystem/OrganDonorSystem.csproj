@@ -94,6 +94,7 @@
     <Compile Include="ViewModels\DonorInfoIndexViewModel.cs" />
     <Compile Include="ViewModels\MedicalPersonnelInfoViewModel.cs" />
     <Compile Include="ViewModels\OrgansInfoViewModel.cs" />
+    <Compile Include="ViewModels\OrganTypeViewModel.cs" />
     <Compile Include="ViewModels\RecipientInfoIndexViewModel.cs" />
     <Compile Include="ViewModels\UserHomeViewModel.cs" />
   </ItemGroup>

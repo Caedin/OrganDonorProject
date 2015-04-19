@@ -12,16 +12,16 @@ namespace OrganDonorSystem.ViewModels
         OrganDonorSystemEntities OrganDonorSystemDB = new OrganDonorSystemEntities();
 
         public List<BloodType> theBloodTypes { get; set; }
-        public List<SelectListItem> listTypes { get; set; }
+        public List<SelectListItem> listBloodTypes { get; set; }
         public BloodTypeViewModel()
         {
-            this.listTypes = new List<SelectListItem>();
+            this.listBloodTypes = new List<SelectListItem>();
             theBloodTypes = (from BloodType in OrganDonorSystemDB.BloodTypes
                          select BloodType).ToList();
             for (int i = 0; i < theBloodTypes.Count(); i++)
            {
-               SelectListItem temp = new SelectListItem { Text = theBloodTypes[i].bloodTypeName, Value = theBloodTypes[i].bloodTypeName.ToString() };
-               listTypes.Add(temp);
+               SelectListItem temp = new SelectListItem { Text = theBloodTypes[i].bloodTypeName, Value = theBloodTypes[i].bloodTypeID.ToString() };
+               listBloodTypes.Add(temp);
            }
         }
     }
