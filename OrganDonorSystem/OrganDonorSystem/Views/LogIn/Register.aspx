@@ -6,6 +6,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+    <form id="form1" runat="server">
+
     <h2>Register</h2>
 
     <% using (Html.BeginForm()) {%>
@@ -57,16 +59,17 @@
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.State_StateID) %>
             </div>
-            <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.State_StateID,) %>
-                <%: Html.ValidationMessageFor(model => model.State_StateID) %>
-            </div>  
             
+            <div class="editor-field">
+                <%: Html.DropDownListFor(model => model.State_StateID, (IEnumerable<SelectListItem>)ViewData["list"], "Select One", new { @onchange = @"submit();" })%>
+                <%: Html.ValidationMessageFor(model => model.State_StateID) %>
+            </div>         
+
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.City_CityID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.City_CityID) %>
+                <%: Html.DropDownListFor(model => model.City_CityID, (IEnumerable<SelectListItem>)ViewData["listCities"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.City_CityID) %>
             </div>
             
@@ -80,6 +83,8 @@
     <div>
         <%: Html.ActionLink("Back to Login", "Index") %>
     </div>
+
+    </form>
 
 </asp:Content>
 

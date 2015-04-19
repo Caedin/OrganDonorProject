@@ -66,7 +66,7 @@
                 <%: Html.LabelFor(model => model.bloodTypeBloodTypeID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.bloodTypeBloodTypeID) %>
+                <%: Html.DropDownListFor(model => model.bloodTypeBloodTypeID, (IEnumerable<SelectListItem>)ViewData["listTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.bloodTypeBloodTypeID) %>
             </div>
             

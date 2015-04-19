@@ -85,6 +85,12 @@ namespace OrganDonorSystem.Controllers
         [HttpPost]
         public ActionResult Register(Medical_Personnel r)
         {
+            //THIS IS WORKS BUT NOT CORRECTLY
+            CityStateViewModel list = new CityStateViewModel();
+            list.changeCities(r.State_StateID);
+            ViewData["list"] = list.listStates;
+            ViewData["listCities"] = list.listCities;
+
             try
             {
                 if (ModelState.IsValid && r.userName != null)
@@ -105,8 +111,9 @@ namespace OrganDonorSystem.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            CityStateViewModel states = new CityStateViewModel();
-            ViewData["States"] = states.listStates;
+            CityStateViewModel list = new CityStateViewModel();
+            ViewData["list"] = list.listStates;
+            ViewData["listCities"] = list.listCities;
             return View();
         }
 
@@ -197,5 +204,6 @@ namespace OrganDonorSystem.Controllers
                 return View();
             }
         }
+
     }
 }

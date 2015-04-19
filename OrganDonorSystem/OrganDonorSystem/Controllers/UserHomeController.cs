@@ -137,12 +137,16 @@ namespace OrganDonorSystem.Controllers
         [HttpGet]
         public ActionResult UserHomeAddOrgans()
         {
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listTypes"] = list.listTypes;
             return View();
         }
 
         [HttpGet]
         public ActionResult UserHomeAddRecipients()
         {
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listTypes"] = list.listTypes;
             return View();
         }
 

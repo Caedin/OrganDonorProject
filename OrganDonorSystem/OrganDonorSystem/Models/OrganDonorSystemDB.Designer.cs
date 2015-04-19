@@ -1421,7 +1421,14 @@ namespace OrganDonorSystem.Models
             {
                 OnuserNameChanging(value);
                 ReportPropertyChanging("userName");
-                _userName = StructuralObject.SetValidValue(value, false);
+                try
+                {
+                    _userName = StructuralObject.SetValidValue(value, false);
+                }
+                catch(Exception e)
+                {
+
+                }
                 ReportPropertyChanged("userName");
                 OnuserNameChanged();
             }
@@ -1445,7 +1452,13 @@ namespace OrganDonorSystem.Models
             {
                 OnuserPasswordChanging(value);
                 ReportPropertyChanging("userPassword");
-                _userPassword = StructuralObject.SetValidValue(value, false);
+                try
+                {
+                    _userPassword = StructuralObject.SetValidValue(value, false);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("userPassword");
                 OnuserPasswordChanged();
             }
@@ -1469,7 +1482,13 @@ namespace OrganDonorSystem.Models
             {
                 OnmedicalFacilityChanging(value);
                 ReportPropertyChanging("medicalFacility");
-                _medicalFacility = StructuralObject.SetValidValue(value, false);
+                try
+                {
+                    _medicalFacility = StructuralObject.SetValidValue(value, false);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("medicalFacility");
                 OnmedicalFacilityChanged();
             }
@@ -1493,7 +1512,13 @@ namespace OrganDonorSystem.Models
             {
                 OncontactEmailChanging(value);
                 ReportPropertyChanging("contactEmail");
-                _contactEmail = StructuralObject.SetValidValue(value, false);
+                try
+                {
+                    _contactEmail = StructuralObject.SetValidValue(value, false);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("contactEmail");
                 OncontactEmailChanged();
             }
@@ -1517,7 +1542,14 @@ namespace OrganDonorSystem.Models
             {
                 OnphoneNumberChanging(value);
                 ReportPropertyChanging("phoneNumber");
-                _phoneNumber = StructuralObject.SetValidValue(value, false);
+                try
+                {
+                    _phoneNumber = StructuralObject.SetValidValue(value, false);
+                }
+                catch (Exception e)
+                {
+
+                }
                 ReportPropertyChanged("phoneNumber");
                 OnphoneNumberChanged();
             }
@@ -1541,7 +1573,13 @@ namespace OrganDonorSystem.Models
             {
                 OnvalidatedUserChanging(value);
                 ReportPropertyChanging("validatedUser");
-                _validatedUser = StructuralObject.SetValidValue(value);
+                try
+                {
+                    _validatedUser = StructuralObject.SetValidValue(value);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("validatedUser");
                 OnvalidatedUserChanged();
             }
@@ -1565,7 +1603,13 @@ namespace OrganDonorSystem.Models
             {
                 Oncreate_timeChanging(value);
                 ReportPropertyChanging("create_time");
-                _create_time = StructuralObject.SetValidValue(value);
+                try
+                {
+                    _create_time = StructuralObject.SetValidValue(value);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("create_time");
                 Oncreate_timeChanged();
             }
@@ -1589,7 +1633,14 @@ namespace OrganDonorSystem.Models
             {
                 OnState_StateIDChanging(value);
                 ReportPropertyChanging("State_StateID");
-                _State_StateID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanging("create_time");
+                try
+                {
+                    _State_StateID = StructuralObject.SetValidValue(value);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("State_StateID");
                 OnState_StateIDChanged();
             }
@@ -1613,7 +1664,13 @@ namespace OrganDonorSystem.Models
             {
                 OnCity_CityIDChanging(value);
                 ReportPropertyChanging("City_CityID");
-                _City_CityID = StructuralObject.SetValidValue(value);
+                try
+                {
+                    _City_CityID = StructuralObject.SetValidValue(value);
+                }
+                catch (Exception e)
+                {
+                }
                 ReportPropertyChanged("City_CityID");
                 OnCity_CityIDChanged();
             }
