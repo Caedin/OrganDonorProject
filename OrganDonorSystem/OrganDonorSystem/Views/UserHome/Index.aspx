@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2><%: Model.userName %>'s Homepage</h2>
-    <h3>Welcome to your home page! Here you can view all the current Donors, Recepients, and Organs waiting to be matched that you have under your account.</h3>
+    <h3>Welcome to your home page! Here you can view all the current Donors, Recipients, and Organs that you have under your account.</h3>
     <ul id="nav">
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
       <li><a href="/UserHome/UserHomeRecipients">Recipients</a></li>

@@ -6,7 +6,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>UserHomeAddRecipients</h2>
+    <h2>Add Recipients</h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
@@ -15,15 +15,15 @@
             <legend>Fields</legend>
 
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.severity) %>
+                <%: Html.Label("Severity") %>
             </div>
             <div class="editor-field">
-                 <%: Html.DropDownListFor(model => model.severity, new SelectList(new List<Object> { new { Value = 1, text = "1-Not Severe" }, new { Value = 2, text = "2" }, new { Value = 3, text = "3" }, new { Value = 4, text = "4" }, new { Value = 5, text = "5-Very Severe" } }, "value", "text", 1))%>
+                 <%: Html.DropDownListFor(model => model.severity, new SelectList(new List<Object> { new { Value = '1', text = "1-Not Severe" }, new { Value = '2', text = "2" }, new { Value = '3', text = "3" }, new { Value = '4', text = "4" }, new { Value = '5', text = "5-Very Severe" } }, "value", "text", '1'))%>
                 <%: Html.ValidationMessageFor(model => model.severity) %>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.orignialID) %>
+                <%: Html.Label("Orignial ID") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.orignialID) %>
@@ -31,7 +31,7 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.gender) %>
+                <%: Html.Label("Gender") %>
             </div>
             <div class="editor-field">
                  <%: Html.DropDownListFor(model => model.gender, new SelectList(new List<Object> {new{Value = "M", text = "Male"},new {Value = "F",text="Female"}},"value","text","M")) %>
@@ -39,7 +39,7 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.age) %>
+                <%: Html.Label("Age") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.age) %>
@@ -47,26 +47,18 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.organsOrganID) %>
+                <%: Html.Label("Organ Type") %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.organsOrganID) %>
-                <%: Html.ValidationMessageFor(model => model.organsOrganID) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.organTypeOrganTypeID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.organTypeOrganTypeID) %>
+                <%: Html.DropDownListFor(model => model.organTypeOrganTypeID, (IEnumerable<SelectListItem>)ViewData["organTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.organTypeOrganTypeID) %>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.bloodTypeBloodTypeID) %>
+                <%: Html.Label("Blood Type") %>
             </div>
             <div class="editor-field">
-                <%: Html.DropDownListFor(model => model.bloodTypeBloodTypeID, (IEnumerable<SelectListItem>)ViewData["listTypes"], "Select One")%>
+                <%: Html.DropDownListFor(model => model.bloodTypeBloodTypeID, (IEnumerable<SelectListItem>)ViewData["listBloodTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.bloodTypeBloodTypeID) %>
             </div>
             

@@ -17,7 +17,6 @@ namespace OrganDonorSystem.Controllers
         {
             //getting logged in userID and insuring some one is logged in
             if (Session["UserName"] == null) { return RedirectToAction("", ""); }
-            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             try
             {
@@ -138,22 +137,39 @@ namespace OrganDonorSystem.Controllers
         [HttpGet]
         public ActionResult UserHomeAddOrgans()
         {
+            //getting logged in userID and insuring some one is logged in
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
             BloodTypeViewModel list = new BloodTypeViewModel();
-            ViewData["listTypes"] = list.listTypes;
+            ViewData["listBloodTypes"] = list.listBloodTypes;
             return View();
         }
 
         [HttpGet]
         public ActionResult UserHomeAddRecipients()
         {
+            //getting logged in userID and insuring some one is logged in
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
             BloodTypeViewModel list = new BloodTypeViewModel();
-            ViewData["listTypes"] = list.listTypes;
+            ViewData["listBloodTypes"] = list.listBloodTypes;
             return View();
         }
 
         [HttpGet]
         public ActionResult UserHomeAddDonors()
         {
+            //getting logged in userID and insuring some one is logged in
+            if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
+
             return View();
         }
 
@@ -167,7 +183,15 @@ namespace OrganDonorSystem.Controllers
 
             if (r.orignialID == null) { return View(); }
 
+            r.needsOrgan = "T";
+            r.dateRegistered = DateTime.Now;
             r.medicalPersonnelID = loggedIN;
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listBloodTypes"] = list.listBloodTypes;        
 
             try
             {
@@ -196,7 +220,15 @@ namespace OrganDonorSystem.Controllers
             if (r.OriginalID == null) { return View(); }
 
             r.MedicalPersonnelID = loggedIN;
-            
+
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listBloodTypes"] = list.listBloodTypes; 
+
+            if (r.available == true && r.Recipient_RecipientID != null) { return View(); }
+
             try
             {
                 if (ModelState.IsValid)
@@ -207,6 +239,7 @@ namespace OrganDonorSystem.Controllers
 
                     Action matchMakingAsynch = runMatchMaking;
                     matchMakingAsynch.BeginInvoke(ar => matchMakingAsynch.EndInvoke(ar), null);
+
                     return RedirectToAction("Index");
                 }
             }
@@ -227,7 +260,15 @@ namespace OrganDonorSystem.Controllers
 
             if (r.originalID == null) { return View(); }
 
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listBloodTypes"] = list.listBloodTypes; 
+
             r.medicalPersonnelId = loggedIN;
+            r.registrationDate = DateTime.Now;
+            r.endDate = DateTime.Now;
 
             try
             {
@@ -301,7 +342,7 @@ namespace OrganDonorSystem.Controllers
             // FUTURE: Deal with cases where there is no need for the organ.
 
             RecipientWaitList waitList = new RecipientWaitList();
-            int userID = Int32.Parse(Session["UserName"].ToString());
+            int userID = r.MedicalPersonnelID;
 
             Medical_Personnel m = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
                                    where Medical_Personnel.medicalPersonnelId == userID

@@ -84,7 +84,7 @@ namespace OrganDonorSystem.Controllers
         [HttpPost]
         public ActionResult Register(Medical_Personnel r)
         {
-            //THIS IS WORKS BUT NOT CORRECTLY
+
             CityStateViewModel list = new CityStateViewModel();
             list.changeCities(r.State_StateID);
             ViewData["list"] = list.listStates;
@@ -92,7 +92,7 @@ namespace OrganDonorSystem.Controllers
 
             try
             {
-                if (ModelState.IsValid && r.userName != null)
+                if (ModelState.IsValid && r.userName != null && list.checkCityState(r.City_CityID,r.State_StateID))
                 {
                     OrganDonorSystemDB.Medical_Personnel.AddObject(r);
                     OrganDonorSystemDB.SaveChanges();

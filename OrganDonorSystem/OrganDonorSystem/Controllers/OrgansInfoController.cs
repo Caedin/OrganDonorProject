@@ -70,6 +70,5 @@ namespace OrganDonorSystem.Controllers
 
             return View(viewModel);
         }
-
     }
 }

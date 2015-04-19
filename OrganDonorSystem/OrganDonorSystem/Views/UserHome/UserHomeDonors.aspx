@@ -10,7 +10,7 @@
     <h3>Donors under your account: <%: Model.numberOfDonors %></h3>
         <ul id="nav">
             <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
-            <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
+            <li><a href="/UserHome/UserHomeRecipients">Recipients</a></li>
             <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
             <li><a href="/UserHome/UserHomeAddDonors">AddNew</a></li>
         </ul>
@@ -27,7 +27,7 @@
                 Orginal ID
             </td>
             <td>
-                PhoneNumber
+                Phone Number
             </td>
         </tr>
         <% for(int i=0;i<Model.numberOfDonors;i++)
@@ -38,7 +38,7 @@
                 "DonorInfo", new {dID = Model.theDonors[i].Donors}, null) %>
                 </td>
                 <td >
-                    <%: Model.theDonors[i].Donors%>
+                    <%: Model.theDonors[i].OriginalIDs %>
                 </td>
                 <td >
                     <%: Model.theDonors[i].PhoneNumbers%>

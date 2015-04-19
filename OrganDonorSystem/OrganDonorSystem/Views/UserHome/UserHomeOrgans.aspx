@@ -7,10 +7,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Organs</h2>
-    <h3>Donors under your account: <%: Model.numberOfOrgans %></h3>
+    <h3>Organs under your account: <%: Model.numberOfOrgans %></h3>
     <ul id="nav">
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
-      <li><a href="/UserHome/UserHomeRecipients">Recipiants</a></li>
+      <li><a href="/UserHome/UserHomeRecipients">Recipients</a></li>
       <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
       <li><a href="/UserHome/UserHomeAddOrgans">AddNew</a></li>
     </ul>
