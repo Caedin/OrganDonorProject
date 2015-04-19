@@ -14,9 +14,7 @@ namespace OrganDonorSystem.ViewModels
         public void getMatches(int medical_id) 
         {
             listOfMatches = (from MatchTable in OrganDonorSystemDatabase.MatchTables
-                             where MatchTable.medicalPersonnelIdForRecipient == medical_id &&
-                                   (MatchTable.acceptedOrDeclined == 0 ||
-                                   MatchTable.acceptedOrDeclined == null)
+                             where MatchTable.medicalPersonnelIdForRecipient == medical_id
                              select MatchTable).ToList();
 
         }

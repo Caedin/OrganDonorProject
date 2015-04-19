@@ -46,17 +46,27 @@
                   <%: Model.listOfMatches[i].dateMatched %>
                 </td >
                 <td >
-                    <% if(Model.listOfMatches[i].acceptedOrDeclined==null)
-                       { %>
-                           <%=Html.ActionLink("Accept", "Accept",
-                                        "AcceptAndDecline", new {tID = Model.listOfMatches[i].transactionID }, null)%>
-                           <%=Html.ActionLink("Decline", "Decline",
-                                        "AcceptAndDecline", new {tID = Model.listOfMatches[i].transactionID }, null)%>
-                    <% }
-                       else
-                       { %>
-                           <%: Model.listOfMatches[i].acceptedOrDeclined %> 
-                    <% } %>
+                <% if (Model.listOfMatches[i].acceptedOrDeclined == null)
+                   { %>
+                    <%=Html.ActionLink("Accept", "Accept",
+                                "AcceptAndDecline", new { tID = Model.listOfMatches[i].transactionID }, null)%>
+                    <%=Html.ActionLink("Decline", "Decline",
+                                "AcceptAndDecline", new { tID = Model.listOfMatches[i].transactionID }, null)%>
+                 <% }
+                   else
+                   { %>
+                       <% if (Model.listOfMatches[i].acceptedOrDeclined == 1)
+                          { %>
+                          Accepted
+                          <% }
+                          else
+                          {
+                               %>
+                          Declined
+                          <% } %>
+                 <%} %>
+                 
+
                 </td >
             </tr>
             <% } %>

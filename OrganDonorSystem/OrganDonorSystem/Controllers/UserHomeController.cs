@@ -303,19 +303,23 @@ namespace OrganDonorSystem.Controllers
                                        select Medical_Personnel).Single();
 
             waitList.populateList(r.organType_organtypeID, r.BloodType_BloodTypeID, m.State, m.City);
+            if (waitList.getList().Count() > 0)
+            {
+                // If there is a match found, add it to the match table. Otherwise, bypass the matching.
 
-            Recipient reciever = waitList.getList()[0];
+                Recipient reciever = waitList.getList()[0];
 
-            MatchTable newEntry = new MatchTable();
-            newEntry.acceptedOrDeclined = null;
-            newEntry.medicalPersonnelIdForRecipient = reciever.medicalPersonnelID;
-            newEntry.organID = r.OrganID;
-            newEntry.organType = r.organType_organtypeID;
-            newEntry.recipientID = reciever.recipentID;
+                MatchTable newEntry = new MatchTable();
+                newEntry.acceptedOrDeclined = null;
+                newEntry.medicalPersonnelIdForRecipient = reciever.medicalPersonnelID;
+                newEntry.organID = r.OrganID;
+                newEntry.organType = r.organType_organtypeID;
+                newEntry.recipientID = reciever.recipentID;
 
 
-            OrganDonorSystemDB.AddToMatchTables(newEntry);
-            OrganDonorSystemDB.SaveChanges();
+                OrganDonorSystemDB.AddToMatchTables(newEntry);
+                OrganDonorSystemDB.SaveChanges();
+            }
         }
           
     }

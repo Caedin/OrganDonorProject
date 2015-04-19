@@ -58,6 +58,17 @@ namespace OrganDonorSystem.Controllers
             // Transplant Complete!
             OrganDonorSystemDB.SaveChanges();
 
+            // Remove Duplicate Matches from the MatchTable. Each Recipient gets one and only one Organ.
+            List<MatchTable> duplicate_matches = (from MatchTable in OrganDonorSystemDB.MatchTables
+                                                  where MatchTable.recipientID == update_match.recipientID &&
+                                                  MatchTable.transactionID != tID
+                                                  select MatchTable).ToList();
+            for (int i = 0; i < duplicate_matches.Count(); i++)
+            {
+                OrganDonorSystemDB.MatchTables.DeleteObject(duplicate_matches[i]);
+            }
+            OrganDonorSystemDB.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -82,6 +93,17 @@ namespace OrganDonorSystem.Controllers
             reciever.needsOrgan = "F";
 
             // Transplant Rejected!
+            OrganDonorSystemDB.SaveChanges();
+
+            // Remove Duplicate Matches from the MatchTable. Each Recipient gets one and only one Organ.
+            List<MatchTable> duplicate_matches = (from MatchTable in OrganDonorSystemDB.MatchTables
+                                                  where MatchTable.recipientID == update_match.recipientID &&
+                                                  MatchTable.transactionID != tID
+                                                  select MatchTable).ToList();
+            for (int i = 0; i < duplicate_matches.Count(); i++)
+            {
+                OrganDonorSystemDB.MatchTables.DeleteObject(duplicate_matches[i]);
+            }
             OrganDonorSystemDB.SaveChanges();
 
             return RedirectToAction("Index");

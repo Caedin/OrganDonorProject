@@ -221,6 +221,7 @@
     <Property Name="organsOrganID" Type="Int32" />
     <Property Name="organTypeOrganTypeID" Type="Int32" Nullable="false" />
     <Property Name="bloodTypeBloodTypeID" Type="Int32" Nullable="false" />
+    <Property Name="needsOrgan" Type="String" Nullable="false" MaxLength="65532" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="BloodType" Relationship="OrganDonorSystemModel.fk_BloodType_BloodType1_idx" FromRole="Recipients" ToRole="BloodType" />
     <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_4" FromRole="Recipients" ToRole="MatchTable" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.fk_Medical_Personnel_medicalPersonnel_idx" FromRole="Recipients" ToRole="Medical_Personnel" />

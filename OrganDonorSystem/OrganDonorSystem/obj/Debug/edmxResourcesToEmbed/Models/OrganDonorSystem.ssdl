@@ -261,6 +261,7 @@
     <Property Name="organsOrganID" Type="int" />
     <Property Name="organTypeOrganTypeID" Type="int" Nullable="false" />
     <Property Name="bloodTypeBloodTypeID" Type="int" Nullable="false" />
+    <Property Name="needsOrgan" Type="enum" Nullable="false" />
   </EntityType>
   <EntityType Name="State">
     <Key>

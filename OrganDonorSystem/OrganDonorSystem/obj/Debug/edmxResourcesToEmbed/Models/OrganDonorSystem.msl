@@ -105,6 +105,7 @@
           <ScalarProperty Name="organsOrganID" ColumnName="organsOrganID" />
           <ScalarProperty Name="organTypeOrganTypeID" ColumnName="organTypeOrganTypeID" />
           <ScalarProperty Name="bloodTypeBloodTypeID" ColumnName="bloodTypeBloodTypeID" />
+          <ScalarProperty Name="needsOrgan" ColumnName="needsOrgan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
