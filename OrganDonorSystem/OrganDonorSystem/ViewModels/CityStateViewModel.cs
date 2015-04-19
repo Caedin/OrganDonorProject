@@ -52,6 +52,18 @@ namespace OrganDonorSystem.ViewModels
            }
            this.listCities = tempList;
         }
+
+        public bool checkCityState(int cityID, int stateID)
+        {
+            foreach(City city in TheCities)
+            {
+                if (city.stateStateID == stateID && city.cityID == cityID)
+                {
+                    return (true);
+                }
+            }
+            return(false);
+        }
     }
 }
 

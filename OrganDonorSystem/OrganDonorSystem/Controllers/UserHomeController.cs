@@ -183,13 +183,14 @@ namespace OrganDonorSystem.Controllers
 
             if (r.orignialID == null) { return View(); }
 
+
             r.medicalPersonnelID = loggedIN.Value;
 
             OrganTypeViewModel organList = new OrganTypeViewModel();
             ViewData["organTypes"] = organList.listTypes;
 
             BloodTypeViewModel list = new BloodTypeViewModel();
-            ViewData["listBloodTypes"] = list.listBloodTypes;
+            ViewData["listBloodTypes"] = list.listBloodTypes;        
 
             try
             {
@@ -223,7 +224,9 @@ namespace OrganDonorSystem.Controllers
             ViewData["organTypes"] = organList.listTypes;
 
             BloodTypeViewModel list = new BloodTypeViewModel();
-            ViewData["listBloodTypes"] = list.listBloodTypes;
+            ViewData["listBloodTypes"] = list.listBloodTypes; 
+
+            if (r.available == true && r.Recipient_RecipientID != null) { return View(); }
 
             try
             {
@@ -255,7 +258,15 @@ namespace OrganDonorSystem.Controllers
 
             if (r.originalID == null) { return View(); }
 
+            OrganTypeViewModel organList = new OrganTypeViewModel();
+            ViewData["organTypes"] = organList.listTypes;
+
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listBloodTypes"] = list.listBloodTypes; 
+
             r.medicalPersonnelId = loggedIN.Value;
+            r.registrationDate = DateTime.Now;
+            r.endDate = DateTime.Now;
 
             try
             {

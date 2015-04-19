@@ -14,24 +14,18 @@
         <fieldset>
             <legend>Fields</legend>
             
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.DonorID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.DonorID) %>
-                <%: Html.ValidationMessageFor(model => model.DonorID) %>
-            </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.phoneNumber) %>
+                <%: Html.Label("Phone Number") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.phoneNumber) %>
                 <%: Html.ValidationMessageFor(model => model.phoneNumber) %>
             </div>
             
+            <!--
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.registrationDate) %>
+                <%: Html.Label("Registration Date") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.registrationDate) %>
@@ -39,40 +33,36 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.endDate) %>
+                <%: Html.Label("End Date") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.endDate) %>
                 <%: Html.ValidationMessageFor(model => model.endDate) %>
             </div>
-            
+            -->
+
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.medicalPersonnelId) %>
+                <%: Html.Label("Original ID") %>
             </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.medicalPersonnelId) %>
-                <%: Html.ValidationMessageFor(model => model.medicalPersonnelId) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.originalID) %>
-            </div>
+
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.originalID) %>
                 <%: Html.ValidationMessageFor(model => model.originalID) %>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.gender) %>
+                <%: Html.Label("Gender") %>
             </div>
+
             <div class="editor-field">
                 <%: Html.DropDownListFor(model => model.gender, new SelectList(new List<Object> {new{Value = "M", text = "Male"},new {Value = "F",text="Female"}},"value","text","M")) %>
                 <%: Html.ValidationMessageFor(model => model.gender) %>
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.age) %>
+                <%: Html.Label("Age") %>
             </div>
+
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.age) %>
                 <%: Html.ValidationMessageFor(model => model.age) %>

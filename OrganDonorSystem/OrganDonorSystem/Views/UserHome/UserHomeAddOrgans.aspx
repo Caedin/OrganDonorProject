@@ -15,15 +15,7 @@
             <legend>Fields</legend>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.OrganID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.OrganID) %>
-                <%: Html.ValidationMessageFor(model => model.OrganID) %>
-            </div>
-            
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.organType_organtypeID) %>
+                <%: Html.Label("Organ Type") %>
             </div>
             <div class="editor-field">
                 <%: Html.DropDownListFor(model => model.organType_organtypeID, (IEnumerable<SelectListItem>)ViewData["organTypes"], "Select One")%>
@@ -31,7 +23,7 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.BloodType_BloodTypeID) %>
+                <%: Html.Label("Blood Type") %>
             </div>
             <div class="editor-field">
                 <%: Html.DropDownListFor(model => model.BloodType_BloodTypeID, (IEnumerable<SelectListItem>)ViewData["listBloodTypes"], "Select One")%>
@@ -39,7 +31,7 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.dateAqcuired) %>
+                <%: Html.Label("Date Acquired") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.dateAqcuired) %>
@@ -47,23 +39,16 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.expirationDate) %>
+                <%: Html.Label("Expiration Date")%>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.expirationDate) %>
                 <%: Html.ValidationMessageFor(model => model.expirationDate) %>
             </div>
             
-            <div class="editor-label">
-                <%: Html.LabelFor(model => model.MedicalPersonnelID) %>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.MedicalPersonnelID) %>
-                <%: Html.ValidationMessageFor(model => model.MedicalPersonnelID) %>
-            </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.OriginalID) %>
+                <%: Html.Label("Original ID") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.OriginalID) %>
@@ -71,7 +56,7 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.available) %>
+                <%: Html.Label("Currently Available") %>
             </div>
             <div class="editor-field">
                 <%: Html.DropDownListFor(model => model.available, new SelectList(new List<Object> { new { Value = true, text = "Yes" }, new { Value = false, text = "No" } }, "value", "text", 1))%>
@@ -79,13 +64,11 @@
             </div>
             
             <div class="editor-label">
-                <%: Html.LabelFor(model => model.Recipient_RecipientID) %>
+                <%: Html.Label("Recipient ID if not available") %>
             </div>
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Recipient_RecipientID) %>
                 <%: Html.ValidationMessageFor(model => model.Recipient_RecipientID) %>
-            </div>
-            
             </div>
             
             <p>
