@@ -17,6 +17,7 @@ namespace OrganDonorSystem.Controllers
         {
             //getting logged in userID and insuring some one is logged in
             if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             try
             {
@@ -37,12 +38,13 @@ namespace OrganDonorSystem.Controllers
         {
             //getting logged in userID and insuring some one is logged in
             if (Session["UserName"] == null) { return RedirectToAction("", ""); }
+            int loggedIN = Int32.Parse(Session["UserName"].ToString());
 
             try
             {
                 //view model contains queries and stores data
                 var viewModel = new UserHomeViewModel(Session["UserName"].ToString());
-                viewModel.setDonorsFromMedicalID(Int32.Parse(Session["UserName"].ToString()));
+                viewModel.setDonorsFromMedicalID(loggedIN);
 
                 return View(viewModel);
             }
@@ -136,12 +138,16 @@ namespace OrganDonorSystem.Controllers
         [HttpGet]
         public ActionResult UserHomeAddOrgans()
         {
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listTypes"] = list.listTypes;
             return View();
         }
 
         [HttpGet]
         public ActionResult UserHomeAddRecipients()
         {
+            BloodTypeViewModel list = new BloodTypeViewModel();
+            ViewData["listTypes"] = list.listTypes;
             return View();
         }
 
@@ -295,16 +301,15 @@ namespace OrganDonorSystem.Controllers
             // FUTURE: Deal with cases where there is no need for the organ.
 
             RecipientWaitList waitList = new RecipientWaitList();
-            int loggedIN = Int32.Parse(Session["UserName"].ToString());
+            int userID = Int32.Parse(Session["UserName"].ToString());
 
             Medical_Personnel m = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
-                                   where Medical_Personnel.medicalPersonnelId == loggedIN
+                                   where Medical_Personnel.medicalPersonnelId == userID
                                        select Medical_Personnel).Single();
 
             waitList.populateList(r.organType_organtypeID, r.BloodType_BloodTypeID, m.State, m.City);
             if (waitList.getList().Count() > 0)
             {
-                // If there is a match found, add it to the match table. Otherwise, bypass the matching.
 
                 Recipient reciever = waitList.getList()[0];
 

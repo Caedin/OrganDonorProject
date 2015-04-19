@@ -13,7 +13,15 @@
 
         <fieldset>
             <legend>Fields</legend>
-
+            
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.OrganID) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.OrganID) %>
+                <%: Html.ValidationMessageFor(model => model.OrganID) %>
+            </div>
+            
             <div class="editor-label">
                 <%: Html.LabelFor(model => model.organType_organtypeID) %>
             </div>
@@ -26,7 +34,7 @@
                 <%: Html.LabelFor(model => model.BloodType_BloodTypeID) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.BloodType_BloodTypeID) %>
+                <%: Html.DropDownListFor(model => model.BloodType_BloodTypeID, (IEnumerable<SelectListItem>)ViewData["listTypes"], "Select One")%>
                 <%: Html.ValidationMessageFor(model => model.BloodType_BloodTypeID) %>
             </div>
             
@@ -47,6 +55,14 @@
             </div>
             
             <div class="editor-label">
+                <%: Html.LabelFor(model => model.MedicalPersonnelID) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.MedicalPersonnelID) %>
+                <%: Html.ValidationMessageFor(model => model.MedicalPersonnelID) %>
+            </div>
+            
+            <div class="editor-label">
                 <%: Html.LabelFor(model => model.OriginalID) %>
             </div>
             <div class="editor-field">
@@ -58,7 +74,7 @@
                 <%: Html.LabelFor(model => model.available) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.available) %>
+                <%: Html.DropDownListFor(model => model.available, new SelectList(new List<Object> { new { Value = 1, text = "Yes" }, new { Value = 0, text = "No" } }, "value", "text", 1))%>
                 <%: Html.ValidationMessageFor(model => model.available) %>
             </div>
             
@@ -68,6 +84,14 @@
             <div class="editor-field">
                 <%: Html.TextBoxFor(model => model.Recipient_RecipientID) %>
                 <%: Html.ValidationMessageFor(model => model.Recipient_RecipientID) %>
+            </div>
+            
+            <div class="editor-label">
+                <%: Html.LabelFor(model => model.OriginalID) %>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.OriginalID) %>
+                <%: Html.ValidationMessageFor(model => model.OriginalID) %>
             </div>
             
             <p>
