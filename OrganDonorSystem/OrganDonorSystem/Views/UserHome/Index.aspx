@@ -13,6 +13,7 @@
       <li><a href="/UserHome/UserHomeRecipients">Recipients</a></li>
       <li><a href="/UserHome/UserHomeOrgans">Organs</a></li>
       <li><a href="/AcceptAndDecline">Matches</a></li>
+      <li><a href="/Reports">Reports</a></li>
    </ul>
    <br />
    <br />
