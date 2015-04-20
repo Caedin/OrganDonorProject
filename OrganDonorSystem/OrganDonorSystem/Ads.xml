@@ -1,0 +1,17 @@
+<Advertisements>
+  <Ad>
+    <ImageUrl>/Images/1.jpg</ImageUrl>
+    <Width>250</Width>
+    <Height>250</Height>
+  </Ad>
+  <Ad>
+    <ImageUrl>/Images/2.jpg</ImageUrl>
+    <Width>250</Width>
+    <Height>250</Height>
+  </Ad>
+  <Ad>
+    <ImageUrl>/Images/3.jpg</ImageUrl>
+    <Width>250</Width>
+    <Height>250</Height>
+  </Ad>
+</Advertisements>

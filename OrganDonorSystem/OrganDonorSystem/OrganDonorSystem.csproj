@@ -95,11 +95,16 @@
     <Compile Include="ViewModels\UserHomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ads.xml" />
     <Content Include="Content\images\BackBG.png" />
     <Content Include="Content\images\bgDIVIDER.gif" />
     <Content Include="Content\images\bgHOVER.gif" />
     <Content Include="Content\images\bgOFF.gif" />
     <Content Include="Content\images\bgON.gif" />
+    <Content Include="Content\images\image11.jpg" />
+    <Content Include="Content\images\1.jpg" />
+    <Content Include="Content\images\2.jpg" />
+    <Content Include="Content\images\3.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\DonorInfo\Index.aspx" />
@@ -152,6 +157,7 @@
       <LastGenOutput>OrganDonorSystemDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
