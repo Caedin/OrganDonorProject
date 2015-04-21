@@ -20,6 +20,8 @@ USE `OrganDonorSystem` ;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`BloodType`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`BloodType` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`BloodType` (
   `bloodTypeID` INT(11) NOT NULL AUTO_INCREMENT,
   `bloodTypeName` VARCHAR(45) NOT NULL,
@@ -33,6 +35,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`State`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`State` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`State` (
   `stateID` INT(11) NOT NULL,
   `state` VARCHAR(45) NOT NULL,
@@ -44,6 +48,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`City`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`City` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`City` (
   `cityID` INT(11) NOT NULL AUTO_INCREMENT,
   `stateStateID` INT(11) NOT NULL,
@@ -61,6 +67,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Medical_Personnel`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Medical_Personnel` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Medical_Personnel` (
   `medicalPersonnelId` INT(11) NOT NULL AUTO_INCREMENT,
   `userName` VARCHAR(20) NOT NULL,
@@ -90,6 +98,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Donor`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Donor` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Donor` (
   `DonorID` INT(11) NOT NULL AUTO_INCREMENT,
   `phoneNumber` CHAR(13) NOT NULL,
@@ -115,6 +125,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`OrganType`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`OrganType` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`OrganType` (
   `organTypeID` INT(11) NOT NULL AUTO_INCREMENT,
   `organName` VARCHAR(45) NOT NULL,
@@ -128,6 +140,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Recipients`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Recipients` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Recipients` (
   `recipentID` INT(11) NOT NULL AUTO_INCREMENT,
   `medicalPersonnelID` INT(11) NOT NULL,
@@ -165,6 +179,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Organs`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Organs` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Organs` (
   `OrganID` INT(11) NOT NULL AUTO_INCREMENT,
   `organType_organtypeID` INT(11) NOT NULL,
@@ -203,6 +219,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Donor_has_Organs`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Donor_has_Organs` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Donor_has_Organs` (
   `Organ_OrganID` INT(11) NOT NULL,
   `Donor_DonorID` INT(11) NOT NULL,
@@ -225,6 +243,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`MatchTable`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`MatchTable` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`MatchTable` (
   `transactionID` INT(11) NOT NULL AUTO_INCREMENT,
   `organID` INT(11) NOT NULL,
@@ -258,6 +278,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Medical_Personnnel_has_Donors`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Medical_Personnnel_has_Donors` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Medical_Personnnel_has_Donors` (
   `Medical_Personnel_medicalPersonnelID` INT(11) NOT NULL,
   `Donor_DonorID` INT(11) NOT NULL,
@@ -280,6 +302,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`Medical_Personnnel_has_Recipients`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`Medical_Personnnel_has_Recipients` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Medical_Personnnel_has_Recipients` (
   `Medical_Personnel_medicalPersonnelID` INT(11) NOT NULL,
   `Recipient_recipientID` INT(11) NOT NULL,
@@ -302,6 +326,8 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `OrganDonorSystem`.`OrganExpirationTime`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `OrganDonorSystem`.`OrganExpirationTime` ;
+
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`OrganExpirationTime` (
   `timeUntilExpiration` TIME NOT NULL,
   `organType_organTypeID` INT(11) NOT NULL,
