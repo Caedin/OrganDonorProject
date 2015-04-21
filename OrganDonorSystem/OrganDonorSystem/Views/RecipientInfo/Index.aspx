@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     
-    <h2>Recipient <%: Model.recipientID  %> Information</h2>
+    <h2>Recipient Information</h2>
     <ul id="nav">
         <li><a href="/UserHome/UserHomeRecipients">Go Back</a></li>
     </ul>
@@ -16,7 +16,8 @@
     <div class="SummaryParagraph">
         
         <ul style="list-style-type:none">
-        <li>Severity: <%: Model.severity %></li>
+        <li>Recipient ID: <%: Model.recipientID %></li>
+        <li>Severity Level: <%: Model.severity %></li>
         <li>Organ Needed: <%: Model.organNeeded %></li>
         <li>Age: <%: Model.age %></li>
         <li>Gender: <%: Model.gender %></li>

@@ -109,21 +109,8 @@ namespace OrganDonorSystem.Controllers
             try
             {
                 //Getting Data from database and passing number of donors,reps and organs into View
-                var viewModel = new UserHomeViewModel(Session["UserName"].ToString())
-                {
-                    numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
-                                      where Organ.MedicalPersonnelID == loggedIN
-                                      select Organ.OrganID).Count(),
-
-                    OrganIDs = (from Organ in OrganDonorSystemDB.Organs
-                                where Organ.MedicalPersonnelID == loggedIN
-                                select Organ.OrganID).ToList(),
-
-                    OrganOriginalIDs = (from Organ in OrganDonorSystemDB.Organs
-                                        where Organ.MedicalPersonnelID == loggedIN
-                                        select Organ.OriginalID).ToList(),
-                };
-
+                var viewModel = new UserHomeViewModel(Session["UserName"].ToString());
+                viewModel.setOrganFromMedicalID(loggedIN);
                 return View(viewModel);
             }
             catch (Exception e)

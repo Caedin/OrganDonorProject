@@ -10,7 +10,7 @@
 
     <p>Please select which report you would like to view:</p>
     
-    <ul>
+    <ul id="nav">
       <li><a href="/Reports/OrgansReport">Organs History</a></li>
       <li><a href="/Reports/RecipientsReport">Current Recipient Waitlist</a></li>
       <li><a href="/Reports/MatchedReport">Matching Report</a></li>

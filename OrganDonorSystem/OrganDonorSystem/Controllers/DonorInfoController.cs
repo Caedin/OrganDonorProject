@@ -24,10 +24,10 @@ namespace OrganDonorSystem.Controllers
             bool result = Int32.TryParse(blah, out number);
             int dID = number;
             var viewModel = new DonorInfoIndexViewModel();
-            viewModel.setSingleDonorFromID(dID);
+            viewModel.setSingleDonorWithID(dID);
 
             //checks to see if user is trying to access data that is not theirs, if so sends them back to userHome
-            if (viewModel.MedicalPersonnelID != Int32.Parse(Session["UserName"].ToString())) { return RedirectToAction("Index", "UserHome"); }
+            if (viewModel.theDonor.medicalPersonnelId != Int32.Parse(Session["UserName"].ToString())) { return RedirectToAction("Index", "UserHome"); }
 
             return View(viewModel);
 
