@@ -26,16 +26,22 @@
             <td>
                 Original ID
             </td>
+            <td>
+                Expiration Date
+            </td>
         </tr>
        <% for(int i=0;i<Model.numberOfOrgans;i++)
            { %>
             <tr>
                 <td >
-                  <%=Html.ActionLink(Model.addStringPadding(8, Model.OrganIDs[i].ToString()), "Index", 
-                "OrgansInfo", new {dID = Model.OrganIDs[i]}, null) %>
+                  <%=Html.ActionLink(Model.addStringPadding(8, Model.theOrgans[i].OrganID.ToString()), "Index", 
+                "OrgansInfo", new {dID = Model.theOrgans[i].OrganID}, null) %>
                 </td>
                 <td >
-                    <%: Model.OrganOriginalIDs[i] %>
+                    <%: Model.theOrgans[i].OriginalID %>
+                </td>
+                <td >
+                    <%: Model.theOrgans[i].expirationDate %>
                 </td>
             </tr>
             <% } %>

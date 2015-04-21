@@ -28,6 +28,7 @@ namespace OrganDonorSystem.ViewModels
         public int numberOfOrgans { get; set; }
         public List<int> OrganIDs { get; set; }
         public List<string> OrganOriginalIDs { get; set; }
+        public List<Organ> theOrgans {get;set;}
 
         
 
@@ -84,6 +85,12 @@ namespace OrganDonorSystem.ViewModels
                              OriginalIDs = Donor.originalID,
                              PhoneNumbers = Donor.phoneNumber
                          }).ToList();
+        }
+        public void setOrganFromMedicalID(int ID)
+        {
+            theOrgans = (from Organ in OrganDonorSystemDB.Organs
+                         where Organ.MedicalPersonnelID == ID
+                         select Organ).ToList();
         }
     }
 }
