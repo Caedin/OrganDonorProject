@@ -224,9 +224,9 @@ namespace OrganDonorSystem.Controllers
                     OrganDonorSystemDB.SaveChanges();
 
 
-                    Action matchMakingAsynch = runMatchMaking;
-                    matchMakingAsynch.BeginInvoke(ar => matchMakingAsynch.EndInvoke(ar), null);
-
+                    //Action matchMakingAsynch = runMatchMaking;
+                    //matchMakingAsynch.BeginInvoke(ar => matchMakingAsynch.EndInvoke(ar), null);
+                    runMatchMaking();
                     return RedirectToAction("Index");
                 }
             }
