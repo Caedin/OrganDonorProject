@@ -22,10 +22,10 @@ USE `OrganDonorSystem` ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`BloodType`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`BloodType` (
-  `bloodTypeID` INT(11) NOT NULL AUTO_INCREMENT,
-  `bloodTypeName` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`bloodTypeID`),
-  UNIQUE INDEX `bloodTypeID_UNIQUE` (`bloodTypeID` ASC))
+`bloodTypeID` INT(11) NOT NULL AUTO_INCREMENT,
+`bloodTypeName` VARCHAR(45) NOT NULL,
+PRIMARY KEY (`bloodTypeID`),
+UNIQUE INDEX `bloodTypeID_UNIQUE` (`bloodTypeID` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = latin1;
@@ -36,9 +36,9 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`State`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`State` (
-  `stateID` INT(11) NOT NULL,
-  `state` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`stateID`))
+`stateID` INT(11)  NOT NULL AUTO_INCREMENT,
+`state` VARCHAR(45) NOT NULL,
+PRIMARY KEY (`stateID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -48,14 +48,14 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`City`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`City` (
-  `cityID` INT(11) NOT NULL AUTO_INCREMENT,
-  `stateStateID` INT(11) NOT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`cityID`),
-  INDEX `fk_State_stateID_ibfk_1` (`stateStateID` ASC),
-  CONSTRAINT `fk_State_stateID_ibfk_1`
-    FOREIGN KEY (`stateStateID`)
-    REFERENCES `OrganDonorSystem`.`State` (`stateID`))
+`cityID` INT(11) NOT NULL AUTO_INCREMENT,
+`stateStateID` INT(11) NOT NULL,
+`city` VARCHAR(45) NOT NULL,
+PRIMARY KEY (`cityID`),
+INDEX `fk_State_stateID_ibfk_1` (`stateStateID` ASC),
+CONSTRAINT `fk_State_stateID_ibfk_1`
+FOREIGN KEY (`stateStateID`)
+REFERENCES `OrganDonorSystem`.`State` (`stateID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = latin1;
@@ -66,26 +66,26 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Medical_Personnel`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Medical_Personnel` (
-  `medicalPersonnelId` INT(11) NOT NULL AUTO_INCREMENT,
-  `userName` VARCHAR(20) NOT NULL,
-  `userPassword` VARCHAR(20) NOT NULL,
-  `medicalFacility` VARCHAR(20) NOT NULL,
-  `contactEmail` VARCHAR(50) NOT NULL,
-  `phoneNumber` CHAR(13) NOT NULL,
-  `validatedUser` TINYINT(1) NOT NULL,
-  `create_time` DATETIME NOT NULL,
-  `State_StateID` INT(11) NOT NULL,
-  `City_CityID` INT(11) NOT NULL,
-  PRIMARY KEY (`medicalPersonnelId`),
-  UNIQUE INDEX `medicalPersonnelId_UNIQUE` (`medicalPersonnelId` ASC),
-  INDEX `Medical_Personnel_ibfk_1` (`State_StateID` ASC),
-  INDEX `Medical_Personnel_ibfk_2` (`City_CityID` ASC),
-  CONSTRAINT `Medical_Personnel_ibfk_1`
-    FOREIGN KEY (`State_StateID`)
-    REFERENCES `OrganDonorSystem`.`State` (`stateID`),
-  CONSTRAINT `Medical_Personnel_ibfk_2`
-    FOREIGN KEY (`City_CityID`)
-    REFERENCES `OrganDonorSystem`.`City` (`cityID`))
+`medicalPersonnelId` INT(11) NOT NULL AUTO_INCREMENT,
+`userName` VARCHAR(20) NOT NULL,
+`userPassword` VARCHAR(20) NOT NULL,
+`medicalFacility` VARCHAR(255) NOT NULL,
+`contactEmail` VARCHAR(50) NOT NULL,
+`phoneNumber` CHAR(13) NOT NULL,
+`validatedUser` TINYINT(1) NOT NULL,
+`create_time` DATETIME NOT NULL,
+`State_StateID` INT(11) NOT NULL,
+`City_CityID` INT(11) NOT NULL,
+PRIMARY KEY (`medicalPersonnelId`),
+UNIQUE INDEX `medicalPersonnelId_UNIQUE` (`medicalPersonnelId` ASC),
+INDEX `Medical_Personnel_ibfk_1` (`State_StateID` ASC),
+INDEX `Medical_Personnel_ibfk_2` (`City_CityID` ASC),
+CONSTRAINT `Medical_Personnel_ibfk_1`
+FOREIGN KEY (`State_StateID`)
+REFERENCES `OrganDonorSystem`.`State` (`stateID`),
+CONSTRAINT `Medical_Personnel_ibfk_2`
+FOREIGN KEY (`City_CityID`)
+REFERENCES `OrganDonorSystem`.`City` (`cityID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = latin1;
@@ -96,22 +96,22 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Donor`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Donor` (
-  `DonorID` INT(11) NOT NULL AUTO_INCREMENT,
-  `phoneNumber` CHAR(13) NOT NULL,
-  `registrationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `endDate` TIMESTAMP NULL DEFAULT NULL,
-  `medicalPersonnelId` INT(11) NOT NULL,
-  `originalID` VARCHAR(50) NOT NULL,
-  `gender` ENUM('M','F') NOT NULL,
-  `age` INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`DonorID`),
-  UNIQUE INDEX `DonorID` (`DonorID` ASC),
-  INDEX `fk_Donor_medicalPersonnelID_idx` (`medicalPersonnelId` ASC),
-  CONSTRAINT `fk_Donor_medicalPersonnelID`
-    FOREIGN KEY (`medicalPersonnelId`)
-    REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+`DonorID` INT(11) NOT NULL AUTO_INCREMENT,
+`phoneNumber` CHAR(13) NOT NULL,
+`registrationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`endDate` TIMESTAMP NULL DEFAULT NULL,
+`medicalPersonnelId` INT(11) NOT NULL,
+`originalID` VARCHAR(50) NOT NULL,
+`gender` ENUM('M','F') NOT NULL,
+`age` INT(11) UNSIGNED NOT NULL,
+PRIMARY KEY (`DonorID`),
+UNIQUE INDEX `DonorID` (`DonorID` ASC),
+INDEX `fk_Donor_medicalPersonnelID_idx` (`medicalPersonnelId` ASC),
+CONSTRAINT `fk_Donor_medicalPersonnelID`
+FOREIGN KEY (`medicalPersonnelId`)
+REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = latin1;
@@ -122,10 +122,10 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`OrganType`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`OrganType` (
-  `organTypeID` INT(11) NOT NULL AUTO_INCREMENT,
-  `organName` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`organTypeID`),
-  UNIQUE INDEX `organTypeID_UNIQUE` (`organTypeID` ASC))
+`organTypeID` INT(11) NOT NULL AUTO_INCREMENT,
+`organName` VARCHAR(45) NOT NULL,
+PRIMARY KEY (`organTypeID`),
+UNIQUE INDEX `organTypeID_UNIQUE` (`organTypeID` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
@@ -136,34 +136,34 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Recipients`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Recipients` (
-  `recipentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `medicalPersonnelID` INT(11) NOT NULL,
-  `severity` ENUM('1','2','3','4') NOT NULL,
-  `orignialID` VARCHAR(50) NULL DEFAULT NULL,
-  `gender` ENUM('M','F') NOT NULL,
-  `dateRegistered` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `age` INT(11) UNSIGNED NOT NULL,
-  `organsOrganID` INT(11) NULL DEFAULT NULL,
-  `organTypeOrganTypeID` INT(11) NOT NULL,
-  `bloodTypeBloodTypeID` INT(11) NOT NULL,
-  `needsOrgan` ENUM('T','F') NOT NULL DEFAULT 'T',
-  PRIMARY KEY (`recipentID`),
-  INDEX `fk_Medical_Personnel_medicalPersonnel_idx` (`medicalPersonnelID` ASC),
-  INDEX `fk_BloodType_BloodType1_idx` (`bloodTypeBloodTypeID` ASC),
-  INDEX `fk_organ_organID_idx_idx` (`organsOrganID` ASC),
-  INDEX `fk_organType_organTypeID_ibfk_1` (`organTypeOrganTypeID` ASC),
-  CONSTRAINT `fk_BloodType_BloodType1_idx`
-    FOREIGN KEY (`bloodTypeBloodTypeID`)
-    REFERENCES `OrganDonorSystem`.`BloodType` (`bloodTypeID`),
-  CONSTRAINT `fk_Medical_Personnel_medicalPersonnel_idx`
-    FOREIGN KEY (`medicalPersonnelID`)
-    REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`),
-  CONSTRAINT `fk_organType_organTypeID_ibfk_1`
-    FOREIGN KEY (`organTypeOrganTypeID`)
-    REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`),
-  CONSTRAINT `fk_organ_organID_idx`
-    FOREIGN KEY (`organsOrganID`)
-    REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`))
+`recipentID` INT(11) NOT NULL AUTO_INCREMENT,
+`medicalPersonnelID` INT(11) NOT NULL,
+`severity` ENUM('1','2','3','4') NOT NULL,
+`orignialID` VARCHAR(50) NULL DEFAULT NULL,
+`gender` ENUM('M','F') NOT NULL,
+`dateRegistered` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`age` INT(11) UNSIGNED NOT NULL,
+`organsOrganID` INT(11) NULL DEFAULT NULL,
+`organTypeOrganTypeID` INT(11) NOT NULL,
+`bloodTypeBloodTypeID` INT(11) NOT NULL,
+`needsOrgan` ENUM('T','F') NOT NULL DEFAULT 'T',
+PRIMARY KEY (`recipentID`),
+INDEX `fk_Medical_Personnel_medicalPersonnel_idx` (`medicalPersonnelID` ASC),
+INDEX `fk_BloodType_BloodType1_idx` (`bloodTypeBloodTypeID` ASC),
+INDEX `fk_organ_organID_idx_idx` (`organsOrganID` ASC),
+INDEX `fk_organType_organTypeID_ibfk_1` (`organTypeOrganTypeID` ASC),
+CONSTRAINT `fk_BloodType_BloodType1_idx`
+FOREIGN KEY (`bloodTypeBloodTypeID`)
+REFERENCES `OrganDonorSystem`.`BloodType` (`bloodTypeID`),
+CONSTRAINT `fk_Medical_Personnel_medicalPersonnel_idx`
+FOREIGN KEY (`medicalPersonnelID`)
+REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`),
+CONSTRAINT `fk_organType_organTypeID_ibfk_1`
+FOREIGN KEY (`organTypeOrganTypeID`)
+REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`),
+CONSTRAINT `fk_organ_organID_idx`
+FOREIGN KEY (`organsOrganID`)
+REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 34
 DEFAULT CHARACTER SET = latin1;
@@ -174,35 +174,35 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Organs`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Organs` (
-  `OrganID` INT(11) NOT NULL AUTO_INCREMENT,
-  `organType_organtypeID` INT(11) NOT NULL,
-  `BloodType_BloodTypeID` INT(11) NOT NULL,
-  `dateAqcuired` DATETIME NOT NULL,
-  `expirationDate` DATETIME NOT NULL,
-  `MedicalPersonnelID` INT(11) NOT NULL,
-  `OriginalID` VARCHAR(50) NOT NULL,
-  `available` TINYINT(1) NOT NULL,
-  `Recipient_RecipientID` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`OrganID`),
-  UNIQUE INDEX `OrganID_UNIQUE` (`OrganID` ASC),
-  INDEX `Organs_RecipientID_idx` (`Recipient_RecipientID` ASC),
-  INDEX `Organs_MedicalPersonnel_idx` (`MedicalPersonnelID` ASC),
-  INDEX `Organs_BloodType_idx` (`BloodType_BloodTypeID` ASC),
-  INDEX `Organs_organType_idx` (`organType_organtypeID` ASC),
-  CONSTRAINT `Organs_BloodType`
-    FOREIGN KEY (`BloodType_BloodTypeID`)
-    REFERENCES `OrganDonorSystem`.`BloodType` (`bloodTypeID`),
-  CONSTRAINT `Organs_MedicalPersonnel`
-    FOREIGN KEY (`MedicalPersonnelID`)
-    REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Organs_RecipientID`
-    FOREIGN KEY (`Recipient_RecipientID`)
-    REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`),
-  CONSTRAINT `Organs_organType`
-    FOREIGN KEY (`organType_organtypeID`)
-    REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`))
+`OrganID` INT(11) NOT NULL AUTO_INCREMENT,
+`organType_organtypeID` INT(11) NOT NULL,
+`BloodType_BloodTypeID` INT(11) NOT NULL,
+`dateAqcuired` DATETIME NOT NULL,
+`expirationDate` DATETIME NOT NULL,
+`MedicalPersonnelID` INT(11) NOT NULL,
+`OriginalID` VARCHAR(50) NOT NULL,
+`available` TINYINT(1) NOT NULL,
+`Recipient_RecipientID` INT(11) NULL DEFAULT NULL,
+PRIMARY KEY (`OrganID`),
+UNIQUE INDEX `OrganID_UNIQUE` (`OrganID` ASC),
+INDEX `Organs_RecipientID_idx` (`Recipient_RecipientID` ASC),
+INDEX `Organs_MedicalPersonnel_idx` (`MedicalPersonnelID` ASC),
+INDEX `Organs_BloodType_idx` (`BloodType_BloodTypeID` ASC),
+INDEX `Organs_organType_idx` (`organType_organtypeID` ASC),
+CONSTRAINT `Organs_BloodType`
+FOREIGN KEY (`BloodType_BloodTypeID`)
+REFERENCES `OrganDonorSystem`.`BloodType` (`bloodTypeID`),
+CONSTRAINT `Organs_MedicalPersonnel`
+FOREIGN KEY (`MedicalPersonnelID`)
+REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT `Organs_RecipientID`
+FOREIGN KEY (`Recipient_RecipientID`)
+REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`),
+CONSTRAINT `Organs_organType`
+FOREIGN KEY (`organType_organtypeID`)
+REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = latin1;
@@ -213,20 +213,20 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Donor_has_Organs`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Donor_has_Organs` (
-  `Organ_OrganID` INT(11) NOT NULL,
-  `Donor_DonorID` INT(11) NOT NULL,
-  INDEX `Donor_DonorID_idx` (`Donor_DonorID` ASC),
-  INDEX `Organ_OrganID` (`Organ_OrganID` ASC),
-  CONSTRAINT `Donor_DonorID`
-    FOREIGN KEY (`Donor_DonorID`)
-    REFERENCES `OrganDonorSystem`.`Donor` (`DonorID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Organ_OrganID`
-    FOREIGN KEY (`Organ_OrganID`)
-    REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+`Organ_OrganID` INT(11) NOT NULL,
+`Donor_DonorID` INT(11) NOT NULL,
+INDEX `Donor_DonorID_idx` (`Donor_DonorID` ASC),
+INDEX `Organ_OrganID` (`Organ_OrganID` ASC),
+CONSTRAINT `Donor_DonorID`
+FOREIGN KEY (`Donor_DonorID`)
+REFERENCES `OrganDonorSystem`.`Donor` (`DonorID`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT `Organ_OrganID`
+FOREIGN KEY (`Organ_OrganID`)
+REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -236,30 +236,30 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`MatchTable`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`MatchTable` (
-  `transactionID` INT(11) NOT NULL AUTO_INCREMENT,
-  `organID` INT(11) NOT NULL,
-  `organType` INT(11) NOT NULL,
-  `medicalPersonnelIdForRecipient` INT(11) NOT NULL,
-  `recipientID` INT(11) NOT NULL,
-  `acceptedOrDeclined` TINYINT(4) NULL DEFAULT NULL,
-  `dateMatched` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`transactionID`),
-  INDEX `organID` (`organID` ASC),
-  INDEX `organType` (`organType` ASC),
-  INDEX `medicalPersonnelIdForRecipient` (`medicalPersonnelIdForRecipient` ASC),
-  INDEX `recipientID` (`recipientID` ASC),
-  CONSTRAINT `MatchTable_ibfk_1`
-    FOREIGN KEY (`organID`)
-    REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`),
-  CONSTRAINT `MatchTable_ibfk_2`
-    FOREIGN KEY (`organType`)
-    REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`),
-  CONSTRAINT `MatchTable_ibfk_3`
-    FOREIGN KEY (`medicalPersonnelIdForRecipient`)
-    REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`),
-  CONSTRAINT `MatchTable_ibfk_4`
-    FOREIGN KEY (`recipientID`)
-    REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`))
+`transactionID` INT(11) NOT NULL AUTO_INCREMENT,
+`organID` INT(11) NOT NULL,
+`organType` INT(11) NOT NULL,
+`medicalPersonnelIdForRecipient` INT(11) NOT NULL,
+`recipientID` INT(11) NOT NULL,
+`acceptedOrDeclined` TINYINT(4) NULL DEFAULT NULL,
+`dateMatched` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`transactionID`),
+INDEX `organID` (`organID` ASC),
+INDEX `organType` (`organType` ASC),
+INDEX `medicalPersonnelIdForRecipient` (`medicalPersonnelIdForRecipient` ASC),
+INDEX `recipientID` (`recipientID` ASC),
+CONSTRAINT `MatchTable_ibfk_1`
+FOREIGN KEY (`organID`)
+REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`),
+CONSTRAINT `MatchTable_ibfk_2`
+FOREIGN KEY (`organType`)
+REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`),
+CONSTRAINT `MatchTable_ibfk_3`
+FOREIGN KEY (`medicalPersonnelIdForRecipient`)
+REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`),
+CONSTRAINT `MatchTable_ibfk_4`
+FOREIGN KEY (`recipientID`)
+REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 192
 DEFAULT CHARACTER SET = latin1;
@@ -270,20 +270,20 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Medical_Personnnel_has_Donors`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Medical_Personnnel_has_Donors` (
-  `Medical_Personnel_medicalPersonnelID` INT(11) NOT NULL,
-  `Donor_DonorID` INT(11) NOT NULL,
-  INDEX `fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx_idx` (`Medical_Personnel_medicalPersonnelID` ASC),
-  INDEX `fk_Medical_Personnel_has_Donors_Donors1_idx_idx` (`Donor_DonorID` ASC),
-  CONSTRAINT `fk_Medical_Personnel_has_Donors_Donors1_idx`
-    FOREIGN KEY (`Donor_DonorID`)
-    REFERENCES `OrganDonorSystem`.`Donor` (`DonorID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx`
-    FOREIGN KEY (`Medical_Personnel_medicalPersonnelID`)
-    REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+`Medical_Personnel_medicalPersonnelID` INT(11) NOT NULL,
+`Donor_DonorID` INT(11) NOT NULL,
+INDEX `fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx_idx` (`Medical_Personnel_medicalPersonnelID` ASC),
+INDEX `fk_Medical_Personnel_has_Donors_Donors1_idx_idx` (`Donor_DonorID` ASC),
+CONSTRAINT `fk_Medical_Personnel_has_Donors_Donors1_idx`
+FOREIGN KEY (`Donor_DonorID`)
+REFERENCES `OrganDonorSystem`.`Donor` (`DonorID`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT `fk_Medical_Personnel_has_Donors_Medical_Personnel1_idx`
+FOREIGN KEY (`Medical_Personnel_medicalPersonnelID`)
+REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -293,20 +293,20 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Medical_Personnnel_has_Recipients`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Medical_Personnnel_has_Recipients` (
-  `Medical_Personnel_medicalPersonnelID` INT(11) NOT NULL,
-  `Recipient_recipientID` INT(11) NOT NULL,
-  INDEX `fk_Medical_Personnel_has_Recipients1_idx_idx` (`Recipient_recipientID` ASC),
-  INDEX `fk_Medical_Personnel_has_Medical_Personnel1_idx_idx` (`Medical_Personnel_medicalPersonnelID` ASC),
-  CONSTRAINT `fk_Medical_Personnel_has_Medical_Personnel1_idx`
-    FOREIGN KEY (`Medical_Personnel_medicalPersonnelID`)
-    REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Medical_Personnel_has_Recipients1_idx`
-    FOREIGN KEY (`Recipient_recipientID`)
-    REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+`Medical_Personnel_medicalPersonnelID` INT(11) NOT NULL,
+`Recipient_recipientID` INT(11) NOT NULL,
+INDEX `fk_Medical_Personnel_has_Recipients1_idx_idx` (`Recipient_recipientID` ASC),
+INDEX `fk_Medical_Personnel_has_Medical_Personnel1_idx_idx` (`Medical_Personnel_medicalPersonnelID` ASC),
+CONSTRAINT `fk_Medical_Personnel_has_Medical_Personnel1_idx`
+FOREIGN KEY (`Medical_Personnel_medicalPersonnelID`)
+REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT `fk_Medical_Personnel_has_Recipients1_idx`
+FOREIGN KEY (`Recipient_recipientID`)
+REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -316,12 +316,12 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`OrganExpirationTime`;
 CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`OrganExpirationTime` (
-  `timeUntilExpiration` TIME NOT NULL,
-  `organType_organTypeID` INT(11) NOT NULL,
-  INDEX `fk_OrganExpirationTime_OrganTypeID_idx` (`organType_organTypeID` ASC),
-  CONSTRAINT `fk_OrganExpirationTime_OrganType1`
-    FOREIGN KEY (`organType_organTypeID`)
-    REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`))
+`timeUntilExpiration` TIME NOT NULL,
+`organType_organTypeID` INT(11) NOT NULL,
+INDEX `fk_OrganExpirationTime_OrganTypeID_idx` (`organType_organTypeID` ASC),
+CONSTRAINT `fk_OrganExpirationTime_OrganType1`
+FOREIGN KEY (`organType_organTypeID`)
+REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -329,15 +329,15 @@ DEFAULT CHARACTER SET = latin1;
 -- Table `OrganDonorSystem`.`Award`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS  `OrganDonorSystem`.`Award`;
-CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Award` 
+CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Award`
 (
-  `awardID` INT(11) NOT NULL AUTO_INCREMENT,
-  `medicalPersonnelID` INT(11) NOT NULL,
-  `awardType`	VARCHAR(45) not null,
-  `awardMinimum`	int(11) not null,
-	PRIMARY KEY (`awardID`),
-	FOREIGN KEY (`medicalPersonnelID`) 
-        REFERENCES Medical_Personnel(`medicalPersonnelID`)
+`awardID` INT(11) NOT NULL AUTO_INCREMENT,
+`medicalPersonnelID` INT(11) NOT NULL,
+`awardType`	VARCHAR(45) not null,
+`awardMinimum`	int(11) not null,
+PRIMARY KEY (`awardID`),
+FOREIGN KEY (`medicalPersonnelID`)
+REFERENCES Medical_Personnel(`medicalPersonnelID`)
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -573,10 +573,10 @@ INSERT INTO OrganDonorSystem.OrganType ( `organName`) VALUES ('Pancreas');
 INSERT INTO OrganDonorSystem.OrganType ( `organName`) VALUES ('Intestine');
 
 -- Medical_Personnel
-INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Veronica R. Yracheta', 'jkj8899', 'Baylor Medicine of College', 'jj_waltz@bcm.com', '7135557799', '1', '2000-08-16 19:30:51', '44', '127');
-INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Mia W. Arteaga', 'dwa4281', 'New York Downtown Hospital', 'arteaga07@nydh.net', '9175551284', '1', '2000-01-28 11:11:48', '20', '55');
-INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Caeden A. Trejo', 'cat1127', 'Massachusetts General Hospital', 'caeden@grp5best.net', '6175552385', '1', '2001-01-04 05:32:34', '35', '100');
-INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Aidan G. Maple', 'agm9689', 'St. Anthony Hospital', 'a.maple@oku.edu', '4055554875', '1', '2004-04-25 06:03:26', '37', '106');
+INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('veronicaY', 'jkj8899', 'Baylor Medicine of College', 'jj_waltz@bcm.com', '7135557799', '1', '2000-08-16 19:30:51', '44', '127');
+INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('miaA', 'dwa4281', 'New York Downtown Hospital', 'arteaga07@nydh.net', '9175551284', '1', '2000-01-28 11:11:48', '20', '55');
+INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('caedenT', 'cat1127', 'Massachusetts General Hospital', 'caeden@grp5best.net', '6175552385', '1', '2001-01-04 05:32:34', '35', '100');
+INSERT INTO `OrganDonorSystem`.`Medical_Personnel` (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('aidanM', 'agm9689', 'St. Anthony Hospital', 'a.maple@oku.edu', '4055554875', '1', '2004-04-25 06:03:26', '37', '106');
 
 -- Donor List
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('713-555-1337', '2006-02-10 07:17:29', '2006-02-11 07:17:29', '1', 'Tester', 'F', '33');
@@ -609,7 +609,7 @@ INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endD
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('617-555-6578', '2009-01-25 07:13:24', '2009-01-26 07:13:24', '3', 'Tester', 'F', '31');
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('617-555-3419', '2015-04-21 13:14:26', '2015-04-22 13:14:26', '3', 'Tester', 'M', '24');
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('617-555-5982', '2015-04-21 09:15:28', '2015-04-22 09:15:28', '3', 'Tester', 'F', '26');
-INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('405-555-6649', '2010-20-17 02:35:39', '2010-20-18 02:35:39', '4', 'Tester', 'M', '22');
+INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('405-555-6649', '2010-04-17 02:35:39', '2010-04-18 02:35:39', '4', 'Tester', 'M', '22');
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('405-555-7895', '2008-04-14 19:12:26', '2008-04-15 19:12:26', '4', 'Tester', 'M', '37');
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('405-555-7836', '2009-06-12 02:17:47', '2009-06-13 02:17:47', '4', 'Tester', 'M', '41');
 INSERT INTO `OrganDonorSystem`.`Donor` (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('405-555-4056', '2007-07-11 13:25:53', '2007-07-12 13:25:53', '4', 'Tester', 'F', '25');
@@ -651,7 +651,7 @@ INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_Blo
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('2', '1', '2009-01-25 07:13:24', '2009-01-26 07:13:24', '3', 'NOT USED', '1');
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('5', '1', '2015-04-21 13:14:26', '2015-04-22 13:14:26', '3', 'NOT USED', '1');
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('6', '1', '2015-04-21 09:15:28', '2015-04-22 09:15:28', '3', 'NOT USED', '1');
-INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('1', '2', '2010-20-17 02:35:39', '2010-20-18 02:35:39', '4', 'NOT USED', '1');
+INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('1', '2', '2010-04-17 02:35:39', '2010-04-18 02:35:39', '4', 'NOT USED', '1');
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('2', '2', '2008-04-14 19:12:26', '2008-04-15 19:12:26', '4', 'NOT USED', '1');
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('3', '2', '2009-06-12 02:17:47', '2009-06-13 02:17:47', '4', 'NOT USED', '1');
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('4', '2', '2007-07-11 13:25:53', '2007-07-12 13:25:53', '4', 'NOT USED', '1');
@@ -663,46 +663,46 @@ INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_Blo
 INSERT INTO `OrganDonorSystem`.`Organs` (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('2', '1', '2015-04-21 08:23:43', '2015-04-22 08:23:43', '4', 'NOT USED', '1');
 
 -- Recipient list
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', 'NOT USED', 'M', '2009-09-11 12:50:23', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', 'NOT USED', 'F', '2004-08-16 10:37:26', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '3', 'NOT USED', 'M', '2002-05-05 09:48:19', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '4', 'NOT USED', 'M', '2001-06-25 16:23:25', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', 'NOT USED', 'M', '2003-07-18 05:21:34', '5', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', 'NOT USED', 'F', '2006-03-17 02:20:52', '6', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '3', 'NOT USED', 'F', '2002-05-12 09:19:36', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', 'NOT USED', 'M', '2001-03-20 22:18:16', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', 'NOT USED', 'F', '2005-02-22 07:43:15', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '4', 'NOT USED', 'F', '2004-09-13 08:22:25', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '1', 'NOT USED', 'F', '2003-08-15 12:16:24', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '2', 'NOT USED', 'F', '2002-07-30 13:18:23', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '3', 'NOT USED', 'M', '2002-03-05 15:16:22', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '4', 'NOT USED', 'M', '2001-05-02 16:19:24', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '2', 'NOT USED', 'F', '2004-06-16 19:23:29', '5', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '3', 'NOT USED', 'F', '2006-06-01 03:22:32', '6', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '2', 'NOT USED', 'M', '2007-07-11 08:13:43', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '1', 'NOT USED', 'M', '2008-08-03 20:16:53', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '4', 'NOT USED', 'M', '2000-09-05 02:18:42', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '3', 'NOT USED', 'F', '2002-10-09 22:19:36', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '3', 'NOT USED', 'M', '2011-11-18 16:12:12', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'F', '2003-09-17 05:13:36', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '4', 'NOT USED', 'F', '2005-12-13 09:45:25', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'M', '2004-03-15 11:33:29', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '4', 'NOT USED', 'F', '2004-04-14 16:23:36', '5', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '3', 'NOT USED', 'F', '2012-06-20 17:18:37', '6', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'M', '2010-07-16 18:19:42', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '1', 'NOT USED', 'F', '2002-06-13 20:13:16', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'F', '2001-04-18 04:14:53', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '3', 'NOT USED', 'M', '2003-01-19 06:14:28', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2011-01-23 02:09:24', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2009-08-25 06:17:25', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', 'NOT USED', 'M', '2003-09-16 09:11:39', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '4', 'NOT USED', 'F', '2007-03-19 23:18:49', '4', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2004-02-17 20:26:57', '5', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '1', 'NOT USED', 'M', '2002-01-11 19:34:49', '6', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', 'NOT USED', 'F', '2001-05-09 18:46:47', '1', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2000-04-11 11:52:42', '2', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', 'NOT USED', 'M', '2003-09-10 09:31:41', '3', '2', 'T');
-INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '4', 'NOT USED', 'F', '2002-07-03 08:22:43', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', 'NOT USED', 'M', '2009-09-11 12:50:23', '60', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', 'NOT USED', 'F', '2004-08-16 10:37:26', '33', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '3', 'NOT USED', 'M', '2002-05-05 09:48:19', '26', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '4', 'NOT USED', 'M', '2001-06-25 16:23:25', '73', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', 'NOT USED', 'M', '2003-07-18 05:21:34', '60', '5', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', 'NOT USED', 'F', '2006-03-17 02:20:52', '44', '6', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '3', 'NOT USED', 'F', '2002-05-12 09:19:36', '44', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', 'NOT USED', 'M', '2001-03-20 22:18:16', '27', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', 'NOT USED', 'F', '2005-02-22 07:43:15', '40', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '4', 'NOT USED', 'F', '2004-09-13 08:22:25', '33', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '1', 'NOT USED', 'F', '2003-08-15 12:16:24', '58', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '2', 'NOT USED', 'F', '2002-07-30 13:18:23', '21', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '3', 'NOT USED', 'M', '2002-03-05 15:16:22', '28', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '4', 'NOT USED', 'M', '2001-05-02 16:19:24', '33', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '2', 'NOT USED', 'F', '2004-06-16 19:23:29', '47', '5', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '3', 'NOT USED', 'F', '2006-06-01 03:22:32', '49', '6', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '2', 'NOT USED', 'M', '2007-07-11 08:13:43', '53', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '1', 'NOT USED', 'M', '2008-08-03 20:16:53', '57', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '4', 'NOT USED', 'M', '2000-09-05 02:18:42', '61', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('2', '3', 'NOT USED', 'F', '2002-10-09 22:19:36', '23', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '3', 'NOT USED', 'M', '2011-11-18 16:12:12', '57', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'F', '2003-09-17 05:13:36', '30', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '4', 'NOT USED', 'F', '2005-12-13 09:45:25', '57', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'M', '2004-03-15 11:33:29', '37', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '4', 'NOT USED', 'F', '2004-04-14 16:23:36', '20', '5', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '3', 'NOT USED', 'F', '2012-06-20 17:18:37', '50', '6', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'M', '2010-07-16 18:19:42', '61', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '1', 'NOT USED', 'F', '2002-06-13 20:13:16', '61', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '2', 'NOT USED', 'F', '2001-04-18 04:14:53', '44', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('3', '3', 'NOT USED', 'M', '2003-01-19 06:14:28', '24', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2011-01-23 02:09:24', '71', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2009-08-25 06:17:25', '51', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', 'NOT USED', 'M', '2003-09-16 09:11:39', '56', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '4', 'NOT USED', 'F', '2007-03-19 23:18:49', '54', '4', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2004-02-17 20:26:57', '52', '5', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '1', 'NOT USED', 'M', '2002-01-11 19:34:49', '59', '6', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', 'NOT USED', 'F', '2001-05-09 18:46:47', '19', '1', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', 'NOT USED', 'F', '2000-04-11 11:52:42', '22', '2', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', 'NOT USED', 'M', '2003-09-10 09:31:41', '58', '3', '2', 'T');
+INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '4', 'NOT USED', 'F', '2002-07-03 08:22:43', '19', '4', '2', 'T');
 
 
 
