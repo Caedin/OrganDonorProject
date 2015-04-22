@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`BloodType` (
 PRIMARY KEY (`bloodTypeID`),
 UNIQUE INDEX `bloodTypeID_UNIQUE` (`bloodTypeID` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -57,7 +57,7 @@ CONSTRAINT `fk_State_stateID_ibfk_1`
 FOREIGN KEY (`stateStateID`)
 REFERENCES `OrganDonorSystem`.`State` (`stateID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -87,7 +87,7 @@ CONSTRAINT `Medical_Personnel_ibfk_2`
 FOREIGN KEY (`City_CityID`)
 REFERENCES `OrganDonorSystem`.`City` (`cityID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -113,7 +113,7 @@ REFERENCES `OrganDonorSystem`.`Medical_Personnel` (`medicalPersonnelId`)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`OrganType` (
 PRIMARY KEY (`organTypeID`),
 UNIQUE INDEX `organTypeID_UNIQUE` (`organTypeID` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -165,7 +165,7 @@ CONSTRAINT `fk_organ_organID_idx`
 FOREIGN KEY (`organsOrganID`)
 REFERENCES `OrganDonorSystem`.`Organs` (`OrganID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 34
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -204,7 +204,7 @@ CONSTRAINT `Organs_organType`
 FOREIGN KEY (`organType_organtypeID`)
 REFERENCES `OrganDonorSystem`.`OrganType` (`organTypeID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -261,7 +261,7 @@ CONSTRAINT `MatchTable_ibfk_4`
 FOREIGN KEY (`recipientID`)
 REFERENCES `OrganDonorSystem`.`Recipients` (`recipentID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 192
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -572,10 +572,10 @@ INSERT INTO OrganDonorSystem.OrganType ( `organName`) VALUES ('Liver');
 INSERT INTO OrganDonorSystem.OrganType ( `organName`) VALUES ('Pancreas');
 
 -- Medical_Personnel
-INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('veronicaY', 'jkj8899', 'Baylor Medicine of College', 'jj_waltz@bcm.com', '7135557799', '1', '2000-08-16 19:30:51', '44', '127');
-INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('miaA', 'dwa4281', 'New York Downtown Hospital', 'arteaga07@nydh.net', '9175551284', '1', '2000-01-28 11:11:48', '20', '55');
-INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('caedinT', 'cat1127', 'Massachusetts General Hospital', 'caeden@grp5best.net', '6175552385', '1', '2001-01-04 05:32:34', '35', '100');
-INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('aideaM', 'agm9689', 'St. Anthony Hospital', 'a.maple@oku.edu', '4055554875', '1', '2004-04-25 06:03:26', '37', '106');
+INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Veronica R. Yracheta', 'jkj8899', 'Baylor Medicine of College', 'jj_waltz@bcm.com', '7135557799', '1', '2000-08-16 19:30:51', '44', '127');
+INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Mia W. Arteaga', 'dwa4281', 'New York Downtown Hospital', 'arteaga07@nydh.net', '9175551284', '1', '2000-01-28 11:11:48', '20', '55');
+INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Caeden A. Trejo', 'cat1127', 'Massachusetts General Hospital', 'caeden@grp5best.net', '6175552385', '1', '2001-01-04 05:32:34', '35', '100');
+INSERT INTO OrganDonorSystem.Medical_Personnel (`userName`, `userPassword`, `medicalFacility`, `contactEmail`, `phoneNumber`, `validatedUser`, `create_time`, `State_StateID`, `City_CityID`) VALUES ('Aidan G. Maple', 'agm9689', 'St. Anthony Hospital', 'a.maple@oku.edu', '4055554875', '1', '2004-04-25 06:03:26', '37', '106');
 
 -- Donor List
 INSERT INTO OrganDonorSystem.Donor (`phoneNumber`, `registrationDate`, `endDate`, `medicalPersonnelId`, `originalID`, `gender`, `age`) VALUES ('713-555-1337', '2006-02-10 07:17:29', '2006-02-11 07:17:29', '1', '1127428', 'F', '33');
@@ -660,6 +660,7 @@ INSERT INTO OrganDonorSystem.Organs (`organType_organtypeID`, `BloodType_BloodTy
 INSERT INTO OrganDonorSystem.Organs (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('2', '2', '2003-01-18 03:15:22', '2003-01-19 03:15:22', '4', '8T23L', '1');
 INSERT INTO OrganDonorSystem.Organs (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('1', '1', '2015-04-21 12:11:24', '2015-04-22 12:11:24', '4', '1Z31K', '1');
 INSERT INTO OrganDonorSystem.Organs (`organType_organtypeID`, `BloodType_BloodTypeID`, `dateAqcuired`, `expirationDate`, `MedicalPersonnelID`, `OriginalID`, `available`) VALUES ('2', '1', '2015-04-21 08:23:43', '2015-04-22 08:23:43', '4', '3Y21Z', '1');
+
 -- Recipient list
 INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '2', '7894532', 'M', '2009-09-11 12:50:23', '41', '1', '2', 'T');
 INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('1', '1', '1984567', 'F', '2004-08-16 10:37:26', '25', '2', '2', 'T');

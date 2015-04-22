@@ -5,7 +5,7 @@ def open_file(input_file):
 	new_file = []
 	with open(input_file, 'rb') as ifile:
 		for line in ifile:
-			if 'INSERT INTO `OrganDonorSystem`.`Recipients` (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES' in line:
+			if 'INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES' in line:
 				new_line = line.split('VALUES')
 				insert = new_line[0]
 				values = 'VALUES'
