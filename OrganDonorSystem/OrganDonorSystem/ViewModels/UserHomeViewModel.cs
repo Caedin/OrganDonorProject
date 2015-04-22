@@ -38,6 +38,11 @@ namespace OrganDonorSystem.ViewModels
         public string Phone_Numbers { get; set; }
         public List<DonorData> theDonors { get; set; }
 
+        //City, State
+        public string city { get; set; }
+        public string state { get; set; }
+
+
         public UserHomeViewModel(String userID)
         {
             //getting logged in infromation
@@ -49,20 +54,25 @@ namespace OrganDonorSystem.ViewModels
 
             if (loggedIn != null)
             {
-                userName = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
-                            where Medical_Personnel.medicalPersonnelId == loggedIn
-                            select Medical_Personnel.userName).ToList().First(); 
-            }
-            numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
-                              where Donor.medicalPersonnelId == loggedIn
-                              select Donor.DonorID).Count();
-            numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
-                                  where Recipient.medicalPersonnelID == loggedIn
-                                  select Recipient.recipentID).Count();
+                Medical_Personnel currentUser = (from Medical_Personnel in OrganDonorSystemDB.Medical_Personnel
+                                                 where Medical_Personnel.medicalPersonnelId == loggedIn
+                                                 select Medical_Personnel).Single();
 
-            numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
-                              where Organ.MedicalPersonnelID == loggedIn
-                              select Organ.OrganID).Count();
+                userName = currentUser.userName;
+                city = currentUser.City.city1;
+                state = currentUser.State.state1;
+
+                numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
+                                  where Donor.medicalPersonnelId == loggedIn
+                                  select Donor.DonorID).Count();
+                numberOfRecipients = (from Recipient in OrganDonorSystemDB.Recipients
+                                      where Recipient.medicalPersonnelID == loggedIn
+                                      select Recipient.recipentID).Count();
+
+                numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
+                                  where Organ.MedicalPersonnelID == loggedIn
+                                  select Organ.OrganID).Count();
+            }
         }
 
         public string addStringPadding(int neededLength, string inputString)
