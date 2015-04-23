@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="OrganDonorSystemModelStoreContainer" CdmEntityContainer="OrganDonorSystemEntities">
+    <EntitySetMapping Name="Awards">
+      <EntityTypeMapping TypeName="OrganDonorSystemModel.Award">
+        <MappingFragment StoreEntitySet="Award">
+          <ScalarProperty Name="awardID" ColumnName="awardID" />
+          <ScalarProperty Name="medicalPersonnelID" ColumnName="medicalPersonnelID" />
+          <ScalarProperty Name="awardType" ColumnName="awardType" />
+          <ScalarProperty Name="awardMinimum" ColumnName="awardMinimum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BloodTypes">
       <EntityTypeMapping TypeName="OrganDonorSystemModel.BloodType">
         <MappingFragment StoreEntitySet="BloodType">

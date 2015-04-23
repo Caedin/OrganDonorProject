@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="OrganDonorSystemModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="OrganDonorSystemModelStoreContainer">
+    <EntitySet Name="Award" EntityType="OrganDonorSystemModel.Store.Award" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="BloodType" EntityType="OrganDonorSystemModel.Store.BloodType" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="City" EntityType="OrganDonorSystemModel.Store.City" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="Donor" EntityType="OrganDonorSystemModel.Store.Donor" store:Type="Tables" Schema="OrganDonorSystem" />
@@ -34,6 +35,10 @@
     <EntitySet Name="OrganType" EntityType="OrganDonorSystemModel.Store.OrganType" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="Recipients" EntityType="OrganDonorSystemModel.Store.Recipients" store:Type="Tables" Schema="OrganDonorSystem" />
     <EntitySet Name="State" EntityType="OrganDonorSystemModel.Store.State" store:Type="Tables" Schema="OrganDonorSystem" />
+    <AssociationSet Name="Award_ibfk_1" Association="OrganDonorSystemModel.Store.Award_ibfk_1">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Award" EntitySet="Award" />
+    </AssociationSet>
     <AssociationSet Name="Donor_DonorID" Association="OrganDonorSystemModel.Store.Donor_DonorID">
       <End Role="Donor" EntitySet="Donor" />
       <End Role="Donor_has_Organs" EntitySet="Donor_has_Organs" />
@@ -127,6 +132,15 @@
       <End Role="Organs" EntitySet="Organs" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Award">
+    <Key>
+      <PropertyRef Name="awardID" />
+    </Key>
+    <Property Name="awardID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="medicalPersonnelID" Type="int" Nullable="false" />
+    <Property Name="awardType" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="awardMinimum" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="BloodType">
     <Key>
       <PropertyRef Name="bloodTypeID" />
@@ -185,7 +199,7 @@
     <Property Name="medicalPersonnelId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="userName" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="userPassword" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="medicalFacility" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="medicalFacility" Type="varchar" Nullable="false" MaxLength="255" />
     <Property Name="contactEmail" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="phoneNumber" Type="char" Nullable="false" MaxLength="13" />
     <Property Name="validatedUser" Type="bool" Nullable="false" />
@@ -267,9 +281,21 @@
     <Key>
       <PropertyRef Name="stateID" />
     </Key>
-    <Property Name="stateID" Type="int" Nullable="false" />
+    <Property Name="stateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="state" Type="varchar" Nullable="false" MaxLength="45" />
   </EntityType>
+  <Association Name="Award_ibfk_1">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Store.Medical_Personnel" Multiplicity="1" />
+    <End Role="Award" Type="OrganDonorSystemModel.Store.Award" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Award">
+        <PropertyRef Name="medicalPersonnelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="Donor_DonorID">
     <End Role="Donor" Type="OrganDonorSystemModel.Store.Donor" Multiplicity="1" />
     <End Role="Donor_has_Organs" Type="OrganDonorSystemModel.Store.Donor_has_Organs" Multiplicity="*" />

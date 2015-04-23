@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="OrganDonorSystemModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
   <EntityContainer Name="OrganDonorSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Awards" EntityType="OrganDonorSystemModel.Award" />
     <EntitySet Name="BloodTypes" EntityType="OrganDonorSystemModel.BloodType" />
     <EntitySet Name="Cities" EntityType="OrganDonorSystemModel.City" />
     <EntitySet Name="Donors" EntityType="OrganDonorSystemModel.Donor" />
@@ -11,6 +12,10 @@
     <EntitySet Name="OrganTypes" EntityType="OrganDonorSystemModel.OrganType" />
     <EntitySet Name="Recipients" EntityType="OrganDonorSystemModel.Recipient" />
     <EntitySet Name="States" EntityType="OrganDonorSystemModel.State" />
+    <AssociationSet Name="Award_ibfk_1" Association="OrganDonorSystemModel.Award_ibfk_1">
+      <End Role="Medical_Personnel" EntitySet="Medical_Personnel" />
+      <End Role="Award" EntitySet="Awards" />
+    </AssociationSet>
     <AssociationSet Name="fk_BloodType_BloodType1_idx" Association="OrganDonorSystemModel.fk_BloodType_BloodType1_idx">
       <End Role="BloodType" EntitySet="BloodTypes" />
       <End Role="Recipients" EntitySet="Recipients" />
@@ -92,6 +97,16 @@
       <End Role="Recipients" EntitySet="Recipients" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Award">
+    <Key>
+      <PropertyRef Name="awardID" />
+    </Key>
+    <Property Name="awardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="medicalPersonnelID" Type="Int32" Nullable="false" />
+    <Property Name="awardType" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+    <Property Name="awardMinimum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Award_ibfk_1" FromRole="Award" ToRole="Medical_Personnel" />
+  </EntityType>
   <EntityType Name="BloodType">
     <Key>
       <PropertyRef Name="bloodTypeID" />
@@ -150,13 +165,14 @@
     <Property Name="medicalPersonnelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="userName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
     <Property Name="userPassword" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-    <Property Name="medicalFacility" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="medicalFacility" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="contactEmail" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="phoneNumber" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="false" />
     <Property Name="validatedUser" Type="Boolean" Nullable="false" />
     <Property Name="create_time" Type="DateTime" Nullable="false" />
     <Property Name="State_StateID" Type="Int32" Nullable="false" />
     <Property Name="City_CityID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Awards" Relationship="OrganDonorSystemModel.Award_ibfk_1" FromRole="Medical_Personnel" ToRole="Award" />
     <NavigationProperty Name="City" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_2" FromRole="Medical_Personnel" ToRole="City" />
     <NavigationProperty Name="Donors" Relationship="OrganDonorSystemModel.fk_Donor_medicalPersonnelID" FromRole="Medical_Personnel" ToRole="Donor" />
     <NavigationProperty Name="MatchTables" Relationship="OrganDonorSystemModel.MatchTable_ibfk_3" FromRole="Medical_Personnel" ToRole="MatchTable" />
@@ -234,11 +250,23 @@
     <Key>
       <PropertyRef Name="stateID" />
     </Key>
-    <Property Name="stateID" Type="Int32" Nullable="false" />
+    <Property Name="stateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="state1" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Cities" Relationship="OrganDonorSystemModel.fk_State_stateID_ibfk_1" FromRole="State" ToRole="City" />
     <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Medical_Personnel_ibfk_1" FromRole="State" ToRole="Medical_Personnel" />
   </EntityType>
+  <Association Name="Award_ibfk_1">
+    <End Role="Medical_Personnel" Type="OrganDonorSystemModel.Medical_Personnel" Multiplicity="1" />
+    <End Role="Award" Type="OrganDonorSystemModel.Award" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medical_Personnel">
+        <PropertyRef Name="medicalPersonnelId" />
+      </Principal>
+      <Dependent Role="Award">
+        <PropertyRef Name="medicalPersonnelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_BloodType_BloodType1_idx">
     <End Role="BloodType" Type="OrganDonorSystemModel.BloodType" Multiplicity="1" />
     <End Role="Recipients" Type="OrganDonorSystemModel.Recipient" Multiplicity="*" />

@@ -6,11 +6,14 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Model.userName %>'s Homepage</h2>
+    <h2><%: Model.userName %>'s Homepage
+     <% for (int i = 0; i < Model.numberOfStars; i++)
+        { %>
+            <asp:Image ID="Star" ImageUrl="~/Content/images/star.png" runat="server"/>
+     <% } %>
+     </h2>
+
     <h3>Welcome to your home page! Here you can view all the current Donors, Recipients, and Organs that you have under your account.</h3>
-    <div class="SummaryParagraph">
-        <h3><p> Location: <%: Model.city %>, <%: Model.state %></p></h3>
-   </div>
     <ul id="nav">
       <li><a href="/UserHome/UserHomeDonors">Donors</a></li>
       <li><a href="/UserHome/UserHomeRecipients">Recipients</a></li>
@@ -26,6 +29,8 @@
         <p> Number of Donors: <%: Model.numberOfDonors %></p>
         <p> Number of Recipients <%: Model.numberOfRecipients%></p>
         <p> Number of Organs: <%: Model.numberOfOrgans %></p>
+        <p> Facility: <%: Model.instName %></p>
+        <p> Location: <%: Model.city %>, <%: Model.state %></p>
    </div>
 
 

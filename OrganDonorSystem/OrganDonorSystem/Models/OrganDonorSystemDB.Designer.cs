@@ -19,6 +19,7 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
+[assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Award_ibfk_1", "Medical_Personnel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.Medical_Personnel), "Award", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Award), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_BloodType_BloodType1_idx", "BloodType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.BloodType), "Recipients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Recipient), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "Organs_BloodType", "BloodType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.BloodType), "Organs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.Organ), true)]
 [assembly: EdmRelationshipAttribute("OrganDonorSystemModel", "fk_State_stateID_ibfk_1", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OrganDonorSystem.Models.State), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OrganDonorSystem.Models.City), true)]
@@ -89,6 +90,22 @@ namespace OrganDonorSystem.Models
         #endregion
     
         #region ObjectSet Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Award> Awards
+        {
+            get
+            {
+                if ((_Awards == null))
+                {
+                    _Awards = base.CreateObjectSet<Award>("Awards");
+                }
+                return _Awards;
+            }
+        }
+        private ObjectSet<Award> _Awards;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -255,6 +272,14 @@ namespace OrganDonorSystem.Models
         #region AddTo Methods
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the Awards EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAwards(Award award)
+        {
+            base.AddObject("Awards", award);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the BloodTypes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToBloodTypes(BloodType bloodType)
@@ -341,6 +366,183 @@ namespace OrganDonorSystem.Models
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OrganDonorSystemModel", Name="Award")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Award : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Award object.
+        /// </summary>
+        /// <param name="awardID">Initial value of the awardID property.</param>
+        /// <param name="medicalPersonnelID">Initial value of the medicalPersonnelID property.</param>
+        /// <param name="awardType">Initial value of the awardType property.</param>
+        /// <param name="awardMinimum">Initial value of the awardMinimum property.</param>
+        public static Award CreateAward(global::System.Int32 awardID, global::System.Int32 medicalPersonnelID, global::System.String awardType, global::System.Int32 awardMinimum)
+        {
+            Award award = new Award();
+            award.awardID = awardID;
+            award.medicalPersonnelID = medicalPersonnelID;
+            award.awardType = awardType;
+            award.awardMinimum = awardMinimum;
+            return award;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 awardID
+        {
+            get
+            {
+                return _awardID;
+            }
+            set
+            {
+                if (_awardID != value)
+                {
+                    OnawardIDChanging(value);
+                    ReportPropertyChanging("awardID");
+                    _awardID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("awardID");
+                    OnawardIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _awardID;
+        partial void OnawardIDChanging(global::System.Int32 value);
+        partial void OnawardIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 medicalPersonnelID
+        {
+            get
+            {
+                return _medicalPersonnelID;
+            }
+            set
+            {
+                OnmedicalPersonnelIDChanging(value);
+                ReportPropertyChanging("medicalPersonnelID");
+                _medicalPersonnelID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("medicalPersonnelID");
+                OnmedicalPersonnelIDChanged();
+            }
+        }
+        private global::System.Int32 _medicalPersonnelID;
+        partial void OnmedicalPersonnelIDChanging(global::System.Int32 value);
+        partial void OnmedicalPersonnelIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String awardType
+        {
+            get
+            {
+                return _awardType;
+            }
+            set
+            {
+                OnawardTypeChanging(value);
+                ReportPropertyChanging("awardType");
+                _awardType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("awardType");
+                OnawardTypeChanged();
+            }
+        }
+        private global::System.String _awardType;
+        partial void OnawardTypeChanging(global::System.String value);
+        partial void OnawardTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 awardMinimum
+        {
+            get
+            {
+                return _awardMinimum;
+            }
+            set
+            {
+                OnawardMinimumChanging(value);
+                ReportPropertyChanging("awardMinimum");
+                _awardMinimum = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("awardMinimum");
+                OnawardMinimumChanged();
+            }
+        }
+        private global::System.Int32 _awardMinimum;
+        partial void OnawardMinimumChanging(global::System.Int32 value);
+        partial void OnawardMinimumChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "Award_ibfk_1", "Medical_Personnel")]
+        public Medical_Personnel Medical_Personnel
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Medical_Personnel>("OrganDonorSystemModel.Award_ibfk_1", "Medical_Personnel").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Medical_Personnel>("OrganDonorSystemModel.Award_ibfk_1", "Medical_Personnel").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Medical_Personnel> Medical_PersonnelReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Medical_Personnel>("OrganDonorSystemModel.Award_ibfk_1", "Medical_Personnel");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Medical_Personnel>("OrganDonorSystemModel.Award_ibfk_1", "Medical_Personnel", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -1626,6 +1828,28 @@ namespace OrganDonorSystem.Models
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OrganDonorSystemModel", "Award_ibfk_1", "Award")]
+        public EntityCollection<Award> Awards
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Award>("OrganDonorSystemModel.Award_ibfk_1", "Award");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Award>("OrganDonorSystemModel.Award_ibfk_1", "Award", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.

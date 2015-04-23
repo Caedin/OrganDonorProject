@@ -41,6 +41,8 @@ namespace OrganDonorSystem.ViewModels
         //City, State
         public string city { get; set; }
         public string state { get; set; }
+        public string instName { get; set; }
+        public int numberOfStars { get; set; }
 
 
         public UserHomeViewModel(String userID)
@@ -59,8 +61,11 @@ namespace OrganDonorSystem.ViewModels
                                                  select Medical_Personnel).Single();
 
                 userName = currentUser.userName;
+                instName = currentUser.medicalFacility;
+
                 city = currentUser.City.city1;
                 state = currentUser.State.state1;
+                numberOfStars = 2;
 
                 numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
                                   where Donor.medicalPersonnelId == loggedIn
@@ -72,6 +77,7 @@ namespace OrganDonorSystem.ViewModels
                 numberOfOrgans = (from Organ in OrganDonorSystemDB.Organs
                                   where Organ.MedicalPersonnelID == loggedIn
                                   select Organ.OrganID).Count();
+
             }
         }
 
