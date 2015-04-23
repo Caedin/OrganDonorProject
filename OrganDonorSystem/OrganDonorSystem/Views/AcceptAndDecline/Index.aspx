@@ -37,7 +37,29 @@
                   <%: Model.listOfMatches[i].organID %>
                 </td>
                 <td >
-                  <%: Model.listOfMatches[i].organType %>
+                  <%
+                       switch (Model.listOfMatches[i].organType)
+                       {
+                           case 1:
+                                %> Heart <%
+                               break;
+                           case 2:
+                               %> Lung <%
+                               break;
+                           case 3:
+                               %> Kidney <%
+                               break;
+                           case 4:
+                               %> Liver <%
+                               break;
+                           case 5:
+                               %> Pancreas <%
+                               break;
+                           default:
+                               %> OrganTypeNotFound Exception <%
+                               break;
+                       }
+                 %>
                 </td >
                 <td >
                   <%: Model.listOfMatches[i].recipientID %>

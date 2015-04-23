@@ -143,7 +143,7 @@
           </Key>
           <Property Name="awardID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="medicalPersonnelID" Type="int" Nullable="false" />
-          <Property Name="awardType" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="awardType" Type="int" Nullable="false" />
           <Property Name="awardMinimum" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BloodType">
@@ -685,7 +685,7 @@
           </Key>
           <Property Name="awardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="medicalPersonnelID" Type="Int32" Nullable="false" />
-          <Property Name="awardType" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="awardType" Type="Int32" Nullable="false" />
           <Property Name="awardMinimum" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Medical_Personnel" Relationship="OrganDonorSystemModel.Award_ibfk_1" FromRole="Award" ToRole="Medical_Personnel" />
         </EntityType>

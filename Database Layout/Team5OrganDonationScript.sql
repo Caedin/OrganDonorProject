@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `OrganDonorSystem`.`Award`
 (
 `awardID` INT(11) NOT NULL AUTO_INCREMENT,
 `medicalPersonnelID` INT(11) NOT NULL,
-`awardType`	VARCHAR(45) not null,
+`awardType`	int(11) not null,
 `awardMinimum`	int(11) not null,
 PRIMARY KEY (`awardID`),
 FOREIGN KEY (`medicalPersonnelID`)
@@ -341,6 +341,45 @@ REFERENCES Medical_Personnel(`medicalPersonnelID`)
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Triggers for adding awards!
+-- -----------------------------------------------------
+DELIMITER $$
+CREATE TRIGGER AddAwardEntry AFTER INSERT ON Medical_Personnel
+	FOR EACH ROW 
+    BEGIN
+		Insert into Award(medicalPersonnelID, awardType, awardMinimum) VALUES (new.medicalPersonnelId, 0, 0);
+    END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER UpdateAwardEntry AFTER UPDATE ON MatchTable
+	FOR EACH ROW 
+    BEGIN
+		declare aMin integer;
+        declare atype integer;
+        declare numberOfMatches integer;
+        
+		IF new.acceptedOrDeclined = 1
+        THEN
+			select awardMinimum into aMin from Award where Award.medicalPersonnelID = new.medicalPersonnelIDForRecipient;
+            select count(*) into numberOfMatches from MatchTable where new.medicalPersonnelIDForRecipient = MatchTable.medicalPersonnelIDForRecipient and MatchTable.acceptedOrDeclined = 1;
+            if numberOfMatches>aMin
+            then
+				-- Update Awards
+                select awardType into atype from Award where Award.medicalPersonnelID = new.medicalPersonnelIDForRecipient;
+                update Award
+                set Award.awardType = atype+1,
+					Award.awardMinimum = aMin+10
+				where Award.medicalPersonnelID = new.medicalPersonnelIDForRecipient;
+			END IF;
+		END IF;   
+    END$$
+DELIMITER ;
+
+
 
 
 -- -----------------------------------------------------
@@ -693,9 +732,7 @@ INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orig
 INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '2', '8V25Z', 'F', '2000-04-11 11:52:42', '69', '2', '2', 'T');
 INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '3', '4K21D', 'M', '2003-09-10 09:31:41', '66', '3', '2', 'T');
 INSERT INTO OrganDonorSystem.Recipients (`medicalPersonnelID`, `severity`, `orignialID`, `gender`, `dateRegistered`, `age`, `organTypeOrganTypeID`, `bloodTypeBloodTypeID`, `needsOrgan`)VALUES ('4', '4', '3T12W', 'F', '2002-07-03 08:22:43', '64', '4', '2', 'T');
-
-
-
+    
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -65,7 +65,9 @@ namespace OrganDonorSystem.ViewModels
 
                 city = currentUser.City.city1;
                 state = currentUser.State.state1;
-                numberOfStars = 2;
+                numberOfStars = (from Award in OrganDonorSystemDB.Awards
+                                 where Award.medicalPersonnelID == loggedIn
+                                 select Award.awardType).Single();
 
                 numberOfDonors = (from Donor in OrganDonorSystemDB.Donors
                                   where Donor.medicalPersonnelId == loggedIn

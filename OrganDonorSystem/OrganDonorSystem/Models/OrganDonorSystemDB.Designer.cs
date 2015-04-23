@@ -384,7 +384,7 @@ namespace OrganDonorSystem.Models
         /// <param name="medicalPersonnelID">Initial value of the medicalPersonnelID property.</param>
         /// <param name="awardType">Initial value of the awardType property.</param>
         /// <param name="awardMinimum">Initial value of the awardMinimum property.</param>
-        public static Award CreateAward(global::System.Int32 awardID, global::System.Int32 medicalPersonnelID, global::System.String awardType, global::System.Int32 awardMinimum)
+        public static Award CreateAward(global::System.Int32 awardID, global::System.Int32 medicalPersonnelID, global::System.Int32 awardType, global::System.Int32 awardMinimum)
         {
             Award award = new Award();
             award.awardID = awardID;
@@ -454,7 +454,7 @@ namespace OrganDonorSystem.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String awardType
+        public global::System.Int32 awardType
         {
             get
             {
@@ -464,13 +464,13 @@ namespace OrganDonorSystem.Models
             {
                 OnawardTypeChanging(value);
                 ReportPropertyChanging("awardType");
-                _awardType = StructuralObject.SetValidValue(value, false);
+                _awardType = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("awardType");
                 OnawardTypeChanged();
             }
         }
-        private global::System.String _awardType;
-        partial void OnawardTypeChanging(global::System.String value);
+        private global::System.Int32 _awardType;
+        partial void OnawardTypeChanging(global::System.Int32 value);
         partial void OnawardTypeChanged();
     
         /// <summary>
