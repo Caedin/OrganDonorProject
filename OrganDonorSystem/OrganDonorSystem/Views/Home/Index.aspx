@@ -15,7 +15,7 @@
         HorizontalAlign="Left" VerticalAlign="Middle">
         <asp:TableCell ID="TableCell4" runat="server" Width="40%" BackColor="#0033CC">
 
-        Welcome to the University of Houston Organ Donation Center, if you are a Doctor, a Donor or an authorized user please login
+        Welcome to the University of Houston Organ Donation Center, if you are an authorized user please login
 
         </asp:TableCell>
         <asp:TableCell ID="TableCell5" runat="server" Width="10%"> </asp:TableCell>

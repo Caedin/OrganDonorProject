@@ -22,6 +22,8 @@ namespace OrganDonorSystem.Controllers
             {
                 //viewModel has counts
                 var viewModel = new UserHomeViewModel(Session["UserName"].ToString());
+                Action matchMakingAsynch = runMatchMaking;
+                matchMakingAsynch.BeginInvoke(ar => matchMakingAsynch.EndInvoke(ar), null);
                 return View(viewModel);
             }
             catch (Exception e)
@@ -288,34 +290,39 @@ namespace OrganDonorSystem.Controllers
 
         private void runMatchMaking()
         {
-            // This will run match making on all of the organs that are currently not matched.
-
-            // List of organs with a NULL recipient
-            List<Organ> organs_not_assigned = (from Organ in OrganDonorSystemDB.Organs
-                                  where Organ.Recipient_RecipientID == null
-                                  select Organ).ToList();
-
-            // List of organs that are already in the matching table, minus declined organs.
-            List<int> matched_organs = (from MatchTable in OrganDonorSystemDB.MatchTables
-                                               where MatchTable.acceptedOrDeclined == 1 ||
-                                               MatchTable.acceptedOrDeclined == null
-                                               select MatchTable.organID).ToList();
-
-            // Remove duplicates
-            HashSet<int> matched_organ_ids = new HashSet<int>();
-            foreach (int x in matched_organs) matched_organ_ids.Add(x);
-
-
-            // Remove from list of NULL recipient organs the ones that are already in the matching table, except declines that must be re-matched.
-            foreach (int x in matched_organ_ids)
+            if (StaticValues.isMatchMaking == false)
             {
-                organs_not_assigned.RemoveAll(i => i.OrganID == x);
-            }
+                StaticValues.isMatchMaking = true;
+                // This will run match making on all of the organs that are currently not matched.
 
-            // Calculate the match for each organ, and enter it into the match table.
-            foreach (Organ y in organs_not_assigned)
-            {
-                calculateMatch(y);
+                // List of organs with a NULL recipient
+                List<Organ> organs_not_assigned = (from Organ in OrganDonorSystemDB.Organs
+                                                   where Organ.Recipient_RecipientID == null
+                                                   select Organ).ToList();
+
+                // List of organs that are already in the matching table, minus declined organs.
+                List<int> matched_organs = (from MatchTable in OrganDonorSystemDB.MatchTables
+                                            where MatchTable.acceptedOrDeclined == 1 ||
+                                            MatchTable.acceptedOrDeclined == null
+                                            select MatchTable.organID).ToList();
+
+                // Remove duplicates
+                HashSet<int> matched_organ_ids = new HashSet<int>();
+                foreach (int x in matched_organs) matched_organ_ids.Add(x);
+
+
+                // Remove from list of NULL recipient organs the ones that are already in the matching table, except declines that must be re-matched.
+                foreach (int x in matched_organ_ids)
+                {
+                    organs_not_assigned.RemoveAll(i => i.OrganID == x);
+                }
+
+                // Calculate the match for each organ, and enter it into the match table.
+                foreach (Organ y in organs_not_assigned)
+                {
+                    calculateMatch(y);
+                }
+                StaticValues.isMatchMaking = false;
             }
         }
 
